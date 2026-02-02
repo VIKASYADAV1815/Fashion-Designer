@@ -38,7 +38,7 @@ export default function Hero() {
         loop
         playsInline
         preload="metadata"
-        poster="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=1974&auto=format&fit=crop"
+        // poster="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=1974&auto=format&fit=crop"
         className="absolute inset-0 w-full h-full object-cover"
         src="https://www.pexels.com/download/video/35764328/"
       />
