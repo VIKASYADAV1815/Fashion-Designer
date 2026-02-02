@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, type HTMLMotionProps } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-interface AnimatedButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface AnimatedButtonProps extends HTMLMotionProps<"button"> {
   children: React.ReactNode;
   className?: string;
-  variant?: "primary" | "outline" | "text";
+  variant?: "primary" | "outline" | "text" | "solid";
 }
 
 export default function AnimatedButton({
@@ -37,7 +37,8 @@ export default function AnimatedButton({
     primary: "bg-white text-black hover:bg-gray-200",
     outline: "border border-white/30 text-white hover:border-white",
     text: "text-white p-0 hover:text-gray-300",
-  };
+    solid: "bg-black text-white hover:bg-stone-800",
+  } as const;
 
   return (
     <motion.button

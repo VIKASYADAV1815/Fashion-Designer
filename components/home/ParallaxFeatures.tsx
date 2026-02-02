@@ -85,7 +85,7 @@ export default function AtelierSpecSheet() {
       <div className="container mx-auto px-6 relative z-10">
         <div className="flex flex-col md:flex-row items-center justify-between mb-12 pb-6 border-b border-stone-900 space-y-4 md:space-y-0">
           <div className="flex flex-col items-center md:items-start">
-            <span className="text-[10px] font-sans uppercase tracking-[0.4em] text-amber-200/50 mb-1">Maison d'Art</span>
+            <span className="text-[10px] font-sans uppercase tracking-[0.4em] text-amber-200/50 mb-1">Maison d&apos;Art</span>
             <h2 className="text-3xl md:text-5xl font-serif italic font-light tracking-tight text-stone-100">
               Studio <span className="not-italic text-stone-500 font-sans uppercase text-xl md:text-3xl tracking-widest">Standards</span>
             </h2>
