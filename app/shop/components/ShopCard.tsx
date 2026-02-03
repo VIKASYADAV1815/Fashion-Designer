@@ -27,7 +27,7 @@ export default function ShopCard({ product, index }: ShopCardProps) {
       className="group cursor-pointer"
     >
       <Link href={`/shop/${product.id}`} className="block">
-        <div className="relative aspect-[3/4] overflow-hidden mb-6 bg-gray-100">
+        <div className="relative aspect-3/4 overflow-hidden mb-6 bg-gray-100">
           <Image
             src={product.image}
             alt={product.name}

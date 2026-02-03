@@ -37,18 +37,19 @@ export default function Navbar() {
   });
 
   const navLinks = [
-    { name: "Women", id: "women" },
-    { name: "Men", id: "men" },
-    { name: "Accessories", id: "accessories" },
-    { name: "Jewellery", id: "jewellery" },
-    { name: "Collections", id: "collections" },
+    { name: "Lehenga", id: "lehenga", href: "/shop?query=lehenga" },
+    { name: "Dress", id: "dress", href: "/shop?query=dress" },
+    { name: "Drape", id: "drape", href: "/shop?query=drape" },
+    { name: "Casual Fit", id: "casual-fit", href: "/shop?query=casual%20fit" },
+    { name: "Saree", id: "saree", href: "/shop?query=saree" },
+    { name: "Policies", id: "policies", dropdown: true },
   ];
   const mobileCategories = [
-    { id: "women", name: "Women", image: "https://images.unsplash.com/photo-1483181957632-8bda974cbc91?q=80&w=867&auto=format&fit=crop" },
-    { id: "men", name: "Men", image: "https://images.unsplash.com/photo-1647965756061-827c9bf70fe6?q=80&w=867&auto=format&fit=crop" },
-    { id: "accessories", name: "Accessories", image: "https://images.unsplash.com/photo-1630233903714-083b5a85da90?q=80&w=867&auto=format&fit=crop" },
-    { id: "jewellery", name: "Jewellery", image: "https://images.unsplash.com/photo-1695050049047-54e27a908898?q=80&w=867&auto=format&fit=crop" },
-    { id: "collections", name: "Collections", image: "https://images.unsplash.com/photo-1681308835217-72f0b99da82d?q=80&w=867&auto=format&fit=crop" },
+    { id: "women-all", name: "All Categories", image: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=1170&auto=format&fit=crop" },
+    { id: "women-lehenga", name: "Lehenga", image: "https://images.unsplash.com/photo-1578736640905-5a2b1d027b49?q=80&w=1170&auto=format&fit=crop" },
+    { id: "women-dress", name: "Dress", image: "https://images.unsplash.com/photo-1520975940208-b8d4a7b8fd9e?q=80&w=1170&auto=format&fit=crop" },
+    { id: "women-saree", name: "Saree", image: "https://images.unsplash.com/photo-1663160288240-0f93eca3a3f7?q=80&w=1170&auto=format&fit=crop" },
+    { id: "women-drape-casual-fit", name: "Drape Casual Fit", image: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=1170&auto=format&fit=crop" },
   ];
 
   return (
@@ -82,27 +83,46 @@ export default function Navbar() {
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
             <div className="hidden lg:flex items-center justify-center gap-12 w-full">
-            {navLinks.map((link) => (
-              <div 
-                key={link.id} 
+              {navLinks.map((link) => (
+                <div
+                  key={link.id}
                   className="h-full flex items-center"
-                onMouseEnter={() => setActiveCategory(link.id)}
-              >
-                <button
-                  onClick={() => setActiveCategory(link.id)}
-                  onFocus={() => setActiveCategory(link.id)}
-                  className="text-xs font-semibold uppercase tracking-[0.25em] text-white hover:text-gray-300 transition-colors relative group"
-                  aria-haspopup="menu"
-                  aria-expanded={activeCategory === link.id}
+                  onMouseEnter={() => {
+                    if ((link as any).dropdown) setActiveCategory(link.id);
+                  }}
                 >
-                  {link.name}
-                  <span className={cn(
-                    "absolute -bottom-1 left-0 w-full h-[1px] bg-white transform scale-x-0 transition-transform duration-300 origin-left",
-                    activeCategory === link.id ? "scale-x-100" : "group-hover:scale-x-100"
-                  )} />
-                </button>
-              </div>
-            ))}
+                  {!(link as any).dropdown ? (
+                    <Link
+                      href={(link as any).href || "#"}
+                      className="text-xs font-semibold uppercase tracking-[0.25em] text-white hover:text-gray-300 transition-colors relative group"
+                    >
+                      {link.name}
+                      <span
+                        className={cn(
+                          "absolute -bottom-1 left-0 w-full h-[1px] bg-white transform scale-x-0 transition-transform duration-300 origin-left",
+                          "group-hover:scale-x-100"
+                        )}
+                      />
+                    </Link>
+                  ) : (
+                    <button
+                      onClick={() => setActiveCategory(link.id)}
+                      onFocus={() => setActiveCategory(link.id)}
+                      className="text-xs font-semibold uppercase tracking-[0.25em] text-white hover:text-gray-300 transition-colors relative group"
+                      aria-haspopup="menu"
+                      aria-expanded={activeCategory === link.id}
+                    >
+                      {link.name}
+                      <span
+                        className={cn(
+                          "absolute -bottom-1 left-0 w-full h-[1px] bg-white transform scale-x-0 transition-transform duration-300 origin-left",
+                          activeCategory === link.id ? "scale-x-100" : "group-hover:scale-x-100"
+                        )}
+                      />
+                    </button>
+                  )}
+                </div>
+              ))}
             </div>
             <div className="flex items-center space-x-6 text-white">
             <button className="hover:text-gray-300 transition-colors" aria-label="Search" onClick={() => setSearchOpen(!searchOpen)}>
@@ -137,7 +157,7 @@ export default function Navbar() {
             id="mobile-menu"
           >
             <div className="flex flex-col space-y-8">
-              {navLinks.map((link, i) => (
+              {navLinks.filter((l: any) => !l.dropdown).map((link, i) => (
                 <motion.div
                   key={link.id}
                   initial={{ opacity: 0, y: 20 }}
@@ -145,7 +165,7 @@ export default function Navbar() {
                   transition={{ delay: 0.1 + i * 0.1 }}
                 >
                   <Link 
-                    href={`/${link.id}`} 
+                    href={(link as any).href || `/${link.id}`} 
                     className="text-2xl font-light uppercase tracking-widest text-white block"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
@@ -156,7 +176,13 @@ export default function Navbar() {
             </div>
             <div className="mt-10 grid grid-cols-2 gap-4">
               {mobileCategories.map((c) => (
-                <Link key={c.id} href={`/${c.id}`} className="relative aspect-[3/2] overflow-hidden rounded-sm" onClick={() => setIsMobileMenuOpen(false)} aria-label={c.name}>
+                <Link
+                  key={c.id}
+                  href={`/shop?query=${encodeURIComponent(c.name.toLowerCase())}`}
+                  className="relative aspect-[3/2] overflow-hidden rounded-sm"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  aria-label={c.name}
+                >
                   <Image src={c.image} alt={`${c.name} preview`} fill sizes="(max-width:768px) 50vw, 25vw" className="object-cover" />
                   <div className="absolute inset-0 bg-black/30" />
                   <span className="absolute bottom-2 left-2 text-xs uppercase tracking-[0.25em] text-white">{c.name}</span>
@@ -203,7 +229,7 @@ export default function Navbar() {
                 </button>
               </div>
               <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-6">
-                {["New Arrivals","Women","Men","Accessories","Bags","Shoes","Collections","Runway"].map((s) => (
+                {["New Arrivals","Women","Lehenga","Dress","Saree","Drape Casual Fit"].map((s) => (
                   <Link key={s} href={`/shop?query=${encodeURIComponent(s.toLowerCase())}`} className="block border border-white/10 p-4 hover:border-white/40 transition-colors">
                     <span className="text-xs uppercase tracking-[0.25em] text-white">{s}</span>
                   </Link>

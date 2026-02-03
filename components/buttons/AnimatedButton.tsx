@@ -59,7 +59,7 @@ export default function AnimatedButton({
         )}
       />
       {variant === "text" && (
-        <span className="absolute left-0 bottom-0 w-full h-[1px] bg-current scale-x-0 transition-transform duration-300 origin-left hover:scale-x-100" />
+        <span className="absolute left-0 bottom-0 w-full h-px bg-current scale-x-0 transition-transform duration-300 origin-left hover:scale-x-100" />
       )}
     </motion.button>
   );

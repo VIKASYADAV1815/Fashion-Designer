@@ -102,7 +102,7 @@ export default function ProductPage() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
             {/* Images */}
             <div className="md:col-span-7 flex flex-col gap-4">
-              <div className="relative aspect-[3/4] w-full overflow-hidden bg-gray-100">
+              <div className="relative aspect-3/4 w-full overflow-hidden bg-gray-100">
                 <Image
                   src={product.images[activeImage] || product.images[0]}
                   alt={product.name}
@@ -114,7 +114,7 @@ export default function ProductPage() {
                 {product.images.map((img, idx) => (
                   <div 
                     key={idx} 
-                    className={`relative aspect-[3/4] cursor-pointer transition-opacity ${activeImage === idx ? 'opacity-100' : 'opacity-50 hover:opacity-80'}`}
+                    className={`relative aspect-3/4 cursor-pointer transition-opacity ${activeImage === idx ? 'opacity-100' : 'opacity-50 hover:opacity-80'}`}
                     onClick={() => setActiveImage(idx)}
                   >
                     <Image

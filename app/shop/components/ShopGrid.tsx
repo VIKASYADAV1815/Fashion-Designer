@@ -53,7 +53,7 @@ export default function ShopGrid() {
       <div className="container mx-auto">
         <div className="mb-16 text-center">
            <h2 className="text-3xl md:text-4xl font-light uppercase tracking-tighter mb-4">The Edit</h2>
-           <div className="w-12 h-[1px] bg-black mx-auto" />
+           <div className="w-12 h-px bg-black mx-auto" />
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">

@@ -12,21 +12,21 @@ gsap.registerPlugin(ScrollTrigger);
 const frames = [
   {
     id: 1,
-    title: "COUTURE FORM",
-    description: "Sharp silhouettes with gentle fluidity. Tailoring meets motion. Architectural seams trace the body while fabric breathes, revealing confidence without noise.",
-    image: "https://images.unsplash.com/photo-1767083640899-59051b0ef0f1?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    title: "NEW & NOW",
+    description: "Fresh arrivals in women's couture — fluid drapes, precise cuts, and confident silhouettes crafted for the season.",
+    image: "/images/0.jpg",
   },
   {
     id: 2,
-    title: "TEXTURE STUDY",
-    description: "Silk, stone, velvet — a tactile dialogue in monochrome. Grain and gloss sit in balance, each surface revealing a quiet rhythm.",
-    image: "https://images.unsplash.com/photo-1544166094-d2b74a1f7667?q=80&w=1170&auto=format&fit=crop",
+    title: "MID COLLECTION",
+    description: "Editorial mid-season selections: timeless dresses, lehengas, and sarees curated for refined occasions.",
+    image: "/images/1.jpg",
   },
   {
     id: 3,
-    title: "PROPORTION PLAY",
-    description: "Bold volumes anchored by precise structure. Scale is measured, not maximal — power expressed through silhouette control.",
-    image: "https://plus.unsplash.com/premium_photo-1723563578468-2a635a7cb810?q=80&w=1147&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    title: "SUMMER SESSION DEALS",
+    description: "Warm-weather essentials with subtle luxury. Lightweight silks and airy wraps — effortless and poised.",
+    image: "/images/2.jpg",
   },
 ];
 
@@ -101,7 +101,7 @@ export default function OverlappingImageStory() {
 
         {/* Right Side: Image Reveal */}
         <div className="lg:col-span-7 relative h-full flex items-center justify-center">
-          <div className="relative w-full h-[45vh] lg:h-[75vh] w-full max-w-[90%] lg:max-w-full mx-auto">
+          <div className="relative w-full h-[48vh] lg:h-[82vh] max-w-[90%] lg:max-w-[85%] mx-auto">
             {frames.map((f, i) => (
               <div 
                 key={f.id} 

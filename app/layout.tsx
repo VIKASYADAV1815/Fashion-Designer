@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${josefinSans.variable} antialiased bg-black text-[#4D4D4D] font-sans`}
+        className={`${josefinSans.variable} antialiased bg-black text-primary font-sans`}
         suppressHydrationWarning={true}
       >
         <CartProvider>

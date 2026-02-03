@@ -13,30 +13,27 @@ interface MegaMenuProps {
 
 const categories = {
   women: {
-    links: ["New Arrivals", "Clothing", "Shoes", "Bags", "Accessories", "Jewelry"],
-    featured: "Editorial: The New Silhouette",
-    image: "https://images.unsplash.com/photo-1483181957632-8bda974cbc91?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    links: [
+      "All Categories",
+      "Lehenga",
+      "Dress",
+      "Saree",
+      "Drape Casual Fit"
+    ],
+    featured: "Editorial: Women's Couture",
+    image: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=1170&auto=format&fit=crop"
   },
-  men: {
-    links: ["New Arrivals", "Clothing", "Shoes", "Bags", "Accessories", "Watches"],
-    featured: "Collection: Urban Noir",
-    image: "https://images.unsplash.com/photo-1647965756061-827c9bf70fe6?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  policies: {
+    links: [
+      { name: "Privacy Policy", href: "/privacy-policy" },
+      { name: "Refund Policy", href: "/refund-policy" },
+      { name: "Return Policy", href: "/return-policy" },
+      { name: "Shipping Policy", href: "/shipping-policy" },
+      { name: "Terms & Conditions", href: "/terms-and-conditions" },
+    ],
+    featured: "Store Policies",
+    image: "/images/3.jpg"
   },
-  accessories: {
-    links: ["All Accessories", "Belts", "Scarves", "Hats", "Sunglasses", "Wallets"],
-    featured: "Essentials",
-    image: "https://images.unsplash.com/photo-1630233903714-083b5a85da90?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-  },
-  jewellery: {
-    links: ["New Arrivals", "Necklaces", "Rings", "Bracelets", "Earrings", "Fine"],
-    featured: "Fine Details",
-    image: "https://images.unsplash.com/photo-1695050049047-54e27a908898?q=80&w=1173&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-  },
-  collections: {
-    links: ["Spring/Summer 2026", "Fall/Winter 2025", "Runway", "Campaigns"],
-    featured: "Archive",
-    image: "https://images.unsplash.com/photo-1681308835217-72f0b99da82d?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-  }
 };
 
 export default function MegaMenu({ isOpen, activeCategory, onClose }: MegaMenuProps) {
@@ -57,18 +54,18 @@ export default function MegaMenu({ isOpen, activeCategory, onClose }: MegaMenuPr
             <div className="col-span-12 lg:col-span-6">
               <h3 className="text-xs uppercase tracking-[0.25em] text-gray-500 mb-6">{activeCategory}</h3>
               <ul className="grid grid-cols-2 gap-4">
-                {categories[activeCategory as keyof typeof categories]?.links.map((link, i) => (
+                {categories[activeCategory as keyof typeof categories]?.links.map((link: any, i: number) => (
                   <motion.li 
-                    key={link}
+                    key={typeof link === "string" ? link : link.name}
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.05 }}
                   >
                     <Link 
-                      href="#" 
+                      href={typeof link === "string" ? "#" : link.href} 
                       className="text-lg hover:text-gray-300 transition-colors uppercase tracking-wider font-light"
                     >
-                      {link}
+                      {typeof link === "string" ? link : link.name}
                     </Link>
                   </motion.li>
                 ))}

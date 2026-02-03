@@ -10,28 +10,22 @@ gsap.registerPlugin(ScrollTrigger);
 
 const collections = [
   {
-    id: 1,
-    title: "Urban Noir",
-    image: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=1887&auto=format&fit=crop",
-    year: "2026"
+    id: "best",
+    title: "Best Seller",
+    image: "/images/0.jpg",
+    subtitle: "Our most-loved pieces",
   },
   {
-    id: 2,
-    title: "Silk & Stone",
-    image: "https://images.unsplash.com/photo-1503342394128-c104d54dba01?q=80&w=1887&auto=format&fit=crop",
-    year: "2025"
+    id: "new",
+    title: "New Product",
+    image: "/images/4.jpg",
+    subtitle: "Fresh arrivals",
   },
   {
-    id: 3,
-    title: "Midnight Sun",
-    image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1020&auto=format&fit=crop",
-    year: "2025"
-  },
-  {
-    id: 4,
-    title: "Desert Rose",
-    image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=2070&auto=format&fit=crop",
-    year: "2024"
+    id: "sale",
+    title: "Sale Product",
+    image: "/images/img5.jpg",
+    subtitle: "Seasonal offers",
   },
 ];
 
@@ -74,7 +68,7 @@ export default function SignatureCollections() {
         {collections.map((collection, index) => (
           <div 
             key={collection.id} 
-            className="relative h-full w-[92vw] md:w-[60vw] flex-shrink-0 border-r border-gray-100 flex items-center justify-center p-6 md:p-20"
+            className="relative h-full w-[92vw] md:w-[60vw] shrink-0 border-r border-gray-100 flex items-center justify-center p-6 md:p-20"
           >
             <div className="relative w-full h-[80%] overflow-hidden group">
                <Image 
@@ -87,10 +81,10 @@ export default function SignatureCollections() {
                <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500" />
                
                <div className="absolute bottom-0 left-0 w-full p-8 md:p-12 text-white transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                 <span className="text-xs font-bold uppercase tracking-widest mb-2 block">{collection.year}</span>
+                 <span className="text-xs font-bold uppercase tracking-widest mb-2 block">{collection.subtitle}</span>
                  <h3 className="text-4xl md:text-6xl font-light uppercase tracking-tighter mb-4">{collection.title}</h3>
-                 <Link href={`/collections/${collection.id}`} className="text-xs uppercase tracking-widest border-b border-white pb-1 hover:text-gray-200 transition-colors">
-                   View Collection
+                 <Link href={`/shop?query=${encodeURIComponent(String(collection.title).toLowerCase())}`} className="text-xs uppercase tracking-widest border-b border-white pb-1 hover:text-gray-200 transition-colors">
+                   Shop
                  </Link>
                </div>
             </div>
@@ -98,7 +92,7 @@ export default function SignatureCollections() {
         ))}
         {/* End Spacer */}
         <div className="w-[20vw] h-full flex items-center justify-center bg-black text-white">
-            <Link href="/collections" className="text-xl uppercase tracking-widest hover:text-gray-400 transition-colors">
+            <Link href="/shop" className="text-xl uppercase tracking-widest hover:text-gray-400 transition-colors">
                 View All
             </Link>
         </div>

@@ -1,6 +1,5 @@
 import Hero from "@/components/hero/Hero";
 import SignatureCollections from "@/components/home/SignatureCollections";
-;
 import ParallaxFeatures from "@/components/home/ParallaxFeatures";
 import VideoSplit from "@/components/home/VideoSplit";
 import OverlappingImageStory from "@/components/home/stories/OverlappingImageStory";
@@ -21,7 +20,7 @@ export default function Home() {
       <BentoColorReveal />
       <BelowBentoText />
       <VideoSplit />
-      <ParallaxFeatures />
+      {/* <ParallaxFeatures /> */}
       <SignatureCollections />
      
     </main>

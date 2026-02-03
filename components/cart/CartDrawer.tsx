@@ -21,7 +21,7 @@ export default function CartDrawer({ open, onClose }: { open: boolean; onClose: 
             aria-hidden="true"
           />
           <motion.aside
-            className="fixed right-0 top-0 h-full w-[90vw] sm:w-[420px] bg-black text-white z-50 border-l border-white/10"
+            className="fixed right-0 top-0 h-full w-[90vw] sm:w-105 bg-black text-white z-50 border-l border-white/10"
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
