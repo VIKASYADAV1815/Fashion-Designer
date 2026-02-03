@@ -4,7 +4,6 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { motion } from "framer-motion";
 import AnimatedButton from "@/components/buttons/AnimatedButton";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -38,11 +37,9 @@ export default function OverlappingImageStory() {
       const targetsImg = gsap.utils.toArray<HTMLElement>('[class*="ois-frame-"]');
       const targetsText = gsap.utils.toArray<HTMLElement>('[class*="ois-text-"]');
 
-      // Initial State
       gsap.set(targetsImg, { opacity: 0, scale: 1.1 });
       gsap.set(targetsText, { opacity: 0, y: 30 });
       
-      // Show first frame immediately
       gsap.set(".ois-frame-0", { opacity: 1, scale: 1 });
       gsap.set(".ois-text-0", { opacity: 1, y: 0 });
 
@@ -51,13 +48,13 @@ export default function OverlappingImageStory() {
           trigger: sectionRef.current,
           start: "top top",
           end: () => `+=${frames.length * 100}%`,
-          scrub: 1, // Added slight smoothing delay
+          scrub: 1,
           pin: true,
         },
       });
 
       frames.forEach((_, i) => {
-        if (i === frames.length - 1) return; // Stop before the last frame exits
+        if (i === frames.length - 1) return;
 
         const nextImg = `.ois-frame-${i + 1}`;
         const nextText = `.ois-text-${i + 1}`;
@@ -74,10 +71,10 @@ export default function OverlappingImageStory() {
 
   return (
     <section ref={sectionRef} className="relative bg-black text-white overflow-hidden pt-16 lg:pt-0">
-      <div className="container mx-auto px-6 lg:px-12 h-screen grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <div className="container mx-auto px-6 lg:px-12 h-screen grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         
         {/* Left Side: Content Reveal */}
-        <div className="lg:col-span-5 relative h-full flex items-center justify-center lg:justify-start">
+        <div className="lg:col-span-6 relative h-[30vh] lg:h-full flex items-center justify-center lg:justify-start">
           {frames.map((f, i) => (
             <div 
               key={f.id} 
@@ -86,10 +83,10 @@ export default function OverlappingImageStory() {
               <span className="text-xs uppercase tracking-[0.4em] text-gray-500 block mb-4">
                 Chapter {i + 1}
               </span>
-              <h3 className="text-[clamp(2rem,5vw,4rem)] font-extralight uppercase leading-none tracking-tighter">
+              <h3 className="text-[clamp(2.5rem,6vw,5rem)] font-extralight uppercase leading-[0.9] tracking-tighter">
                 {f.title}
               </h3>
-              <p className="mt-6 text-sm lg:text-base text-gray-400 leading-relaxed">
+              <p className="mt-6 text-sm lg:text-base text-gray-400 font-light leading-relaxed max-w-md">
                 {f.description}
               </p>
               <div className="mt-8">
@@ -99,9 +96,13 @@ export default function OverlappingImageStory() {
           ))}
         </div>
 
-        {/* Right Side: Image Reveal */}
-        <div className="lg:col-span-7 relative h-full flex items-center justify-center">
-          <div className="relative w-full h-[48vh] lg:h-[82vh] max-w-[90%] lg:max-w-[85%] mx-auto">
+        {/* Right Side: Image Reveal (The 9:14 Aspect Ratio Container) */}
+        <div className="lg:col-span-6 relative h-full flex items-center justify-center lg:justify-end">
+          {/* - aspect-[9/14] forces the ratio
+              - lg:h-[85vh] keeps it tall on big screens
+              - h-[55vh] ensures it's tall and prominent on mobile
+          */}
+          <div className="relative aspect-[9/14] h-[55vh] lg:h-[85vh] w-auto overflow-hidden shadow-2xl">
             {frames.map((f, i) => (
               <div 
                 key={f.id} 
@@ -113,9 +114,10 @@ export default function OverlappingImageStory() {
                   fill
                   className="object-cover transform-gpu"
                   priority={i === 0}
-                  sizes="(max-width: 1024px) 80vw, 50vw"
+                  sizes="(max-width: 1024px) 70vw, 40vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent lg:hidden" />
+                {/* Overlay for better mobile readability */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent lg:hidden" />
               </div>
             ))}
           </div>
