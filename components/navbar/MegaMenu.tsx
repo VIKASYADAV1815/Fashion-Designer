@@ -21,7 +21,7 @@ const categories = {
       "Drape Casual Fit"
     ],
     featured: "Editorial: Women's Couture",
-    image: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=1170&auto=format&fit=crop"
+    image: "/images/img3.jpg"
   },
   policies: {
     links: [

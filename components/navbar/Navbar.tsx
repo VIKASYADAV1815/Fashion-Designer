@@ -45,11 +45,11 @@ export default function Navbar() {
     { name: "Policies", id: "policies", dropdown: true },
   ];
   const mobileCategories = [
-    { id: "women-all", name: "All Categories", image: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=1170&auto=format&fit=crop" },
-    { id: "women-lehenga", name: "Lehenga", image: "https://images.unsplash.com/photo-1578736640905-5a2b1d027b49?q=80&w=1170&auto=format&fit=crop" },
-    { id: "women-dress", name: "Dress", image: "https://images.unsplash.com/photo-1520975940208-b8d4a7b8fd9e?q=80&w=1170&auto=format&fit=crop" },
-    { id: "women-saree", name: "Saree", image: "https://images.unsplash.com/photo-1663160288240-0f93eca3a3f7?q=80&w=1170&auto=format&fit=crop" },
-    { id: "women-drape-casual-fit", name: "Drape Casual Fit", image: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=1170&auto=format&fit=crop" },
+    { id: "women-all", name: "All Categories", image: "/images/3.jpg" },
+    { id: "women-lehenga", name: "Lehenga", image: "/images/4.jpg" },
+    { id: "women-dress", name: "Dress", image: "/images/img3.jpg" },
+    { id: "women-saree", name: "Saree", image: "/images/1.jpg" },
+    { id: "women-drape-casual-fit", name: "Drape Casual Fit", image: "/images/img5.jpg" },
   ];
 
   return (
