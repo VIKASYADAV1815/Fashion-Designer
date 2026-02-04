@@ -67,22 +67,60 @@ export default function Navbar() {
         aria-label="Primary"
       >
         <div className="container mx-auto px-6">
-          <div className="h-14 flex items-center justify-center">
-            <Link href="/" className="text-xl md:text-2xl font-bold tracking-[0.3em] uppercase text-white">
-              LUXE
+          {/* Mobile: hamburger left, larger logo center, search right */}
+          <div className="flex h-24 items-center justify-between lg:hidden py-3">
+            <button
+              className="text-white"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle menu"
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-menu"
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+
+            <Link href="/" aria-label="Khusi Desinger" className="flex flex-1 justify-center">
+              <div className="relative w-64 h-20">
+                <Image
+                  src="/images/logo.png"
+                  alt="Khusi Desinger logo"
+                  fill
+                  priority
+                  className="object-contain"
+                />
+              </div>
+              <span className="sr-only">Khusi Desinger</span>
             </Link>
+
+            <button
+              className="text-white hover:text-gray-300 transition-colors"
+              aria-label="Search"
+              onClick={() => setSearchOpen(!searchOpen)}
+            >
+              <Search size={22} strokeWidth={1.5} />
+            </button>
           </div>
-          <div className="h-12 flex items-center justify-between">
-            <button 
-            className="lg:hidden text-white"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle menu"
-            aria-expanded={isMobileMenuOpen}
-            aria-controls="mobile-menu"
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-            <div className="hidden lg:flex items-center justify-center gap-12 w-full">
+
+          {/* Desktop: logo left, links perfectly centered, icons right */}
+          <div className="hidden lg:flex h-28 items-center py-3">
+            {/* Left: logo */}
+            <div className="flex items-center justify-center w-72 pl-4">
+              <Link href="/" aria-label="Khusi Desinger" className="flex items-center">
+                <div className="relative w-80 h-24 px-3 py-2">
+                  <Image
+                    src="/images/logo.png"
+                    alt="Khusi Desinger logo"
+                    fill
+                    priority
+                    className="object-contain"
+                  />
+                </div>
+                <span className="sr-only">Khusi Desinger</span>
+              </Link>
+            </div>
+
+            {/* Center: nav links */}
+            <div className="flex flex-1 items-center justify-center gap-10">
               {navLinks.map((link) => (
                 <div
                   key={link.id}
@@ -124,17 +162,33 @@ export default function Navbar() {
                 </div>
               ))}
             </div>
-            <div className="flex items-center space-x-6 text-white">
-            <button className="hover:text-gray-300 transition-colors" aria-label="Search" onClick={() => setSearchOpen(!searchOpen)}>
-              <Search size={20} strokeWidth={1.5} />
-            </button>
-            <Link href="/account" className="hidden lg:block hover:text-gray-300 transition-colors" aria-label="Account">
-              <User size={20} strokeWidth={1.5} />
-            </Link>
-            <button className="hover:text-gray-300 transition-colors relative" aria-label="Cart" onClick={() => setCartOpen(true)}>
-              <ShoppingBag size={20} strokeWidth={1.5} />
-              <span className="absolute -top-1 -right-1 min-w-4 px-1 h-4 bg-white text-black rounded-full text-[10px] leading-4 text-center">{items.length}</span>
-            </button>
+
+            {/* Right: icons */}
+            <div className="flex items-center justify-center w-64 pr-4 space-x-6 text-white">
+              <button
+                className="hover:text-gray-300 transition-colors"
+                aria-label="Search"
+                onClick={() => setSearchOpen(!searchOpen)}
+              >
+                <Search size={20} strokeWidth={1.5} />
+              </button>
+              <Link
+                href="/account"
+                className="hover:text-gray-300 transition-colors"
+                aria-label="Account"
+              >
+                <User size={20} strokeWidth={1.5} />
+              </Link>
+              <button
+                className="hover:text-gray-300 transition-colors relative"
+                aria-label="Cart"
+                onClick={() => setCartOpen(true)}
+              >
+                <ShoppingBag size={20} strokeWidth={1.5} />
+                <span className="absolute -top-1 -right-1 min-w-4 px-1 h-4 bg-white text-black rounded-full text-[10px] leading-4 text-center">
+                  {items.length}
+                </span>
+              </button>
             </div>
           </div>
         </div>

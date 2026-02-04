@@ -44,7 +44,7 @@ export default function Hero() {
       />
       <div className="absolute inset-0 bg-linear-to-t from-black/20 via-black/30 to-black/20" />
 
-      <div className="relative z-10 h-full flex flex-col justify-center items-center text-center px-6">
+      <div className="relative z-10 h-full flex flex-col justify-center items-center text-center px-6 pt-24 md:pt-32">
         <div ref={textRef} className="max-w-4xl mx-auto">
           <h2 className="text-xs md:text-sm font-bold tracking-[0.3em] uppercase mb-6 text-white/80">
             Spring / Summer 2026

@@ -39,8 +39,8 @@ export default function BridalLogin() {
       <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/pinstripe.png')]" />
       
       {/* Soft Glows */}
-      <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-amber-100/40 blur-[120px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-rose-50/50 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute top-[-10%] right-[-10%] w-125 h-125 bg-amber-100/40 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-[-10%] left-[-10%] w-125 h-125 bg-rose-50/50 blur-[120px] rounded-full pointer-events-none" />
 
       <div className="container mx-auto px-6 max-w-6xl relative z-10">
         <div className="text-center mb-16">

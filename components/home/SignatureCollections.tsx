@@ -12,7 +12,7 @@ const collections = [
   {
     id: "best",
     title: "Best Seller",
-    image: "/images/0.jpg",
+    image: "/images/img16.png",
     subtitle: "Our most-loved pieces",
   },
   {

@@ -19,7 +19,7 @@ const frames = [
     id: 2,
     title: "MID COLLECTION",
     description: "Editorial mid-season selections: timeless dresses, lehengas, and sarees curated for refined occasions.",
-    image: "/images/img4.jpg",
+    image: "/images/img17.png",
   },
   {
     id: 3,

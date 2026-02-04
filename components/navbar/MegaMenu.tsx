@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 interface MegaMenuProps {
@@ -12,17 +13,6 @@ interface MegaMenuProps {
 }
 
 const categories = {
-  women: {
-    links: [
-      "All Categories",
-      "Lehenga",
-      "Dress",
-      "Saree",
-      "Drape Casual Fit"
-    ],
-    featured: "Editorial: Women's Couture",
-    image: "/images/img3.jpg"
-  },
   policies: {
     links: [
       { name: "Privacy Policy", href: "/privacy-policy" },
@@ -32,58 +22,71 @@ const categories = {
       { name: "Terms & Conditions", href: "/terms-and-conditions" },
     ],
     featured: "Store Policies",
-    image: "/images/3.jpg"
+    image: "/images/3.jpg",
   },
 };
 
 export default function MegaMenu({ isOpen, activeCategory, onClose }: MegaMenuProps) {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+
   return (
     <AnimatePresence>
       {isOpen && activeCategory && (
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.3, ease: "circOut" }}
-          className="absolute top-full left-0 w-full bg-black/95 backdrop-blur-md border-t border-white/10 z-40 overflow-hidden"
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.25, ease: "easeOut" }}
+          className={cn(
+            "absolute top-full left-0 right-0 z-40 border-t border-white/10 bg-black",
+            isHome ? "" : ""
+          )}
           onMouseLeave={onClose}
-          role="region"
-          aria-label="Primary navigation submenu"
         >
-          <div className="container mx-auto px-6 py-12 grid grid-cols-12 gap-8 text-white">
+          <div className="container mx-auto px-6 py-8 grid grid-cols-12 gap-6 text-white">
             <div className="col-span-12 lg:col-span-6">
-              <h3 className="text-xs uppercase tracking-[0.25em] text-gray-500 mb-6">{activeCategory}</h3>
+              <h3 className="mb-4 text-xs uppercase tracking-[0.25em] text-gray-500">
+                {activeCategory}
+              </h3>
+
               <ul className="grid grid-cols-2 gap-4">
-                {categories[activeCategory as keyof typeof categories]?.links.map((link: any, i: number) => (
-                  <motion.li 
-                    key={typeof link === "string" ? link : link.name}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.05 }}
-                  >
-                    <Link 
-                      href={typeof link === "string" ? "#" : link.href} 
-                      className="text-lg hover:text-gray-300 transition-colors uppercase tracking-wider font-light"
+                {categories[activeCategory as keyof typeof categories]?.links.map(
+                  (link, i) => (
+                    <motion.li
+                      key={link.name}
+                      initial={{ opacity: 0, x: -6 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.04 }}
                     >
-                      {typeof link === "string" ? link : link.name}
-                    </Link>
-                  </motion.li>
-                ))}
+                      <Link
+                        href={link.href}
+                        className="text-lg uppercase tracking-wider font-light hover:text-gray-300"
+                      >
+                        {link.name}
+                      </Link>
+                    </motion.li>
+                  )
+                )}
               </ul>
             </div>
+
             <div className="hidden lg:block lg:col-span-6">
-              <div className="relative h-[40vh] w-full overflow-hidden rounded-sm">
+              <div className="relative h-[32vh] overflow-hidden rounded-sm">
                 <Image
                   src={categories[activeCategory as keyof typeof categories]?.image}
-                  alt={`${activeCategory} preview`}
+                  alt="Featured"
                   fill
                   className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-black/0" />
-                <div className="absolute bottom-6 left-6">
-                  <span className="text-xs uppercase tracking-[0.25em] text-white/70">Featured</span>
-                  <p className="text-2xl mt-3 tracking-wider uppercase">{categories[activeCategory as keyof typeof categories]?.featured}</p>
+                <div className="absolute inset-0 bg-black/40" />
+                <div className="absolute bottom-4 left-4">
+                  <span className="text-xs uppercase tracking-[0.25em] text-white/70">
+                    Featured
+                  </span>
+                  <p className="mt-2 text-xl uppercase tracking-wider">
+                    {categories[activeCategory as keyof typeof categories]?.featured}
+                  </p>
                 </div>
               </div>
             </div>

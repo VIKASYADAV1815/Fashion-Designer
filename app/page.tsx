@@ -4,21 +4,21 @@ import ParallaxFeatures from "@/components/home/ParallaxFeatures";
 import VideoSplit from "@/components/home/VideoSplit";
 import OverlappingImageStory from "@/components/home/stories/OverlappingImageStory";
 import BentoColorReveal from "@/components/home/stories/BentoColorReveal";
-import BelowBentoText from "@/components/home/BelowBentoText";
+// import BelowBentoText from "@/components/home/BelowBentoText";
 
 import Continuum from "@/components/home/Continuum";
 
 
 export default function Home() {
   return (
-    <main className="bg-black min-h-screen">
+    <main className=" min-h-screen">
       <Hero />
       {/* <VideoSection /> */}
       <Continuum />
       <OverlappingImageStory />
   
       <BentoColorReveal />
-      <BelowBentoText />
+      {/* <BelowBentoText /> */}
       <VideoSplit />
       {/* <ParallaxFeatures /> */}
       <SignatureCollections />
