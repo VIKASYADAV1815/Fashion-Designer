@@ -44,21 +44,24 @@ export default function BentoWithCompactSlider() {
                   <img src={p.src} alt={p.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                 )}
                 
-                {/* Product Card Overlay Details */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                {/* --- HIGHLIGHTED FIX: Gradient and Text visibility --- */}
+                {/* Made gradient visible by default on mobile (opacity-100) and hover on desktop */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300" />
                 
-                <div className="absolute bottom-0 left-0 right-0 p-5 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                {/* Ensured content doesn't "touch the bottom" by adding consistent padding and removing the translate-y on mobile */}
+                <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-transform duration-300">
                   <div className="flex justify-between items-end">
                     <div className="text-white">
                       <p className="text-[10px] uppercase tracking-widest opacity-80 mb-1">New Collection</p>
-                      <h3 className="text-lg font-serif">{p.name}</h3>
-                      <p className="text-sm font-light italic">{p.price}</p>
+                      <h3 className="text-lg font-serif leading-tight">{p.name}</h3>
+                      <p className="text-sm font-light italic mt-1">{p.price}</p>
                     </div>
                     <button className="bg-white/20 backdrop-blur-md p-3 rounded-full text-white hover:bg-white hover:text-stone-900 transition-colors">
                         <Plus size={18} />
                     </button>
                   </div>
                 </div>
+                {/* --- END FIX --- */}
               </div>
             </div>
           ))}
