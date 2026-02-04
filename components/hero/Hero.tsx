@@ -55,9 +55,13 @@ export default function Hero() {
           <p className="text-[clamp(0.75rem,1.2vw,1rem)] text-gray-300 max-w-xl mx-auto mb-10 leading-relaxed font-light tracking-widest">
             Where minimalism meets grandeur. Discover the new collection defined by precision, fluidity, and timeless elegance.
           </p>
-          <div className="flex gap-6 justify-center">
-            <AnimatedButton variant="primary">Shop Collection</AnimatedButton>
-            <AnimatedButton variant="outline">View Lookbook</AnimatedButton>
+          <div className="flex flex-col xs:flex-row gap-4 xs:gap-6 justify-center items-center w-full">
+            <AnimatedButton variant="primary" className="w-full xs:w-auto text-center">
+              Shop Collection
+            </AnimatedButton>
+            <AnimatedButton variant="outline" className="w-full xs:w-auto text-center">
+              View Lookbook
+            </AnimatedButton>
           </div>
         </div>
       </div>
