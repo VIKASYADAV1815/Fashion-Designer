@@ -51,6 +51,7 @@ export default function ShopGrid({ category }: ShopGridProps) {
   const [maxPrice, setMaxPrice] = useState<number | "">("");
   const [columns, setColumns] = useState<2 | 3 | 4>(3);
   const [size, setSize] = useState<"comfort" | "compact">("compact");
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   const filtered = useMemo(() => {
     return products.filter((p) => {
@@ -91,8 +92,30 @@ export default function ShopGrid({ category }: ShopGridProps) {
           </motion.div>
         </header>
 
-        {/* PREMIUM FILTER BAR (STATIC) */}
-        <div className="mb-24">
+        {/* MOBILE FILTER QUICK BAR */}
+        <div className="md:hidden mb-8">
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 flex-1 bg-white/90 backdrop-blur-xl border border-black/15 rounded-full px-4 py-2">
+              <Search className="w-5 h-5 text-gray-500" />
+              <input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Find a piece..."
+                className="bg-transparent text-xs tracking-widest uppercase w-full py-1 outline-none placeholder:text-gray-400"
+              />
+            </div>
+            <button
+              onClick={() => setMobileFiltersOpen(true)}
+              className="px-4 py-2 rounded-full border border-black/15 bg-white/90 text-[10px] uppercase tracking-widest"
+              aria-label="Open Filters"
+            >
+              Filters
+            </button>
+          </div>
+        </div>
+
+        {/* PREMIUM FILTER BAR (DESKTOP) */}
+        <div className="hidden md:block mb-24">
           <div
             className="
               max-w-5xl
@@ -194,6 +217,124 @@ export default function ShopGrid({ category }: ShopGridProps) {
             </div>
           </div>
         </div>
+
+        {/* MOBILE FILTERS DRAWER */}
+        <AnimatePresence>
+          {mobileFiltersOpen && (
+            <>
+              <motion.div
+                className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setMobileFiltersOpen(false)}
+                aria-hidden="true"
+              />
+              <motion.aside
+                className="fixed left-0 top-0 h-full w-[85vw] bg-white z-50 shadow-xl border-r border-black/10"
+                initial={{ x: "-100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "-100%" }}
+                transition={{ type: "tween", duration: 0.3 }}
+                role="dialog"
+                aria-label="Filters"
+              >
+                <div className="p-5 border-b border-black/10 flex items-center justify-between">
+                  <span className="text-[10px] uppercase tracking-[0.3em]">Filters</span>
+                  <button
+                    className="text-[10px] uppercase tracking-[0.3em] hover:opacity-70"
+                    onClick={() => setMobileFiltersOpen(false)}
+                  >
+                    Close
+                  </button>
+                </div>
+                <div className="p-5 space-y-6">
+                  <div>
+                    <span className="block text-[10px] uppercase tracking-[0.3em] mb-2">Search</span>
+                    <div className="flex items-center gap-3 border border-black/15 rounded-md px-3 py-2">
+                      <Search className="w-5 h-5 text-gray-500" />
+                      <input
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                        placeholder="Find a piece..."
+                        className="bg-transparent text-sm tracking-widest uppercase w-full outline-none placeholder:text-gray-400"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <span className="block text-[10px] uppercase tracking-[0.3em] mb-2">Price</span>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs text-gray-500 uppercase">Min</span>
+                        <input
+                          type="number"
+                          value={minPrice}
+                          onChange={(e) =>
+                            setMinPrice(e.target.value === "" ? "" : Number(e.target.value))
+                          }
+                          className="w-full border border-black/15 rounded-md px-2 py-2 text-sm outline-none"
+                        />
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs text-gray-500 uppercase">Max</span>
+                        <input
+                          type="number"
+                          value={maxPrice}
+                          onChange={(e) =>
+                            setMaxPrice(e.target.value === "" ? "" : Number(e.target.value))
+                          }
+                          className="w-full border border-black/15 rounded-md px-2 py-2 text-sm outline-none"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <span className="block text-[10px] uppercase tracking-[0.3em] mb-2">Layout</span>
+                    <div className="flex items-center gap-3">
+                      {[2, 3, 4].map((num) => (
+                        <button
+                          key={num}
+                          onClick={() => setColumns(num as 2 | 3 | 4)}
+                          className={`px-3 py-2 rounded-md text-sm border
+                            ${columns === num ? "bg-black text-white" : "bg-white text-gray-600"}`}
+                        >
+                          {num} cols
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <span className="block text-[10px] uppercase tracking-[0.3em] mb-2">Card Size</span>
+                    <div className="flex items-center gap-3">
+                      <button
+                        onClick={() => setSize("compact")}
+                        className={`px-3 py-2 rounded-md text-sm border
+                          ${size === "compact" ? "bg-black text-white" : "bg-white text-gray-600"}`}
+                      >
+                        Compact
+                      </button>
+                      <button
+                        onClick={() => setSize("comfort")}
+                        className={`px-3 py-2 rounded-md text-sm border
+                          ${size === "comfort" ? "bg-black text-white" : "bg-white text-gray-600"}`}
+                      >
+                        Comfort
+                      </button>
+                    </div>
+                  </div>
+                  <div className="pt-2">
+                    <button
+                      className="w-full py-3 bg-black text-white text-[11px] uppercase tracking-[0.3em] rounded-md"
+                      onClick={() => setMobileFiltersOpen(false)}
+                    >
+                      Apply
+                    </button>
+                  </div>
+                </div>
+              </motion.aside>
+            </>
+          )}
+        </AnimatePresence>
 
         {/* Grid */}
         <motion.div

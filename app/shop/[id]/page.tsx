@@ -213,7 +213,11 @@ export default function ProductPage() {
     s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
   
   const product = products.find((p) => p.id === id || slugify(p.name) === id);
-  const images3 = product.images.length >= 3 ? product.images : [...product.images, ...Array(3 - product.images.length).fill(product.images[0])];
+  const images3 = product
+    ? (product.images.length >= 3
+        ? product.images
+        : [...product.images, ...Array(3 - product.images.length).fill(product.images[0])])
+    : [];
 
   if (!product) {
     return (

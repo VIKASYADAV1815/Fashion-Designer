@@ -73,7 +73,7 @@ export default function Hero() {
               variant="primary"
               className="
                 w-full
-                max-w-[240px]
+                max-w-60
                 lg:w-auto
                 px-6 sm:px-7 lg:px-8
                 py-3 lg:py-2.5
@@ -88,7 +88,7 @@ export default function Hero() {
               variant="outline"
               className="
                 w-full
-                max-w-[240px]
+                max-w-60
                 lg:w-auto
                 px-6 sm:px-7 lg:px-8
                 py-3 lg:py-2.5

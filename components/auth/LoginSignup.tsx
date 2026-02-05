@@ -55,7 +55,7 @@ export default function BridalLogin() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Left Side: Aesthetic Bridal Imagery */}
           <div className="hidden lg:block relative group">
-            <div className="aspect-[4/5] overflow-hidden border border-stone-200 p-3 bg-white shadow-2xl">
+            <div className="aspect-4/5 overflow-hidden border border-stone-200 p-3 bg-white shadow-2xl">
               <img 
                 src="https://images.unsplash.com/photo-1594552072238-b8a33785b261?auto=format&fit=crop&q=80&w=800" 
                 alt="Lehenga Detail" 

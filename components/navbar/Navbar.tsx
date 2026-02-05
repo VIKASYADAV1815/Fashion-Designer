@@ -236,7 +236,7 @@ export default function Navbar() {
                 <Link
                   key={c.id}
                   href={`/shop?query=${encodeURIComponent(c.name.toLowerCase())}`}
-                  className="relative aspect-[3/2] overflow-hidden rounded-sm"
+                  className="relative aspect-3/2 overflow-hidden rounded-sm"
                   onClick={() => setIsMobileMenuOpen(false)}
                   aria-label={c.name}
                 >
