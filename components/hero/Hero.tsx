@@ -15,6 +15,7 @@ export default function Hero() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline();
+
       tl.fromTo(
         videoRef.current,
         { opacity: 0 },
@@ -26,11 +27,16 @@ export default function Hero() {
         "-=0.4"
       );
     }, heroRef);
+
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={heroRef} className="relative h-screen w-full overflow-hidden bg-black">
+    <section
+      ref={heroRef}
+      className="relative h-screen w-full overflow-hidden bg-black"
+    >
+      {/* Background Video */}
       <video
         ref={videoRef}
         autoPlay
@@ -38,28 +44,58 @@ export default function Hero() {
         loop
         playsInline
         preload="metadata"
-        // poster="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=1974&auto=format&fit=crop"
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 h-full w-full object-cover"
         src="https://www.pexels.com/download/video/35764328/"
       />
-      <div className="absolute inset-0 bg-linear-to-t from-black/20 via-black/30 to-black/20" />
 
-      <div className="relative z-10 h-full flex flex-col justify-center items-center text-center px-6 pt-24 md:pt-32">
-        <div ref={textRef} className="max-w-4xl mx-auto">
-          <h2 className="text-xs md:text-sm font-bold tracking-[0.3em] uppercase mb-6 text-white/80">
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-linear-to-t from-black/30 via-black/40 to-black/30" />
+
+      {/* Content */}
+      <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 pt-24 md:pt-32 text-center">
+        <div ref={textRef} className="mx-auto max-w-4xl">
+          <h2 className="mb-6 text-xs font-bold uppercase tracking-[0.3em] text-white/80 md:text-sm">
             Spring / Summer 2026
           </h2>
-          <h1 className="text-[clamp(2rem,6vw,6rem)] font-light uppercase tracking-tighter mb-8 text-white">
+
+          <h1 className="mb-8 text-[clamp(2.2rem,6vw,6rem)] font-light uppercase tracking-tight text-white">
             Ethereal Silence
           </h1>
-          <p className="text-[clamp(0.75rem,1.2vw,1rem)] text-gray-300 max-w-xl mx-auto mb-10 leading-relaxed font-light tracking-widest">
-            Where minimalism meets grandeur. Discover the new collection defined by precision, fluidity, and timeless elegance.
+
+          <p className="mx-auto mb-10 max-w-xl text-[clamp(0.8rem,1.2vw,1rem)] font-light leading-relaxed tracking-widest text-gray-300">
+            Where minimalism meets grandeur. Discover the new collection defined
+            by precision, fluidity, and timeless elegance.
           </p>
-          <div className="flex flex-col xs:flex-row gap-4 xs:gap-6 justify-center items-center w-full">
-            <AnimatedButton variant="primary" className="w-full xs:w-auto text-center">
+
+          {/* Buttons */}
+          <div className="flex w-full flex-col items-center justify-center gap-4 lg:flex-row lg:gap-6">
+            <AnimatedButton
+              variant="primary"
+              className="
+                w-full
+                max-w-[240px]
+                lg:w-auto
+                px-6 sm:px-7 lg:px-8
+                py-3 lg:py-2.5
+                text-sm lg:text-[0.85rem]
+                tracking-widest
+              "
+            >
               Shop Collection
             </AnimatedButton>
-            <AnimatedButton variant="outline" className="w-full xs:w-auto text-center">
+
+            <AnimatedButton
+              variant="outline"
+              className="
+                w-full
+                max-w-[240px]
+                lg:w-auto
+                px-6 sm:px-7 lg:px-8
+                py-3 lg:py-2.5
+                text-sm lg:text-[0.85rem]
+                tracking-widest
+              "
+            >
               View Lookbook
             </AnimatedButton>
           </div>
