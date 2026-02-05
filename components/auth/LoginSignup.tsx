@@ -63,9 +63,9 @@ export default function BridalLogin() {
               />
               <div className="absolute inset-0 bg-stone-900/10 group-hover:bg-transparent transition-colors duration-500" />
             </div>
-            <div className="absolute -bottom-6 -right-6 bg-amber-700 text-white p-8 max-w-xs shadow-xl">
-              <p className="font-serif italic text-xl">"Every stitch tells a story of heritage and grace."</p>
-            </div>
+              <div className="absolute -bottom-6 -right-6 bg-amber-700 text-white p-8 max-w-xs shadow-xl">
+                <p className="font-serif italic text-xl">&quot;Every stitch tells a story of heritage and grace.&quot;</p>
+              </div>
           </div>
 
           {/* Right Side: The Form */}
@@ -73,10 +73,10 @@ export default function BridalLogin() {
             <div className="bg-white/60 backdrop-blur-md border border-stone-100 p-8 md:p-10 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.05)]">
               
               <div className="flex justify-center gap-8 mb-10">
-                {["login", "signup"].map((t) => (
+                {(["login", "signup"] as const).map((t) => (
                   <button
                     key={t}
-                    onClick={() => setMode(t as any)}
+                    onClick={() => setMode(t)}
                     className={cn(
                       "text-xs uppercase tracking-[0.3em] font-bold transition-all pb-2 relative",
                       mode === t ? "text-amber-800" : "text-stone-300"

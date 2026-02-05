@@ -6,14 +6,14 @@ export default function ShopTransition({ children }: { children: React.ReactNode
   return (
     <>
       <motion.div
-        className="fixed inset-0 bg-black z-50 origin-bottom"
+        className="fixed inset-0 bg-black z-40 origin-bottom"
         initial={{ scaleY: 0 }}
         animate={{ scaleY: 0 }}
         exit={{ scaleY: 1 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       />
       <motion.div
-        className="fixed inset-0 bg-black z-50 origin-top"
+        className="fixed inset-0 bg-black z-40 origin-top"
         initial={{ scaleY: 1 }}
         animate={{ scaleY: 0 }}
         exit={{ scaleY: 0 }}

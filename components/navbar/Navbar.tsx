@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
@@ -9,6 +9,7 @@ import MegaMenu from "./MegaMenu";
 import { cn } from "@/lib/utils";
 import CartDrawer from "@/components/cart/CartDrawer";
 import { useCart } from "@/components/cart/CartProvider";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -20,6 +21,7 @@ export default function Navbar() {
   const { items } = useCart();
   const [hidden, setHidden] = useState(false);
   const lastY = useRef(0);
+  const pathname = usePathname();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const dy = latest - lastY.current;
@@ -36,12 +38,13 @@ export default function Navbar() {
     }
   });
 
-  const navLinks = [
-    { name: "Lehenga", id: "lehenga", href: "/shop?query=lehenga" },
-    { name: "Dress", id: "dress", href: "/shop?query=dress" },
-    { name: "Drape", id: "drape", href: "/shop?query=drape" },
-    { name: "Casual Fit", id: "casual-fit", href: "/shop?query=casual%20fit" },
-    { name: "Saree", id: "saree", href: "/shop?query=saree" },
+  type NavLink = { name: string; id: string; href?: string; dropdown?: boolean };
+  const navLinks: NavLink[] = [
+    { name: "Lehenga", id: "lehenga", href: "/lehenga" },
+    { name: "Dress", id: "dress", href: "/dress" },
+    { name: "Drape", id: "drape", href: "/drape" },
+    { name: "Casual Fit", id: "casual-fit", href: "/casual-fit" },
+    { name: "Saree", id: "saree", href: "/saree" },
     { name: "Policies", id: "policies", dropdown: true },
   ];
   const mobileCategories = [
@@ -57,7 +60,7 @@ export default function Navbar() {
       <motion.nav
         className={cn(
           "fixed top-0 left-0 w-full z-50 transition-colors duration-500",
-          isScrolled || activeCategory ? "bg-black/90 backdrop-blur-md border-b border-white/5" : "bg-transparent"
+          isScrolled || activeCategory || pathname !== "/" ? "bg-black/90 backdrop-blur-md border-b border-white/5" : "bg-transparent"
         )}
         initial={{ y: -100 }}
         animate={{ y: hidden ? -100 : 0 }}
@@ -121,17 +124,17 @@ export default function Navbar() {
 
             {/* Center: nav links */}
             <div className="flex flex-1 items-center justify-center gap-10">
-              {navLinks.map((link) => (
+              {navLinks.map((link: NavLink) => (
                 <div
                   key={link.id}
                   className="h-full flex items-center"
                   onMouseEnter={() => {
-                    if ((link as any).dropdown) setActiveCategory(link.id);
+                    if (link.dropdown) setActiveCategory(link.id);
                   }}
                 >
-                  {!(link as any).dropdown ? (
+                  {!link.dropdown ? (
                     <Link
-                      href={(link as any).href || "#"}
+                      href={link.href || "#"}
                       className="text-xs font-semibold uppercase tracking-[0.25em] text-white hover:text-gray-300 transition-colors relative group"
                     >
                       {link.name}
@@ -211,7 +214,7 @@ export default function Navbar() {
             id="mobile-menu"
           >
             <div className="flex flex-col space-y-8">
-              {navLinks.filter((l: any) => !l.dropdown).map((link, i) => (
+              {navLinks.filter((l: NavLink) => !l.dropdown).map((link, i) => (
                 <motion.div
                   key={link.id}
                   initial={{ opacity: 0, y: 20 }}
@@ -219,7 +222,7 @@ export default function Navbar() {
                   transition={{ delay: 0.1 + i * 0.1 }}
                 >
                   <Link 
-                    href={(link as any).href || `/${link.id}`} 
+                    href={link.href || `/${link.id}`} 
                     className="text-2xl font-light uppercase tracking-widest text-white block"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
@@ -270,7 +273,7 @@ export default function Navbar() {
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
                       const q = (e.target as HTMLInputElement).value;
-                      window.location.href = `/shop?query=${encodeURIComponent(q)}`;
+                      window.location.href = `/${encodeURIComponent(q.toLowerCase().replace(/[^a-z0-9]+/g,"-"))}`;
                     }
                   }}
                 />
@@ -284,7 +287,7 @@ export default function Navbar() {
               </div>
               <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-6">
                 {["New Arrivals","Women","Lehenga","Dress","Saree","Drape Casual Fit"].map((s) => (
-                  <Link key={s} href={`/shop?query=${encodeURIComponent(s.toLowerCase())}`} className="block border border-white/10 p-4 hover:border-white/40 transition-colors">
+                  <Link key={s} href={`/${encodeURIComponent(s.toLowerCase().replace(/[^a-z0-9]+/g,"-"))}`} className="block border border-white/10 p-4 hover:border-white/40 transition-colors">
                     <span className="text-xs uppercase tracking-[0.25em] text-white">{s}</span>
                   </Link>
                 ))}

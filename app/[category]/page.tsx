@@ -8,6 +8,11 @@ const categoryTitles: Record<string, string> = {
   women: "Womenswear",
   men: "Menswear",
   accessories: "Accessories",
+  lehenga: "Lehenga",
+  dress: "Dress",
+  drape: "Drape",
+  "casual-fit": "Casual Fit",
+  saree: "Saree",
 };
 
 export default function CategoryPage() {
@@ -21,16 +26,8 @@ export default function CategoryPage() {
 
   return (
     <ShopTransition>
-      <div className="pt-24 min-h-screen bg-white text-black">
-        <div className="container mx-auto px-6 py-12 text-center">
-           <h1 className="text-4xl md:text-6xl font-light uppercase tracking-tighter mb-4 capitalize">
-             {title}
-           </h1>
-           <p className="text-xs uppercase tracking-widest text-gray-500 max-w-md mx-auto">
-             Discover the latest arrivals in {title.toLowerCase()}.
-           </p>
-        </div>
-        <ShopGrid />
+      <div className="min-h-screen mt-12 bg-white text-black">
+        <ShopGrid category={category} />
       </div>
     </ShopTransition>
   );

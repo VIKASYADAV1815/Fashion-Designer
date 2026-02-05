@@ -22,7 +22,7 @@ const categories = {
       { name: "Terms & Conditions", href: "/terms-and-conditions" },
     ],
     featured: "Store Policies",
-    image: "/images/3.jpg",
+    image: "/images/img7.png",
   },
 };
 

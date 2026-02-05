@@ -45,7 +45,7 @@ export default function Hero() {
         playsInline
         preload="metadata"
         className="absolute inset-0 h-full w-full object-cover"
-        src="https://www.pexels.com/download/video/35764328/"
+        src="https://res.cloudinary.com/dzq7axes2/video/upload/v1770274822/hero-vid_xqzyui.mp4"
       />
 
       {/* Overlay */}

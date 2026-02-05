@@ -67,7 +67,7 @@ export default function ImageSplit() {
         ref={luxeRef}
         className="absolute top-1/2 left-0 -translate-y-1/2 pointer-events-none select-none z-0 opacity-[0.03] text-[25vw] font-serif italic font-black leading-none whitespace-nowrap"
       >
-        ARTISAN LUXE STUDIO
+        KHUSI CHAUHAN
       </div>
 
       <div className="container mx-auto px-6 relative z-10">

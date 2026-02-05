@@ -17,6 +17,10 @@ interface ShopCardProps {
   index: number;
 }
 
+function slugify(s: string) {
+  return s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+}
+
 export default function ShopCard({ product, index }: ShopCardProps) {
   return (
     <motion.div
@@ -26,7 +30,7 @@ export default function ShopCard({ product, index }: ShopCardProps) {
       transition={{ delay: index * 0.1, duration: 0.8, ease: "easeOut" }}
       className="group cursor-pointer"
     >
-      <Link href={`/shop/${product.id}`} className="block">
+      <Link href={`/shop/${slugify(product.name)}`} className="block">
         <div className="relative aspect-3/4 overflow-hidden mb-6 bg-gray-100">
           <Image
             src={product.image}
@@ -49,7 +53,7 @@ export default function ShopCard({ product, index }: ShopCardProps) {
           <h3 className="text-sm font-bold uppercase tracking-widest mb-2 group-hover:text-gray-600 transition-colors">
             {product.name}
           </h3>
-          <p className="text-xs font-light tracking-wider">${product.price.toLocaleString()}</p>
+          <p className="text-xs font-light tracking-wider">₹{product.price.toLocaleString("en-IN")}</p>
         </div>
       </Link>
     </motion.div>
