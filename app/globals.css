@@ -2,6 +2,7 @@
 
 @theme {
   --font-sans: var(--font-josefin);
+  --font-serif: var(--font-playfair);
   --color-primary: #4D4D4D;
   --color-background: #000000;
 }

@@ -3,147 +3,240 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { Check, ArrowLeft } from "lucide-react";
 
-export default function BridalLogin() {
-  const [mode, setMode] = useState<"login" | "signup">("login");
+type Mode = "login" | "signup";
+
+function LuxeInput({
+  label,
+  type,
+  id,
+  delay = 0,
+}: {
+  label: string;
+  type: string;
+  id: string;
+  delay?: number;
+}) {
+  const [focused, setFocused] = useState(false);
+  const [value, setValue] = useState("");
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay, duration: 0.4 }}
+      className="relative"
+    >
+      <label
+        htmlFor={id}
+        className={cn(
+          "absolute left-4 text-[10px] uppercase tracking-[0.2em] transition-all duration-300 pointer-events-none z-10",
+          focused || value ? "top-2 text-[#C5A059] text-[9px]" : "top-4 text-stone-400"
+        )}
+      >
+        {label}
+      </label>
+      <input
+        id={id}
+        type={type}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        className={cn(
+          "w-full rounded-lg border bg-stone-50/50 px-4 pt-7 pb-2.5 text-sm text-stone-900 outline-none transition-all duration-300",
+          "border-stone-200 hover:border-stone-300 focus:border-[#C5A059] focus:bg-white focus:ring-1 focus:ring-[#C5A059]",
+          "placeholder-transparent"
+        )}
+      />
+    </motion.div>
+  );
+}
+
+function PrimaryButton({ children }: { children: React.ReactNode }) {
+  return (
+    <button className="group relative w-full overflow-hidden rounded-lg bg-stone-900 px-6 py-4 text-white shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0">
+      <span className="relative z-10 flex items-center justify-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em]">
+        {children}
+      </span>
+      <div className="absolute inset-0 bg-[#C5A059] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+    </button>
+  );
+}
+
+function Checkbox({ id, label }: { id: string; label: string }) {
+  const [checked, setChecked] = useState(false);
+  
+  return (
+    <label className="flex items-center gap-3 cursor-pointer group" htmlFor={id}>
+      <div className="relative">
+        <input 
+          type="checkbox" 
+          id={id} 
+          className="peer sr-only" 
+          checked={checked} 
+          onChange={(e) => setChecked(e.target.checked)} 
+        />
+        <div className={cn(
+          "h-4 w-4 border rounded transition-all duration-300 flex items-center justify-center",
+          checked ? "bg-stone-900 border-stone-900" : "border-stone-300 bg-white group-hover:border-[#C5A059]"
+        )}>
+          <Check className={cn("w-3 h-3 text-white transition-transform duration-200", checked ? "scale-100" : "scale-0")} />
+        </div>
+      </div>
+      <span className="text-[10px] uppercase tracking-wider text-stone-500 select-none group-hover:text-stone-800 transition-colors">
+        {label}
+      </span>
+    </label>
+  );
+}
+
+export default function LoginSignup() {
+  const [mode, setMode] = useState<Mode>("login");
 
   return (
-    <section className="min-h-screen bg-[#fffcf9] text-stone-900 pt-16 pb-24 relative overflow-hidden">
-      {/* 1. REDESIGNED BACK BUTTON: The "Floating Minimalist" Style */}
-      <div className="fixed top-12 left-6 md:left-12 z-50">
-        <Link href="/" className="group flex flex-col items-center gap-4">
-          <div className="relative">
-             {/* Circular hover ring */}
-            <div className="w-10 h-10 rounded-full border border-stone-200 group-hover:border-amber-700 group-hover:scale-110 transition-all duration-500" />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <svg 
-                viewBox="0 0 24 24" 
-                className="w-4 h-4 text-stone-400 group-hover:text-amber-800 transition-colors" 
-                fill="none" 
-                stroke="currentColor" 
-                strokeWidth="1.5"
+    <main className="min-h-[100dvh] w-full bg-[#FAF9F6] flex items-center justify-center p-4 pt-28 md:p-8 md:pt-36">
+      <div className="w-full max-w-[1000px] bg-white rounded-2xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] overflow-hidden flex flex-col md:flex-row min-h-fit md:min-h-[700px]">
+        
+        {/* Left Panel - Dark Side */}
+        <div className="relative w-full md:w-[40%] bg-stone-900 text-white flex flex-col p-6 md:p-12 overflow-hidden shrink-0">
+          {/* Abstract Pattern Background */}
+          <div className="absolute inset-0 opacity-10 pointer-events-none">
+            <div className="absolute -top-24 -left-24 w-64 h-64 rounded-full bg-[#C5A059] blur-[80px]" />
+            <div className="absolute bottom-0 right-0 w-80 h-80 rounded-full bg-stone-700 blur-[100px]" />
+          </div>
+
+          <div className="relative z-10 flex flex-col h-full justify-between gap-6 md:gap-0">
+            <div className="flex justify-between items-start">
+              <Link 
+                href="/" 
+                className="group flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-stone-400 hover:text-white transition-colors"
               >
-                <path d="M19 12H5M12 19l-7-7 7-7" />
-              </svg>
+                <ArrowLeft className="w-3 h-3 transition-transform group-hover:-translate-x-1" />
+                <span>Return</span>
+              </Link>
             </div>
-          </div>
-          {/* Vertical text for a unique "Editorial" look */}
-          <span className="[writing-mode:vertical-lr] rotate-180 text-[9px] uppercase tracking-[0.4em] text-stone-400 group-hover:text-stone-900 transition-colors font-bold">
-            Return to Studio
-          </span>
-        </Link>
-      </div>
 
-      {/* Delicate Silk Texture Overlay */}
-      <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/pinstripe.png')]" />
-      
-      {/* Soft Glows */}
-      <div className="absolute top-[-10%] right-[-10%] w-125 h-125 bg-amber-100/40 blur-[120px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-[-10%] left-[-10%] w-125 h-125 bg-rose-50/50 blur-[120px] rounded-full pointer-events-none" />
-
-      <div className="container mx-auto px-6 max-w-6xl relative z-10">
-        <div className="text-center mb-16">
-          <Link href="/" className="text-4xl md:text-5xl font-serif tracking-widest uppercase text-stone-800">
-            Maison <span className="italic text-amber-700">Luxe</span>
-          </Link>
-          <p className="mt-4 text-[10px] uppercase tracking-[0.4em] text-stone-400 font-bold">
-            The Bridal & Couture House
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          {/* Left Side: Aesthetic Bridal Imagery */}
-          <div className="hidden lg:block relative group">
-            <div className="aspect-4/5 overflow-hidden border border-stone-200 p-3 bg-white shadow-2xl">
-              <img 
-                src="https://images.unsplash.com/photo-1594552072238-b8a33785b261?auto=format&fit=crop&q=80&w=800" 
-                alt="Lehenga Detail" 
-                className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-stone-900/10 group-hover:bg-transparent transition-colors duration-500" />
+            <div className="flex flex-col items-center text-center my-10 md:my-0">
+              <div className="relative h-24 w-40 mb-6 transform transition-transform duration-500 hover:scale-105">
+                <Image 
+                  src="/images/logo.png" 
+                  alt="Khushi Chauhan Designer Studio" 
+                  fill 
+                  className="object-contain" 
+                  priority 
+                />
+              </div>
+              <div className="space-y-2">
+                <p className="text-[10px] uppercase tracking-[0.5em] text-[#C5A059]">Designer Studio</p>
+                <div className="w-8 h-px bg-stone-700 mx-auto" />
+                <p className="text-[9px] text-stone-500 font-light tracking-widest">Est. 2024</p>
+              </div>
             </div>
-              <div className="absolute -bottom-6 -right-6 bg-amber-700 text-white p-8 max-w-xs shadow-xl">
-                <p className="font-serif italic text-xl">&quot;Every stitch tells a story of heritage and grace.&quot;</p>
-              </div>
-          </div>
 
-          {/* Right Side: The Form */}
-          <div className="w-full max-w-md mx-auto">
-            <div className="bg-white/60 backdrop-blur-md border border-stone-100 p-8 md:p-10 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.05)]">
-              
-              <div className="flex justify-center gap-8 mb-10">
-                {(["login", "signup"] as const).map((t) => (
-                  <button
-                    key={t}
-                    onClick={() => setMode(t)}
-                    className={cn(
-                      "text-xs uppercase tracking-[0.3em] font-bold transition-all pb-2 relative",
-                      mode === t ? "text-amber-800" : "text-stone-300"
-                    )}
-                  >
-                    {t}
-                    {mode === t && (
-                      <motion.div layoutId="underline" className="absolute bottom-0 left-0 w-full h-[1px] bg-amber-700" />
-                    )}
-                  </button>
-                ))}
-              </div>
-
-              <form className="space-y-6">
-                <AnimatePresence mode="wait">
-                  {mode === "signup" && (
-                    <motion.div 
-                      key="name"
-                      initial={{ opacity: 0, y: 10 }} 
-                      animate={{ opacity: 1, y: 0 }} 
-                      exit={{ opacity: 0, y: -10 }}
-                    >
-                      <label className="text-[9px] uppercase font-black tracking-widest text-stone-400 mb-2 block">Full Name</label>
-                      <input
-                        type="text"
-                        className="w-full border-b border-stone-200 bg-transparent py-3 outline-none focus:border-amber-700 transition-colors placeholder:text-stone-300 italic"
-                        placeholder="Enter your name"
-                      />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                <div>
-                  <label className="text-[9px] uppercase font-black tracking-widest text-stone-400 mb-2 block">Email Contact</label>
-                  <input
-                    type="email"
-                    className="w-full border-b border-stone-200 bg-transparent py-3 outline-none focus:border-amber-700 transition-colors placeholder:text-stone-300 italic"
-                    placeholder="example@boutique.com"
-                  />
-                </div>
-
-                <div>
-                  <label className="text-[9px] uppercase font-black tracking-widest text-stone-400 mb-2 block">Secure Password</label>
-                  <input
-                    type="password"
-                    className="w-full border-b border-stone-200 bg-transparent py-3 outline-none focus:border-amber-700 transition-colors placeholder:text-stone-300"
-                    placeholder="••••••••"
-                  />
-                </div>
-
-                <div className="pt-6">
-                  <button className="w-full py-5 bg-stone-900 text-white text-[10px] uppercase font-bold tracking-[0.4em] hover:bg-amber-800 transition-colors duration-500 shadow-lg active:scale-[0.98]">
-                    {mode === "login" ? "Enter Boutique" : "Join the Maison"}
-                  </button>
-                </div>
-              </form>
-
-              <div className="mt-12 pt-8 border-t border-stone-100 flex justify-between items-center text-[9px]">
-                <span className="uppercase tracking-widest text-stone-400 font-medium">Bespoke Support</span>
-                <button className="uppercase tracking-widest font-bold border-b border-stone-900 hover:text-amber-700 hover:border-amber-700 transition-colors">
-                  Contact Concierge
+            <div className="flex justify-center gap-12">
+              {(["login", "signup"] as const).map((m) => (
+                <button
+                  key={m}
+                  onClick={() => setMode(m)}
+                  className="group relative py-2"
+                >
+                  <span className={cn(
+                    "text-[10px] uppercase tracking-[0.3em] transition-colors duration-300",
+                    mode === m ? "text-[#C5A059]" : "text-stone-500 group-hover:text-stone-300"
+                  )}>
+                    {m}
+                  </span>
+                  <span className={cn(
+                    "absolute bottom-0 left-1/2 -translate-x-1/2 h-px bg-[#C5A059] transition-all duration-300 ease-out",
+                    mode === m ? "w-full" : "w-0 group-hover:w-1/2"
+                  )} />
                 </button>
-              </div>
+              ))}
             </div>
           </div>
         </div>
+
+        {/* Right Panel - Form Side */}
+        <div className="w-full md:w-[60%] bg-white p-8 md:p-16 flex flex-col justify-center relative">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={mode}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              className="w-full max-w-md mx-auto"
+            >
+              <div className="mb-10 text-center md:text-left">
+                <motion.h2 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 }}
+                  className="text-3xl md:text-4xl font-serif text-stone-900 mb-3"
+                >
+                  {mode === "login" ? "Welcome Back" : "Join the Studio"}
+                </motion.h2>
+                <motion.p 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.2 }}
+                  className="text-[11px] uppercase tracking-[0.2em] text-stone-500 leading-relaxed"
+                >
+                  {mode === "login"
+                    ? "Access your curated wishlist and orders"
+                    : "Begin your bespoke fashion journey today"}
+                </motion.p>
+              </div>
+
+              <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+                {mode === "signup" && (
+                  <LuxeInput id="name" label="Full Name" type="text" delay={0.1} />
+                )}
+                <LuxeInput id="email" label="Email Address" type="email" delay={0.2} />
+                <LuxeInput id="password" label="Password" type="password" delay={0.3} />
+
+                <motion.div 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.4 }}
+                  className="flex items-center justify-between pt-2"
+                >
+                  <Checkbox id="remember" label="Remember me" />
+                  {mode === "login" && (
+                    <button className="text-[9px] uppercase tracking-widest text-[#C5A059] hover:text-stone-900 transition-colors">
+                      Forgot password?
+                    </button>
+                  )}
+                </motion.div>
+
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                  className="pt-4"
+                >
+                  <PrimaryButton>{mode === "login" ? "Sign In" : "Create Account"}</PrimaryButton>
+                </motion.div>
+              </form>
+              
+              {/* Optional Footer Text */}
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.6 }}
+                className="mt-8 text-center"
+              >
+                <p className="text-[10px] text-stone-400">
+                  By continuing, you agree to our <a href="#" className="underline hover:text-stone-900">Terms</a> and <a href="#" className="underline hover:text-stone-900">Privacy Policy</a>.
+                </p>
+              </motion.div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
-    </section>
+    </main>
   );
 }

@@ -62,8 +62,8 @@ export default function Navbar() {
           "fixed top-0 left-0 w-full z-50 transition-colors duration-500",
           isScrolled || activeCategory || pathname !== "/" ? "bg-black/90 backdrop-blur-md border-b border-white/5" : "bg-transparent"
         )}
-        initial={{ y: -100 }}
-        animate={{ y: hidden ? -100 : 0 }}
+        initial={{ y: "-100%" }}
+        animate={{ y: hidden ? "-100%" : 0 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         onMouseLeave={() => setActiveCategory(null)}
         role="navigation"

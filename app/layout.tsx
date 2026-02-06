@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Josefin_Sans } from "next/font/google";
+import { Josefin_Sans, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/footer/Footer";
@@ -10,6 +10,12 @@ const josefinSans = Josefin_Sans({
   variable: "--font-josefin",
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700"],
+});
+
+const playfairDisplay = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -25,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${josefinSans.variable} antialiased bg-black text-primary font-sans`}
+        className={`${josefinSans.variable} ${playfairDisplay.variable} antialiased bg-black text-primary font-sans`}
         suppressHydrationWarning={true}
       >
         <CartProvider>

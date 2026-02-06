@@ -43,6 +43,9 @@ const products: Product[] = [
   { id: "dc3", name: "Everyday Drape Dress", price: 430, category: "Drape Casual Fit", image: "/images/img8.png" },
   { id: "dc4", name: "Layered Drape Tunic", price: 410, category: "Drape Casual Fit", image: "/images/img6.jpg" },
   { id: "dc5", name: "Effortless Drape Kurta", price: 450, category: "Drape Casual Fit", image: "/images/img1.jpg" },
+  { id: "dc6", name: "Soft Drape Column", price: 640, category: "Drape Casual Fit", image: "/images/3.jpg" },
+  { id: "dc7", name: "Moody Drape Cocktail", price: 920, category: "Drape Casual Fit", image: "/images/img15.png" },
+  { id: "dc8", name: "Satin Drape Evening", price: 730, category: "Drape Casual Fit", image: "/images/img21.png" },
 ];
 
 export default function ShopGrid({ category }: ShopGridProps) {

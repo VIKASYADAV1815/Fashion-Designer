@@ -23,7 +23,7 @@ export default function Footer() {
               <div className="relative w-[260px] h-[110px] md:w-[340px] md:h-[130px] transition-transform duration-500 group-hover:scale-[1.02]">
                 <Image
                   src="/images/logo.png"
-                  alt="Khusi Desinger logo"
+                  alt="Khushi Desinger logo"
                   fill
                   className="object-contain object-center md:object-left"
                   priority
@@ -31,7 +31,7 @@ export default function Footer() {
               </div>
             </Link>
             <p className="text-gray-500 text-sm max-w-sm font-light leading-relaxed">
-              Khusi Desinger brings bespoke silhouettes and contemporary details
+              Khushi Desinger brings bespoke silhouettes and contemporary details
               together for effortlessly elegant looks.
             </p>
           </div>
@@ -80,7 +80,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="flex flex-col md:flex-row justify-between items-center pt-10 border-t border-white/5 gap-8">
           <p className="text-[9px] uppercase tracking-[0.3em] text-gray-600 order-2 md:order-1">
-            © 2026 Khusi Desinger. All rights reserved.
+            © 2026 Khushi Desinger. All rights reserved.
           </p>
           
           <div className="flex space-x-10 order-1 md:order-2">
