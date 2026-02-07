@@ -15,10 +15,9 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [cartOpen, setCartOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const { scrollY } = useScroll();
-  const { items } = useCart();
+  const { items, open, openCart, closeCart } = useCart();
   const [hidden, setHidden] = useState(false);
   const lastY = useRef(0);
   const pathname = usePathname();
@@ -185,12 +184,14 @@ export default function Navbar() {
               <button
                 className="hover:text-gray-300 transition-colors relative"
                 aria-label="Cart"
-                onClick={() => setCartOpen(true)}
+                onClick={() => openCart()}
               >
                 <ShoppingBag size={20} strokeWidth={1.5} />
-                <span className="absolute -top-1 -right-1 min-w-4 px-1 h-4 bg-white text-black rounded-full text-[10px] leading-4 text-center">
-                  {items.length}
-                </span>
+                {items.reduce((sum, i) => sum + i.qty, 0) > 0 && (
+                  <span className="absolute -top-1 -right-1 min-w-4 px-1 h-4 bg-white text-black rounded-full text-[10px] leading-4 text-center">
+                    {items.reduce((sum, i) => sum + i.qty, 0)}
+                  </span>
+                )}
               </button>
             </div>
           </div>
@@ -250,7 +251,7 @@ export default function Navbar() {
         )}
       </AnimatePresence>
       
-      <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
+      <CartDrawer open={open} onClose={closeCart} />
       <AnimatePresence>
         {searchOpen && (
           <motion.div

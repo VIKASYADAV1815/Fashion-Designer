@@ -37,6 +37,10 @@ const products: Product[] = [
   { id: "s3", name: "Banarasi Brocade Saree", price: 980, category: "Saree", image: "/images/img14.png" },
   { id: "s4", name: "Pastel Organza Saree", price: 540, category: "Saree", image: "/images/img13.png" },
   { id: "s5", name: "Classic Red Silk Saree", price: 890, category: "Saree", image: "/images/2.jpg" },
+  { id: "s6", name: "Ivory Sheer Saree", price: 760, category: "Saree", image: "/images/0.jpg" },
+  { id: "s7", name: "Amber Satin Saree", price: 820, category: "Saree", image: "/images/1.jpg" },
+  { id: "s8", name: "Midnight Blue Saree", price: 910, category: "Saree", image: "/images/3.jpg" },
+  { id: "s9", name: "Rose Organza Saree", price: 690, category: "Saree", image: "/images/5.jpg" },
 
   { id: "dc1", name: "Drape Casual Set", price: 480, category: "Drape Casual Fit", image: "/images/img3.jpg" },
   { id: "dc2", name: "Relaxed Drape Co-ord", price: 520, category: "Drape Casual Fit", image: "/images/img9.png" },
@@ -46,6 +50,10 @@ const products: Product[] = [
   { id: "dc6", name: "Soft Drape Column", price: 640, category: "Drape Casual Fit", image: "/images/3.jpg" },
   { id: "dc7", name: "Moody Drape Cocktail", price: 920, category: "Drape Casual Fit", image: "/images/img15.png" },
   { id: "dc8", name: "Satin Drape Evening", price: 730, category: "Drape Casual Fit", image: "/images/img21.png" },
+  { id: "dc9", name: "Olive Drape Set", price: 520, category: "Drape Casual Fit", image: "/images/img20.png" },
+  { id: "dc10", name: "Charcoal Drape Dress", price: 610, category: "Drape Casual Fit", image: "/images/4.jpg" },
+  { id: "dc11", name: "Sand Drape Tunic", price: 480, category: "Drape Casual Fit", image: "/images/img4.jpg" },
+  { id: "dc12", name: "Clay Drape Co-ord", price: 560, category: "Drape Casual Fit", image: "/images/2.jpg" },
 ];
 
 export default function ShopGrid({ category }: ShopGridProps) {
@@ -57,9 +65,14 @@ export default function ShopGrid({ category }: ShopGridProps) {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   const filtered = useMemo(() => {
+    const alias: Record<string, string> = {
+      "casual-fit": "drape casual fit",
+      drape: "drape casual fit",
+    };
+    const target = category ? (alias[category.toLowerCase()] || category.toLowerCase()) : undefined;
     return products.filter((p) => {
-      const byCategory = category
-        ? p.category.toLowerCase() === category.toLowerCase()
+      const byCategory = target
+        ? p.category.toLowerCase() === target
         : true;
       const byQuery = query
         ? p.name.toLowerCase().includes(query.toLowerCase())

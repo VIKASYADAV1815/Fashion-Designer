@@ -1,81 +1,147 @@
+"use client";
+
+import React from 'react';
+
 export default function PrivacyPolicyPage() {
   return (
-    <main className="bg-white text-black pt-24 pb-32">
-      <div className="container mx-auto px-6 max-w-4xl">
-        <header className="mb-16">
-          <h1 className="text-[clamp(2rem,4vw,4rem)] font-light uppercase tracking-tighter mb-6 text-black">
-            Privacy Policy
-          </h1>
-          <div className="flex flex-col md:flex-row md:justify-between gap-4 border-b border-black/10 pb-8">
-            <p className="text-xs uppercase tracking-[0.25em] text-gray-500">
-              Your privacy, our commitment
-            </p>
-            <p className="text-[10px] uppercase tracking-[0.2em] text-gray-400">
-              Last Updated: February 3, 2026
-            </p>
+    <main className="bg-white text-zinc-700 min-h-screen flex font-sans selection:bg-zinc-100 relative">
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes tickerVertical {
+          0% { transform: translateY(0); }
+          100% { transform: translateY(-50%); }
+        }
+        .animate-ticker-studio {
+          animation: tickerVertical 40s linear infinite;
+        }
+      `}} />
+
+      {/* LEFT SIDE: Branded Ticker - Refined weight and subtle border */}
+      <aside className="hidden md:flex w-14 border-r border-zinc-200 flex-col overflow-hidden sticky top-0 h-screen bg-white z-20">
+        <div className="animate-ticker-studio flex flex-col items-center pt-10">
+          {[...Array(10)].map((_, i) => (
+            <div key={i} className="flex flex-col items-center py-16 gap-20">
+              <span className="[writing-mode:vertical-lr] rotate-180 text-[9px] uppercase tracking-[0.6em] font-semibold text-zinc-400 whitespace-nowrap">
+                khushi chauhan designer studio
+              </span>
+              <div className="h-12 w-[1px] bg-zinc-100"></div>
+            </div>
+          ))}
+        </div>
+      </aside>
+
+      {/* RIGHT SIDE: Content Area */}
+      <div className="flex-1 overflow-visible">
+        <div className="max-w-5xl w-full mx-auto px-8 md:px-16 pt-32 pb-32">
+          
+          {/* Header - Sophisticated balance */}
+          <header className="mb-24 flex flex-col md:flex-row md:items-end justify-between border-b border-zinc-200 pb-12 gap-8">
+            <div className="max-w-xl">
+              <h1 className="text-4xl font-light tracking-tight text-zinc-900 mb-4 uppercase">
+                Privacy <span className="font-bold">Policy</span>
+              </h1>
+              <p className="text-[10px] uppercase tracking-[0.4em] text-zinc-400 font-semibold">
+                Ethical data handling & user sovereignty
+              </p>
+            </div>
+            <div className="text-right flex flex-col gap-1">
+              <span className="text-[10px] uppercase tracking-widest font-bold text-zinc-800">Ref / Studio-026</span>
+              <span className="text-[9px] uppercase tracking-widest text-zinc-400 font-medium">Updated February 2026</span>
+            </div>
+          </header>
+
+          <div className="space-y-32">
+            
+            {/* Section 01 */}
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+              <div className="md:col-span-4 text-zinc-400">
+                <h2 className="text-[10px] uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
+                  01 / Introduction
+                </h2>
+              </div>
+              <div className="md:col-span-8 border-l border-zinc-200 pl-8">
+                <p className="text-[15px] leading-relaxed max-w-lg text-zinc-600">
+                  This document serves as a standard for how we handle your creative and personal data. We operate with high-level encryption and minimal footprint protocols.
+                </p>
+              </div>
+            </div>
+
+            {/* Section 02 */}
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+              <div className="md:col-span-4 text-zinc-400">
+                <h2 className="text-[10px] uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
+                  02 / Collection
+                </h2>
+              </div>
+              <div className="md:col-span-8 border-l border-zinc-200 pl-8 space-y-12">
+                <div className="space-y-4">
+                  <h3 className="text-[11px] font-bold uppercase tracking-widest text-zinc-800">Personal Details</h3>
+                  <p className="text-sm leading-relaxed text-zinc-500 max-w-md">
+                    Name, email, and shipping coordinates required for studio project delivery and transactional correspondence.
+                  </p>
+                </div>
+                <div className="space-y-4 pt-6 border-t border-zinc-100">
+                  <h3 className="text-[11px] font-bold uppercase tracking-widest text-zinc-800">Technical Data</h3>
+                  <p className="text-sm leading-relaxed text-zinc-500 max-w-md">
+                    Analytics regarding device type and IP sequences used to optimize the studio's digital experience and security infrastructure.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Section 03 */}
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+              <div className="md:col-span-4 text-zinc-400">
+                <h2 className="text-[10px] uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
+                  03 / Core Usage
+                </h2>
+              </div>
+              <div className="md:col-span-8 border-l border-zinc-200 pl-8">
+                <ul className="space-y-5 max-w-md">
+                  {[
+                    "Client project management",
+                    "Security & fraud detection",
+                    "Service improvement analysis",
+                    "Legal compliance"
+                  ].map((text, i) => (
+                    <li key={i} className="flex items-baseline justify-between gap-4 group cursor-default">
+                      <span className="text-[13px] font-medium text-zinc-600 group-hover:text-zinc-900 transition-colors">{text}</span>
+                      <div className="flex-1 border-b border-dashed border-zinc-200"></div>
+                      <span className="text-[9px] font-bold uppercase text-zinc-300">Item.0{i+1}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Section 04 */}
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+              <div className="md:col-span-4 text-zinc-400">
+                <h2 className="text-[10px] uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
+                  04 / Inquiry
+                </h2>
+              </div>
+              <div className="md:col-span-8 border-l border-zinc-200 pl-8">
+                <div className="bg-zinc-50/50 p-10 max-w-lg border border-zinc-100">
+                  <p className="text-sm leading-relaxed text-zinc-500 mb-8 font-light italic">
+                    For all matters regarding data sovereignty, access requests, or deletion protocols, please contact our legal desk.
+                  </p>
+                  <p className="text-[10px] uppercase tracking-widest font-bold mb-1 text-zinc-300">Contact</p>
+                  <a href="mailto:privacy@khushichauhan.studio" className="text-sm font-semibold border-b border-zinc-800 pb-1 hover:text-zinc-400 transition-colors">
+                    privacy@khushichauhan.studio
+                  </a>
+                </div>
+              </div>
+            </div>
+
           </div>
-        </header>
 
-        <div className="space-y-16 text-gray-700">
-          {/* Section 1: Overview */}
-          <section>
-            <h2 className="text-lg uppercase tracking-[0.2em] mb-4 text-black font-medium">Introduction</h2>
-            <p className="text-sm leading-loose">
-              This Privacy Policy describes how your personal information is collected, used, and shared when you visit or make a purchase from our platform. We operate on a principle of transparency and minimal data retention to ensure your digital footprint remains secure and private.
-            </p>
-          </section>
-
-          {/* Section 2: Collection */}
-          <section>
-            <h2 className="text-lg uppercase tracking-[0.2em] mb-4 text-black font-medium">Information We Collect</h2>
-            <div className="space-y-4 text-sm leading-loose">
-              <p>
-                <strong className="text-black font-semibold uppercase tracking-wide text-[10px]">Direct Information /</strong> We collect personal information you provide such as name, email, shipping address, and payment details (processed via secure encryption) to fulfill purchases and provide customer support.
-              </p>
-              <p>
-                <strong className="text-black font-semibold uppercase tracking-wide text-[10px]">Device Information /</strong> When you visit the site, we automatically collect certain information about your device, including your web browser, IP address, time zone, and some of the cookies that are installed on your device.
-              </p>
+          <footer className="mt-40 border-t border-zinc-200 pt-8 flex justify-between items-center">
+            <p className="text-[9px] uppercase tracking-[0.5em] text-zinc-300 font-medium">© 2026 Studio Khushi Chauhan</p>
+            <div className="flex gap-2">
+               <div className="w-1 h-1 rounded-full bg-zinc-200"></div>
+               <div className="w-1 h-1 rounded-full bg-zinc-300"></div>
             </div>
-          </section>
-
-          {/* Section 3: Usage */}
-          <section>
-            <h2 className="text-lg uppercase tracking-[0.2em] mb-4 text-black font-medium">How We Use Your Data</h2>
-            <ul className="text-sm leading-loose list-none space-y-3">
-              <li className="flex gap-4 border-l border-black/10 pl-4">
-                <span>To process transactions and deliver products effectively.</span>
-              </li>
-              <li className="flex gap-4 border-l border-black/10 pl-4">
-                <span>To communicate with you regarding order updates or security alerts.</span>
-              </li>
-              <li className="flex gap-4 border-l border-black/10 pl-4">
-                <span>To screen for potential risk or fraud.</span>
-              </li>
-              <li className="flex gap-4 border-l border-black/10 pl-4">
-                <span>To optimize our interface based on how users interact with our content.</span>
-              </li>
-            </ul>
-          </section>
-
-          {/* Section 4: Security */}
-          <section>
-            <h2 className="text-lg uppercase tracking-[0.2em] mb-4 text-black font-medium">Data Security</h2>
-            <p className="text-sm leading-loose">
-              We do not sell, rent, or trade your personal information to third parties. We only share your Personal Information with trusted third-party service providers to help us use your Personal Information as described above. We employ Industry-standard SSL encryption to protect data in transit.
-            </p>
-          </section>
-
-          {/* Section 5: Rights & Contact */}
-          <section>
-            <h2 className="text-lg uppercase tracking-[0.2em] mb-4 text-black font-medium">Your Rights</h2>
-            <p className="text-sm leading-loose mb-8">
-              You have the right to access personal information we hold about you and to ask that your personal information be corrected, updated, or deleted. To exercise these rights, please reach out through our dedicated channel.
-            </p>
-            <div className="p-8 bg-gray-50 border border-gray-100 inline-block min-w-[300px]">
-              <p className="text-[10px] uppercase tracking-[0.2em] text-gray-400 mb-2">Legal Inquiries</p>
-              <p className="text-sm font-medium tracking-tight">privacy@yourdomain.com</p>
-            </div>
-          </section>
+          </footer>
         </div>
       </div>
     </main>

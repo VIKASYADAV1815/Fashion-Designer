@@ -154,6 +154,42 @@ const products = [
     details: ["Silk", "Minimal Border", "Blouse Piece Included", "Dry Clean"]
   },
   {
+    id: "s6",
+    name: "Ivory Sheer Saree",
+    price: 760,
+    category: "Saree",
+    description: "Ivory sheer saree with delicate fall and soft sheen.",
+    images: ["/images/0.jpg", "/images/1.jpg"],
+    details: ["Sheer Fabric", "Delicate Finish", "Blouse Piece Included", "Cold Wash"]
+  },
+  {
+    id: "s7",
+    name: "Amber Satin Saree",
+    price: 820,
+    category: "Saree",
+    description: "Amber satin saree with smooth drape and subtle shine.",
+    images: ["/images/1.jpg", "/images/5.jpg"],
+    details: ["Satin", "Smooth Drape", "Premium Finish", "Dry Clean"]
+  },
+  {
+    id: "s8",
+    name: "Midnight Blue Saree",
+    price: 910,
+    category: "Saree",
+    description: "Deep blue saree crafted for evening elegance.",
+    images: ["/images/3.jpg", "/images/4.jpg"],
+    details: ["Evening Wear", "Rich Tone", "Blouse Piece Included", "Dry Clean"]
+  },
+  {
+    id: "s9",
+    name: "Rose Organza Saree",
+    price: 690,
+    category: "Saree",
+    description: "Rose-toned organza with airy movement and grace.",
+    images: ["/images/5.jpg", "/images/img13.png"],
+    details: ["Organza", "Airy Movement", "Daywear", "Cold Wash"]
+  },
+  {
     id: "dc1",
     name: "Drape Casual Set",
     price: 480,
@@ -198,6 +234,43 @@ const products = [
     images: ["/images/img1.jpg", "/images/img3.jpg"],
     details: ["Relaxed Fit", "Soft Fabric", "Comfort Wear", "Machine Wash"]
   }
+  ,
+  {
+    id: "dc9",
+    name: "Olive Drape Set",
+    price: 520,
+    category: "Drape Casual Fit",
+    description: "Olive co-ord with relaxed drape panels for everyday ease.",
+    images: ["/images/img20.png", "/images/img3.jpg"],
+    details: ["Co-ord Set", "Relaxed Panels", "Breathable", "Machine Wash"]
+  },
+  {
+    id: "dc10",
+    name: "Charcoal Drape Dress",
+    price: 610,
+    category: "Drape Casual Fit",
+    description: "Charcoal-toned dress with soft drape and comfort fit.",
+    images: ["/images/4.jpg", "/images/3.jpg"],
+    details: ["Comfort Fit", "Soft Drape", "Day-to-Night", "Machine Wash"]
+  },
+  {
+    id: "dc11",
+    name: "Sand Drape Tunic",
+    price: 480,
+    category: "Drape Casual Fit",
+    description: "Sand-toned tunic with gentle drape and easy styling.",
+    images: ["/images/img4.jpg", "/images/2.jpg"],
+    details: ["Gentle Drape", "Easy Styling", "Breathable", "Machine Wash"]
+  },
+  {
+    id: "dc12",
+    name: "Clay Drape Co-ord",
+    price: 560,
+    category: "Drape Casual Fit",
+    description: "Clay co-ord set with balanced structure and movement.",
+    images: ["/images/2.jpg", "/images/img21.png"],
+    details: ["Co-ord Set", "Balanced Structure", "Soft Handfeel", "Machine Wash"]
+  }
 ];
 
 export default function ProductPage() {
@@ -205,7 +278,7 @@ export default function ProductPage() {
   const router = useRouter();
   const [activeImage, setActiveImage] = useState(0);
   const [qty, setQty] = useState(1);
-  const { addItem } = useCart();
+  const { addItem, openCart } = useCart();
 
   // Handle finding product with slugify fallback
   const id = params?.id as string;
@@ -324,6 +397,7 @@ export default function ProductPage() {
                       for (let i = 0; i < qty; i++) {
                         addItem({ id: product.id, name: product.name, price: product.price, image: product.images[0] });
                       }
+                      openCart();
                     }}
                   >
                     Add to Cart
