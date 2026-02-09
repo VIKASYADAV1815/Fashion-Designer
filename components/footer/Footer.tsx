@@ -10,7 +10,7 @@ export default function Footer() {
       { label: "Careers", href: "/careers", internal: true },
     ],
     support: [
-      { label: "Contact Us", href: "mailto:support@khushichauhan.studio", internal: false },
+      { label: "Contact Us", href: "/contact", internal: true },
       { label: "FAQ", href: "/faq", internal: true },
     ],
     legal: [
@@ -51,16 +51,16 @@ export default function Footer() {
 
           {/* Navigation Links - Balanced for Large Logo */}
           <div className="col-span-1 md:col-span-2 md:col-start-7 text-center md:text-left">
-            <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] mb-8 text-white">Company</h4>
+            <h4 className="text-xs md:text-sm font-bold uppercase tracking-[0.4em] mb-8 text-white">Company</h4>
             <ul className="space-y-4">
               {footerLinks.company.map((item) => (
                 <li key={item.label}>
                   {item.internal ? (
-                    <Link href={item.href} className="text-[11px] uppercase tracking-widest font-semibold text-white/80 hover:text-white transition-colors">
+                    <Link href={item.href} className="text-sm md:text-base uppercase tracking-widest font-semibold text-white/80 hover:text-white transition-colors">
                       {item.label}
                     </Link>
                   ) : (
-                    <a href={item.href} className="text-[11px] uppercase tracking-widest font-semibold text-white/80 hover:text-white transition-colors">
+                    <a href={item.href} className="text-sm md:text-base uppercase tracking-widest font-semibold text-white/80 hover:text-white transition-colors">
                       {item.label}
                     </a>
                   )}
@@ -70,16 +70,16 @@ export default function Footer() {
           </div>
 
           <div className="col-span-1 md:col-span-2 text-center md:text-left">
-            <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] mb-8 text-white">Support</h4>
+            <h4 className="text-xs md:text-sm font-bold uppercase tracking-[0.4em] mb-8 text-white">Support</h4>
             <ul className="space-y-4">
               {footerLinks.support.map((item) => (
                 <li key={item.label}>
                   {item.internal ? (
-                    <Link href={item.href} className="text-[11px] uppercase tracking-widest font-semibold text-white/80 hover:text-white transition-colors">
+                    <Link href={item.href} className="text-sm md:text-base uppercase tracking-widest font-semibold text-white/80 hover:text-white transition-colors">
                       {item.label}
                     </Link>
                   ) : (
-                    <a href={item.href} className="text-[11px] uppercase tracking-widest font-semibold text-white/80 hover:text-white transition-colors">
+                    <a href={item.href} className="text-sm md:text-base uppercase tracking-widest font-semibold text-white/80 hover:text-white transition-colors">
                       {item.label}
                     </a>
                   )}
@@ -89,16 +89,16 @@ export default function Footer() {
           </div>
 
           <div className="col-span-1 md:col-span-2 text-center md:text-left">
-            <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] mb-8 text-white">Legal</h4>
+            <h4 className="text-xs md:text-sm font-bold uppercase tracking-[0.4em] mb-8 text-white">Legal</h4>
             <ul className="space-y-4">
               {footerLinks.legal.map((item) => (
                 <li key={item.label}>
                   {item.internal ? (
-                    <Link href={item.href} className="text-[11px] uppercase tracking-widest font-semibold text-white/80 hover:text-white transition-colors">
+                    <Link href={item.href} className="text-sm md:text-base uppercase tracking-widest font-semibold text-white/80 hover:text-white transition-colors">
                       {item.label}
                     </Link>
                   ) : (
-                    <a href={item.href} className="text-[11px] uppercase tracking-widest font-semibold text-white/80 hover:text-white transition-colors">
+                    <a href={item.href} className="text-sm md:text-base uppercase tracking-widest font-semibold text-white/80 hover:text-white transition-colors">
                       {item.label}
                     </a>
                   )}

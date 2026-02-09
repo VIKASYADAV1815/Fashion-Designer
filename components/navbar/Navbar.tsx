@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
@@ -21,6 +21,9 @@ export default function Navbar() {
   const [hidden, setHidden] = useState(false);
   const lastY = useRef(0);
   const pathname = usePathname();
+  useEffect(() => {
+    console.log("[nav] route changed:", pathname);
+  }, [pathname]);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const dy = latest - lastY.current;
@@ -45,6 +48,7 @@ export default function Navbar() {
     { name: "Casual Fit", id: "casual-fit", href: "/casual-fit" },
     { name: "Saree", id: "saree", href: "/saree" },
     { name: "Policies", id: "policies", dropdown: true },
+    { name: "Contact", id: "contact", href: "/contact" },
   ];
   const mobileCategories = [
     { id: "women-all", name: "All Categories", image: "/images/3.jpg" },
@@ -89,6 +93,7 @@ export default function Navbar() {
                   fill
                   priority
                   className="object-contain"
+                  sizes="256px"
                 />
               </div>
               <span className="sr-only">Khusi Desinger</span>
@@ -115,6 +120,7 @@ export default function Navbar() {
                     fill
                     priority
                     className="object-contain"
+                    sizes="320px"
                   />
                 </div>
                 <span className="sr-only">Khusi Desinger</span>

@@ -5,6 +5,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import Link from "next/link";
+import { ShoppingBag } from "lucide-react";
+import { useCart } from "@/components/cart/CartProvider";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -32,6 +34,7 @@ const collections = [
 export default function SignatureCollections() {
   const sectionRef = useRef<HTMLElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const { openCart } = useCart();
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -83,9 +86,19 @@ export default function SignatureCollections() {
                <div className="absolute bottom-0 left-0 w-full p-8 md:p-12 text-white transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
                  <span className="text-xs font-bold uppercase tracking-widest mb-2 block">{collection.subtitle}</span>
                  <h3 className="text-4xl md:text-6xl font-light uppercase tracking-tighter mb-4">{collection.title}</h3>
-                 <Link href={`/shop?query=${encodeURIComponent(String(collection.title).toLowerCase())}`} className="text-xs uppercase tracking-widest border-b border-white pb-1 hover:text-gray-200 transition-colors">
-                   Shop
-                 </Link>
+                 <div className="flex items-center gap-4">
+                   <Link href={`/shop?query=${encodeURIComponent(String(collection.title).toLowerCase())}`} className="text-xs uppercase tracking-widest border-b border-white pb-1 hover:text-gray-200 transition-colors">
+                     Shop
+                   </Link>
+                   <button
+                     type="button"
+                     aria-label="Open cart"
+                     onClick={() => openCart()}
+                     className="p-2 rounded-full bg-white/20 hover:bg-white text-white hover:text-black transition-colors"
+                   >
+                     <ShoppingBag size={18} />
+                   </button>
+                 </div>
                </div>
             </div>
           </div>

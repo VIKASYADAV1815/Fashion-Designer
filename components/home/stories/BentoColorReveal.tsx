@@ -2,6 +2,7 @@
 
 import { ArrowRight, Plus } from "lucide-react";
 import InMotionSlider from "./InMotionSlider";
+import Link from "next/link";
 
 const bentoProducts = [
   { type: "video", name: "Heritage Lehenga", price: "₹84,500", src: "https://res.cloudinary.com/dzq7axes2/video/upload/v1770113143/video1_em8fnl.mp4", span: "md:col-span-4 md:row-span-2", mobileRatio: "aspect-[9/15]" },
@@ -26,9 +27,9 @@ export default function BentoWithCompactSlider() {
             </h2>
             <p className="text-xs uppercase tracking-widest text-stone-400 mt-2">Curated Masterpieces</p>
           </div>
-          <button className="hidden md:flex items-center gap-2 text-xs uppercase tracking-widest font-semibold hover:gap-4 transition-all duration-300">
+          <Link href="/shop" className="hidden md:flex items-center gap-2 text-xs uppercase tracking-widest font-semibold hover:gap-4 transition-all duration-300">
             View All <ArrowRight size={14} />
-          </button>
+          </Link>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-12 grid-flow-dense md:auto-rows-[300px] gap-6 mb-24">
@@ -56,9 +57,9 @@ export default function BentoWithCompactSlider() {
                       <h3 className="text-lg font-serif leading-tight">{p.name}</h3>
                       <p className="text-sm font-light italic mt-1">{p.price}</p>
                     </div>
-                    <button className="bg-white/20 backdrop-blur-md p-3 rounded-full text-white hover:bg-white hover:text-stone-900 transition-colors">
+                    <Link href="/shop" className="bg-white/20 backdrop-blur-md p-3 rounded-full text-white hover:bg-white hover:text-stone-900 transition-colors" aria-label="Open Shop">
                         <Plus size={18} />
-                    </button>
+                    </Link>
                   </div>
                 </div>
                 {/* --- END FIX --- */}

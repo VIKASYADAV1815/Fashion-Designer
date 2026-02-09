@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import AnimatedButton from "../buttons/AnimatedButton";
+import { useRouter } from "next/navigation";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -11,6 +12,7 @@ export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -80,6 +82,9 @@ export default function Hero() {
                 text-sm lg:text-[0.85rem]
                 tracking-widest
               "
+              onClick={() => {
+                try { router.push("/shop"); } catch (e) { console.error("navigate /shop failed", e); }
+              }}
             >
               Shop Collection
             </AnimatedButton>
@@ -95,6 +100,9 @@ export default function Hero() {
                 text-sm lg:text-[0.85rem]
                 tracking-widest
               "
+              onClick={() => {
+                try { router.push("/collections"); } catch (e) { console.error("navigate /collections failed", e); }
+              }}
             >
               View Lookbook
             </AnimatedButton>

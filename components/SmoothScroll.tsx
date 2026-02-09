@@ -1,9 +1,11 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Lenis from "lenis";
 
 export default function SmoothScroll() {
+  const rafId = useRef<number | null>(null);
+
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.2,
@@ -12,12 +14,13 @@ export default function SmoothScroll() {
 
     function raf(time: number) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      rafId.current = requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf);
+    rafId.current = requestAnimationFrame(raf);
 
     return () => {
+      if (rafId.current) cancelAnimationFrame(rafId.current);
       lenis.destroy();
     };
   }, []);

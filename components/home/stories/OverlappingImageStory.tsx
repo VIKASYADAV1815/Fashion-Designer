@@ -5,6 +5,7 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import AnimatedButton from "@/components/buttons/AnimatedButton";
+import { useRouter } from "next/navigation";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -31,6 +32,7 @@ const frames = [
 
 export default function OverlappingImageStory() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -90,7 +92,14 @@ export default function OverlappingImageStory() {
                 {f.description}
               </p>
               <div className="mt-8">
-                <AnimatedButton variant="outline">Explore More</AnimatedButton>
+                <AnimatedButton 
+                  variant="outline"
+                  onClick={() => {
+                    try { router.push("/shop"); } catch (e) { console.error("navigate /shop failed", e); }
+                  }}
+                >
+                  Explore More
+                </AnimatedButton>
               </div>
             </div>
           ))}
