@@ -99,13 +99,28 @@ export default function Navbar() {
               <span className="sr-only">Khusi Desinger</span>
             </Link>
 
-            <button
-              className="text-white hover:text-gray-300 transition-colors"
-              aria-label="Search"
-              onClick={() => setSearchOpen(!searchOpen)}
-            >
-              <Search size={22} strokeWidth={1.5} />
-            </button>
+            <div className="flex items-center gap-2">
+              <Link
+                href="/account"
+                className="text-white hover:text-gray-300 transition-colors"
+                aria-label="Account"
+              >
+                <User size={22} strokeWidth={1.5} />
+              </Link>
+
+              <button
+                className="text-white hover:text-gray-300 transition-colors relative"
+                aria-label="Cart"
+                onClick={() => openCart()}
+              >
+                <ShoppingBag size={22} strokeWidth={1.5} />
+                {items.reduce((sum, i) => sum + i.qty, 0) > 0 && (
+                  <span className="absolute -top-1 -right-1 min-w-4 px-1 h-4 bg-white text-black rounded-full text-[10px] leading-4 text-center">
+                    {items.reduce((sum, i) => sum + i.qty, 0)}
+                  </span>
+                )}
+              </button>
+            </div>
           </div>
 
           {/* Desktop: logo left, links perfectly centered, icons right */}
@@ -220,7 +235,22 @@ export default function Navbar() {
             className="fixed inset-0 bg-black z-40 lg:hidden pt-24 px-6 pb-24 overflow-y-auto overscroll-y-contain"
             id="mobile-menu"
           >
-            <div className="flex flex-col space-y-8">
+            <div className="flex flex-col space-y-8 pt-8">
+              {/* Mobile Search Button */}
+              <motion.button
+                 initial={{ opacity: 0, y: 20 }}
+                 animate={{ opacity: 1, y: 0 }}
+                 transition={{ delay: 0.05 }}
+                 className="flex items-center gap-4 text-2xl font-light uppercase tracking-widest text-white w-full text-left"
+                 onClick={() => {
+                   setIsMobileMenuOpen(false);
+                   setSearchOpen(true);
+                 }}
+              >
+                <Search size={24} strokeWidth={1.5} />
+                <span>Search</span>
+              </motion.button>
+
               {navLinks.filter((l: NavLink) => !l.dropdown).map((link, i) => (
                 <motion.div
                   key={link.id}

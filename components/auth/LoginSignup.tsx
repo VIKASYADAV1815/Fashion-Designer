@@ -13,7 +13,7 @@ export default function LoginSignup() {
   const [mode, setMode] = useState<Mode>("login");
 
   return (
-    <main className="min-h-screen w-full bg-[#FAF9F6] flex items-start justify-center p-4 md:p-8 pt-24 md:pt-36 font-sans selection:bg-[#C5A059]/20">
+    <main className="min-h-screen w-full bg-[#FAF9F6] flex items-start justify-center p-4 md:p-8 pt-32 md:pt-36 font-sans selection:bg-[#C5A059]/20">
       
       {/* Main Card */}
       <div className="w-full max-w-250 flex flex-col md:flex-row min-h-162.5 bg-white rounded-2xl shadow-[0_40px_100px_-20px_rgba(0,0,0,0.06)] border border-stone-100 overflow-hidden">
