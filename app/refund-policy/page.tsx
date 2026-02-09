@@ -36,111 +36,93 @@ export default function RefundPolicyPage() {
           {/* Header */}
           <header className="mb-24 flex flex-col md:flex-row md:items-end justify-between border-b border-zinc-200 pb-12 gap-8">
             <div className="max-w-xl">
-              <h1 className="text-4xl font-light tracking-tight text-zinc-900 mb-4 uppercase">
-                Refund <span className="font-bold">Policy</span>
+              <h1 className="text-5xl md:text-6xl font-light tracking-tight text-zinc-900 mb-4 uppercase">
+                Refund <span className="font-bold">& Cancellation</span> Policy
               </h1>
-              <p className="text-[10px] uppercase tracking-[0.4em] text-zinc-400 font-semibold">
+              <p className="text-xs md:text-sm uppercase tracking-[0.4em] text-zinc-400 font-semibold">
                 Confidence in every studio purchase
               </p>
             </div>
             <div className="text-right flex flex-col gap-1">
-              <span className="text-[10px] uppercase tracking-widest font-bold text-zinc-800">Code / RET-026</span>
-              <span className="text-[9px] uppercase tracking-widest text-zinc-400 font-medium">Valid from February 2026</span>
+              <span className="text-[11px] md:text-[12px] uppercase tracking-widest font-bold text-zinc-800">Effective Date</span>
+              <span className="text-[10px] md:text-[11px] uppercase tracking-widest text-zinc-400 font-medium">March 1, 2025</span>
             </div>
           </header>
 
           <div className="space-y-32">
             
-            {/* Section 01: Eligibility */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
               <div className="md:col-span-4 text-zinc-400">
-                <h2 className="text-[10px] uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
-                  01 / Eligibility
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
+                  Overview
                 </h2>
               </div>
               <div className="md:col-span-8 border-l border-zinc-200 pl-8">
-                <p className="text-[15px] leading-relaxed max-w-lg text-zinc-600 mb-6">
-                  We accept returns for store credit or refunds within <span className="text-zinc-900 font-semibold">14 days</span> of the delivery date. Items must be in their original, unused condition.
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">
+                  This refund and cancellation policy outlines how you can cancel or seek a refund for a product or service purchased through the platform.
                 </p>
-                <ul className="text-sm space-y-2 text-zinc-500 italic">
-                  <li>— Unworn, unwashed, and unaltered</li>
-                  <li>— Original tags and packaging intact</li>
-                  <li>— No traces of perfume, makeup, or smoke</li>
-                </ul>
               </div>
             </div>
 
-            {/* Section 02: The Process */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
               <div className="md:col-span-4 text-zinc-400">
-                <h2 className="text-[10px] uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
-                  02 / Process
-                </h2>
-              </div>
-              <div className="md:col-span-8 border-l border-zinc-200 pl-8 space-y-12">
-                <div className="space-y-4">
-                  <h3 className="text-[11px] font-bold uppercase tracking-widest text-zinc-800">Initiating a Return</h3>
-                  <p className="text-sm leading-relaxed text-zinc-500 max-w-md">
-                    Please log into your studio account to request a Return Authorization (RA) number, or contact our support desk with your order ID and reason for return.
-                  </p>
-                </div>
-                <div className="space-y-4 pt-6 border-t border-zinc-100">
-                  <h3 className="text-[11px] font-bold uppercase tracking-widest text-zinc-800">Inspection & Approval</h3>
-                  <p className="text-sm leading-relaxed text-zinc-500 max-w-md">
-                    Upon receipt at our studio, items undergo a quality check. Approved returns are processed within 5-7 business days to your original payment method.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Section 03: Exceptions */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-              <div className="md:col-span-4 text-zinc-400">
-                <h2 className="text-[10px] uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
-                  03 / Exceptions
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
+                  Cancellations
                 </h2>
               </div>
               <div className="md:col-span-8 border-l border-zinc-200 pl-8">
-                <div className="space-y-6">
-                   <div className="p-6 bg-zinc-50 border border-zinc-100 max-w-md">
-                      <h4 className="text-[10px] font-bold uppercase mb-2 text-zinc-900">Non-Refundable Items:</h4>
-                      <ul className="text-xs space-y-2 text-zinc-500">
-                        <li>• Bespoke / Made-to-order pieces</li>
-                        <li>• Final sale or archive collection items</li>
-                        <li>• Intimates or jewelry (for hygiene reasons)</li>
-                      </ul>
-                   </div>
-                   <p className="text-sm text-zinc-500 leading-relaxed max-w-md">
-                     If a piece arrives defective or damaged, please notify us within 48 hours for an immediate exchange or full reimbursement.
-                   </p>
-                </div>
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">
+                  Cancellations will only be considered if the request is made within 2 days of placing the order. Requests may not be entertained if the order has already been communicated to sellers/merchants and shipping has been initiated, or the product is out for delivery. In such cases, you may choose to reject the product at the doorstep.
+                </p>
               </div>
             </div>
 
-            {/* Section 04: Shipping */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
               <div className="md:col-span-4 text-zinc-400">
-                <h2 className="text-[10px] uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
-                  04 / Shipping
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
+                  Damaged or Defective Items
+                </h2>
+              </div>
+              <div className="md:col-span-8 border-l border-zinc-200 pl-8 space-y-4">
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">
+                  In case of receipt of damaged or defective items, please report to our customer service team. The request will be entertained once the seller/merchant has checked and determined the same at its end. This must be reported within 2 days of receipt of products.
+                </p>
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">
+                  If the product received is not as shown on the site or as per your expectations, notify customer service within 2 days of receiving the product. The customer service team will review your complaint and take an appropriate decision.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+              <div className="md:col-span-4 text-zinc-400">
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
+                  Manufacturer Warranty
                 </h2>
               </div>
               <div className="md:col-span-8 border-l border-zinc-200 pl-8">
-                <div className="bg-zinc-50/50 p-10 max-w-lg border border-zinc-100">
-                  <p className="text-sm leading-relaxed text-zinc-500 mb-8 font-light italic">
-                    Return shipping costs are the responsibility of the client unless the item is faulty. We recommend using a trackable service as we are not liable for lost packages.
-                  </p>
-                  <p className="text-[10px] uppercase tracking-widest font-bold mb-1 text-zinc-300">Support Desk</p>
-                  <a href="mailto:support@khushichauhan.studio" className="text-sm font-semibold border-b border-zinc-800 pb-1 hover:text-zinc-400 transition-colors">
-                    support@khushichauhan.studio
-                  </a>
-                </div>
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">
+                  For products that come with a manufacturer warranty, please refer issues directly to the manufacturer.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+              <div className="md:col-span-4 text-zinc-400">
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
+                  Refunds Timeline
+                </h2>
+              </div>
+              <div className="md:col-span-8 border-l border-zinc-200 pl-8">
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">
+                  If any refunds are approved by our team, they will be processed and credited within 2–5 working days to the original payment method.
+                </p>
               </div>
             </div>
 
           </div>
 
           <footer className="mt-40 border-t border-zinc-200 pt-8 flex justify-between items-center">
-            <p className="text-[9px] uppercase tracking-[0.5em] text-zinc-300 font-medium">© 2026 Studio Khushi Chauhan</p>
+            <p className="text-[10px] md:text-[11px] uppercase tracking-[0.5em] text-zinc-300 font-medium">© 2026 Studio Khushi Chauhan</p>
             <div className="flex gap-2">
                <div className="w-1 h-1 rounded-full bg-zinc-200"></div>
                <div className="w-1 h-1 rounded-full bg-zinc-300"></div>

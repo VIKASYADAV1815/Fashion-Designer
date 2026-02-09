@@ -36,107 +36,85 @@ export default function ReturnPolicyPage() {
           {/* Header */}
           <header className="mb-24 flex flex-col md:flex-row md:items-end justify-between border-b border-zinc-200 pb-12 gap-8">
             <div className="max-w-xl">
-              <h1 className="text-4xl font-light tracking-tight text-zinc-900 mb-4 uppercase">
+              <h1 className="text-5xl md:text-6xl font-light tracking-tight text-zinc-900 mb-4 uppercase">
                 Return <span className="font-bold">Policy</span>
               </h1>
-              <p className="text-[10px] uppercase tracking-[0.4em] text-zinc-400 font-semibold">
+              <p className="text-xs md:text-sm uppercase tracking-[0.4em] text-zinc-400 font-semibold">
                 Simple, transparent returns & exchanges
               </p>
             </div>
             <div className="text-right flex flex-col gap-1">
-              <span className="text-[10px] uppercase tracking-widest font-bold text-zinc-800">Ref / LOG-026</span>
-              <span className="text-[9px] uppercase tracking-widest text-zinc-400 font-medium">Updated February 2026</span>
+              <span className="text-[11px] md:text-[12px] uppercase tracking-widest font-bold text-zinc-800">Effective Date</span>
+              <span className="text-[10px] md:text-[11px] uppercase tracking-widest text-zinc-400 font-medium">March 1, 2025</span>
             </div>
           </header>
 
           <div className="space-y-32">
             
-            {/* Section 01: Timeframe */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
               <div className="md:col-span-4 text-zinc-400">
-                <h2 className="text-[10px] uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
-                  01 / Timeframe
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
+                  7‑Day Window
                 </h2>
               </div>
               <div className="md:col-span-8 border-l border-zinc-200 pl-8">
-                <p className="text-[15px] leading-relaxed max-w-lg text-zinc-600 mb-6">
-                  We offer a <span className="text-zinc-900 font-semibold">14-day return window</span> from the date your package is marked as delivered. Requests made outside this period may be eligible for studio credit at our discretion.
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">
+                  We offer refund or exchange within the first 7 days from the date of your purchase. If 7 days have passed since your purchase, you will not be offered a return, exchange, or refund of any kind.
                 </p>
               </div>
             </div>
 
-            {/* Section 02: Method & Logistics */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
               <div className="md:col-span-4 text-zinc-400">
-                <h2 className="text-[10px] uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
-                  02 / Method
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
+                  Eligibility
                 </h2>
               </div>
-              <div className="md:col-span-8 border-l border-zinc-200 pl-8 space-y-12">
-                <div className="space-y-4">
-                  <h3 className="text-[11px] font-bold uppercase tracking-widest text-zinc-800">Return Labels</h3>
-                  <p className="text-sm leading-relaxed text-zinc-500 max-w-md">
-                    Studio clients can generate a prepaid return label via the "My Orders" portal. The cost of the label will be deducted from your final reimbursement.
-                  </p>
-                </div>
-                <div className="space-y-4 pt-6 border-t border-zinc-100">
-                  <h3 className="text-[11px] font-bold uppercase tracking-widest text-zinc-800">Packaging Requirements</h3>
-                  <p className="text-sm leading-relaxed text-zinc-500 max-w-md">
-                    To protect the integrity of the design, items must be returned in their original studio box with all dust bags and protective tissue included.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Section 03: Quality Inspection */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-              <div className="md:col-span-4 text-zinc-400">
-                <h2 className="text-[10px] uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
-                  03 / Inspection
-                </h2>
-              </div>
-              <div className="md:col-span-8 border-l border-zinc-200 pl-8">
-                <ul className="space-y-5 max-w-md">
-                  {[
-                    "Item condition verification",
-                    "Label & tag authenticity check",
-                    "Original packaging validation",
-                    "Processing within 5–7 business days"
-                  ].map((text, i) => (
-                    <li key={i} className="flex items-baseline justify-between gap-4 group cursor-default">
-                      <span className="text-[13px] font-medium text-zinc-600 group-hover:text-zinc-900 transition-colors">{text}</span>
-                      <div className="flex-1 border-b border-dashed border-zinc-200"></div>
-                      <span className="text-[9px] font-bold uppercase text-zinc-300">Stage.{i+1}</span>
-                    </li>
-                  ))}
+              <div className="md:col-span-8 border-l border-zinc-200 pl-8 space-y-6">
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">
+                  To be eligible for a return or exchange:
+                </p>
+                <ul className="space-y-2 text-base md:text-lg text-zinc-600">
+                  <li>The purchased item should be unused and in the same condition as received</li>
+                  <li>The item must have original packaging</li>
+                  <li>Items purchased on sale may not be eligible for return/exchange</li>
                 </ul>
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">
+                  Only such items are replaced by us (based on an exchange request) if found defective or damaged.
+                </p>
               </div>
             </div>
 
-            {/* Section 04: Support */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
               <div className="md:col-span-4 text-zinc-400">
-                <h2 className="text-[10px] uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
-                  04 / Assistance
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
+                  Exempted Categories
                 </h2>
               </div>
               <div className="md:col-span-8 border-l border-zinc-200 pl-8">
-                <div className="bg-zinc-50/50 p-10 max-w-lg border border-zinc-100">
-                  <p className="text-sm leading-relaxed text-zinc-500 mb-8 font-light italic">
-                    If you encounter any issues with the return portal or need to discuss a unique circumstance, our logistics team is available to assist.
-                  </p>
-                  <p className="text-[10px] uppercase tracking-widest font-bold mb-1 text-zinc-300">Logistics Support</p>
-                  <a href="mailto:support@khushichauhan.studio" className="text-sm font-semibold border-b border-zinc-800 pb-1 hover:text-zinc-400 transition-colors">
-                    support@khushichauhan.studio
-                  </a>
-                </div>
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">
+                  There may be certain categories of products/items that are exempted from returns or refunds. Such categories will be identified at the time of purchase.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+              <div className="md:col-span-4 text-zinc-400">
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
+                  Processing
+                </h2>
+              </div>
+              <div className="md:col-span-8 border-l border-zinc-200 pl-8 space-y-4">
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">
+                  For exchange/return accepted requests, once your returned item is received and inspected, we will email you to notify receipt. If approved after quality check, your request (return or exchange) will be processed in accordance with our policies.
+                </p>
               </div>
             </div>
 
           </div>
 
           <footer className="mt-40 border-t border-zinc-200 pt-8 flex justify-between items-center">
-            <p className="text-[9px] uppercase tracking-[0.5em] text-zinc-300 font-medium">© 2026 Studio Khushi Chauhan</p>
+            <p className="text-[10px] md:text-[11px] uppercase tracking-[0.5em] text-zinc-300 font-medium">© 2026 Studio Khushi Chauhan</p>
             <div className="flex gap-2">
                <div className="w-1 h-1 rounded-full bg-zinc-200"></div>
                <div className="w-1 h-1 rounded-full bg-zinc-300"></div>

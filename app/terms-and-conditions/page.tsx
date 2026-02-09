@@ -36,110 +36,221 @@ export default function TermsAndConditionsPage() {
           {/* Header */}
           <header className="mb-24 flex flex-col md:flex-row md:items-end justify-between border-b border-zinc-200 pb-12 gap-8">
             <div className="max-w-xl">
-              <h1 className="text-4xl font-light tracking-tight text-zinc-900 mb-4 uppercase">
+              <h1 className="text-5xl md:text-6xl font-light tracking-tight text-zinc-900 mb-4 uppercase">
                 Terms <span className="font-bold">& Conditions</span>
               </h1>
-              <p className="text-[10px] uppercase tracking-[0.4em] text-zinc-400 font-semibold">
+              <p className="text-xs md:text-sm uppercase tracking-[0.4em] text-zinc-400 font-semibold">
                 Framework for our digital and physical relationship
               </p>
             </div>
             <div className="text-right flex flex-col gap-1">
-              <span className="text-[10px] uppercase tracking-widest font-bold text-zinc-800">Legal / TOS-026</span>
-              <span className="text-[9px] uppercase tracking-widest text-zinc-400 font-medium">Updated February 2026</span>
+              <span className="text-[11px] md:text-[12px] uppercase tracking-widest font-bold text-zinc-800">Effective Date</span>
+              <span className="text-[10px] md:text-[11px] uppercase tracking-widest text-zinc-400 font-medium">March 1, 2025</span>
             </div>
           </header>
 
           <div className="space-y-32">
             
-            {/* Section 01: Use of Service */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
               <div className="md:col-span-4 text-zinc-400">
-                <h2 className="text-[10px] uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
-                  01 / Usage
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
+                  Introduction
                 </h2>
               </div>
-              <div className="md:col-span-8 border-l border-zinc-200 pl-8">
-                <p className="text-[15px] leading-relaxed max-w-lg text-zinc-600 mb-6">
-                  By accessing this platform, you agree to comply with our guidelines. All content, including imagery and design patterns, is the <span className="text-zinc-900 font-semibold">Intellectual Property</span> of Khushi Chauhan Designer Studio.
-                </p>
-                <p className="text-sm text-zinc-500 leading-relaxed italic">
-                  Unauthorized reproduction or commercial use of studio assets is strictly prohibited.
+              <div className="md:col-span-8 border-l border-zinc-200 pl-8 space-y-6">
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">
+                  Welcome to Khushi Chauhan Designer Studio. By accessing or using our website (khushichauhandesignerstudio.com), you agree to comply with and be bound by the following Terms and Conditions. Please read them carefully before making any purchases or using any services.
                 </p>
               </div>
             </div>
 
-            {/* Section 02: Commercial Terms */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
               <div className="md:col-span-4 text-zinc-400">
-                <h2 className="text-[10px] uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
-                  02 / Transactions
-                </h2>
-              </div>
-              <div className="md:col-span-8 border-l border-zinc-200 pl-8 space-y-12">
-                <div className="space-y-4">
-                  <h3 className="text-[11px] font-bold uppercase tracking-widest text-zinc-800">Orders & Acceptance</h3>
-                  <p className="text-sm leading-relaxed text-zinc-500 max-w-md">
-                    All orders are subject to availability and credit verification. We reserve the right to refuse service or cancel orders at our discretion.
-                  </p>
-                </div>
-                <div className="space-y-4 pt-6 border-t border-zinc-100">
-                  <h3 className="text-[11px] font-bold uppercase tracking-widest text-zinc-800">Pricing Integrity</h3>
-                  <p className="text-sm leading-relaxed text-zinc-500 max-w-md">
-                    While we strive for accuracy, errors may occur. If a pricing error is discovered after an order is placed, we will notify you immediately for re-confirmation.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Section 03: Liability & Governance */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-              <div className="md:col-span-4 text-zinc-400">
-                <h2 className="text-[10px] uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
-                  03 / Liability
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
+                  1. Acceptance of Terms
                 </h2>
               </div>
               <div className="md:col-span-8 border-l border-zinc-200 pl-8">
-                <ul className="space-y-5 max-w-md">
-                  {[
-                    "Statutory rights compliance",
-                    "Limitation of incidental damages",
-                    "Governing law & jurisdiction",
-                    "Force majeure clauses"
-                  ].map((text, i) => (
-                    <li key={i} className="flex items-baseline justify-between gap-4 group cursor-default">
-                      <span className="text-[13px] font-medium text-zinc-600 group-hover:text-zinc-900 transition-colors">{text}</span>
-                      <div className="flex-1 border-b border-dashed border-zinc-200"></div>
-                      <span className="text-[9px] font-bold uppercase text-zinc-300">Clause.{i+1}</span>
-                    </li>
-                  ))}
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">
+                  By accessing and using the Khushi Chauhan Designer Studio website, you acknowledge that you have read, understood, and agree to be bound by these Terms and Conditions. If you do not agree to these terms, please refrain from using our website.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+              <div className="md:col-span-4 text-zinc-400">
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
+                  2. Changes to Terms and Conditions
+                </h2>
+              </div>
+              <div className="md:col-span-8 border-l border-zinc-200 pl-8">
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">
+                  We reserve the right to update or modify these Terms and Conditions at any time, without prior notice. Any changes will be reflected on this page, and the &quot;Effective Date&quot; will be updated accordingly. Review these terms periodically to stay informed.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+              <div className="md:col-span-4 text-zinc-400">
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
+                  3. Products and Availability
+                </h2>
+              </div>
+              <div className="md:col-span-8 border-l border-zinc-200 pl-8 space-y-4">
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">
+                  Product Listings: We strive to ensure products are accurately described and depicted, but cannot guarantee exact matches for colors, features, or specifications on your screen.
+                </p>
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">
+                  Availability: Products are subject to availability. In case of inventory discrepancies or supply issues, we will inform you and cancel or refund affected orders.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+              <div className="md:col-span-4 text-zinc-400">
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
+                  4. Ordering and Payment
+                </h2>
+              </div>
+              <div className="md:col-span-8 border-l border-zinc-200 pl-8 space-y-4">
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">
+                  Placing an Order: Orders are offers to purchase items subject to availability and acceptance by Khushi Chauhan Designer Studio.
+                </p>
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">
+                  Order Confirmation: After placing an order, you will receive a confirmation email acknowledging receipt. This is not acceptance of the order.
+                </p>
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">
+                  Payment: Transactions are processed securely via trusted payment gateways. We accept multiple payment methods; payment is charged at order confirmation.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+              <div className="md:col-span-4 text-zinc-400">
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
+                  5. Pricing and Taxes
+                </h2>
+              </div>
+              <div className="md:col-span-8 border-l border-zinc-200 pl-8 space-y-4">
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">
+                  Pricing: Prices are in rupees and may change without notice. Confirmed orders retain the price at the time of confirmation.
+                </p>
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">
+                  Taxes: Applicable taxes (VAT/GST) are added during checkout based on your shipping location.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+              <div className="md:col-span-4 text-zinc-400">
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
+                  6. Shipping and Delivery
+                </h2>
+              </div>
+              <div className="md:col-span-8 border-l border-zinc-200 pl-8 space-y-4">
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">Shipping Rates: Calculated at checkout based on location and order size/weight.</p>
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">Delivery Times: Vary by location and method. Processing typically 1–2 business days; longer during peak times.</p>
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">Tracking: Provided upon dispatch to monitor delivery status.</p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+              <div className="md:col-span-4 text-zinc-400">
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
+                  7. Returns and Exchanges
+                </h2>
+              </div>
+              <div className="md:col-span-8 border-l border-zinc-200 pl-8 space-y-4">
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">Returns: Unworn, unwashed, undamaged items accepted within 14 days with original packaging and tags. Sale items may be ineligible.</p>
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">Exchange: Contact customer service within 14 days to exchange for size or color.</p>
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">Refunds: Processed to original payment method within 7–10 business days after receipt.</p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+              <div className="md:col-span-4 text-zinc-400">
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
+                  8. User Accounts
+                </h2>
+              </div>
+              <div className="md:col-span-8 border-l border-zinc-200 pl-8 space-y-4">
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">Account Registration: Provide accurate, complete, and up‑to‑date information when creating your account.</p>
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">Security: Maintain confidentiality of your credentials and follow these Terms.</p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+              <div className="md:col-span-4 text-zinc-400">
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
+                  9. Privacy and Data Protection
+                </h2>
+              </div>
+              <div className="md:col-span-8 border-l border-zinc-200 pl-8">
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">
+                  Your privacy is important to us. Please review our Privacy Policy to understand how we collect, use, and protect your personal information.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+              <div className="md:col-span-4 text-zinc-400">
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
+                  10. Intellectual Property
+                </h2>
+              </div>
+              <div className="md:col-span-8 border-l border-zinc-200 pl-8">
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">
+                  All content on the Khushi Chauhan Designer Studio website, including text, images, logos, graphics, and videos, is our intellectual property and protected by copyright and trademark laws. You may not use any content for commercial purposes without express written consent.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+              <div className="md:col-span-4 text-zinc-400">
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
+                  11. Prohibited Conduct
+                </h2>
+              </div>
+              <div className="md:col-span-8 border-l border-zinc-200 pl-8">
+                <ul className="space-y-2 text-base md:text-lg text-zinc-600 max-w-2xl">
+                  <li>Violating applicable laws or regulations</li>
+                  <li>Harming, disabling, or overburdening the website or interfering with others&#39; enjoyment</li>
+                  <li>Attempting unauthorized access to any portion of the website or related systems</li>
+                  <li>Using the website for any fraudulent or illegal activities</li>
                 </ul>
               </div>
             </div>
 
-            {/* Section 04: Legal Contact */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
               <div className="md:col-span-4 text-zinc-400">
-                <h2 className="text-[10px] uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
-                  04 / Agreement
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
+                  12. Limitation of Liability
                 </h2>
               </div>
               <div className="md:col-span-8 border-l border-zinc-200 pl-8">
-                <div className="bg-zinc-50/50 p-10 max-w-lg border border-zinc-100">
-                  <p className="text-sm leading-relaxed text-zinc-500 mb-8 font-light italic">
-                    By continuing to use this site, you acknowledge that you have read and understood these Terms. We reserve the right to modify these conditions to reflect changes in law or studio policy.
-                  </p>
-                  <p className="text-[10px] uppercase tracking-widest font-bold mb-1 text-zinc-300">Legal Department</p>
-                  <a href="mailto:legal@khushichauhan.studio" className="text-sm font-semibold border-b border-zinc-800 pb-1 hover:text-zinc-400 transition-colors">
-                    legal@khushichauhan.studio
-                  </a>
-                </div>
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">
+                  To the fullest extent permitted by law, Khushi Chauhan Designer Studio shall not be liable for any indirect, incidental, special, or consequential damages arising from the use or inability to use the website, or the purchase of any products.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+              <div className="md:col-span-4 text-zinc-400">
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
+                  13. Governing Law
+                </h2>
+              </div>
+              <div className="md:col-span-8 border-l border-zinc-200 pl-8">
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">
+                  These Terms and Conditions are governed by and construed in accordance with the laws of India. Any disputes shall be resolved exclusively in the courts located within Dehradun.
+                </p>
               </div>
             </div>
 
           </div>
 
           <footer className="mt-40 border-t border-zinc-200 pt-8 flex justify-between items-center">
-            <p className="text-[9px] uppercase tracking-[0.5em] text-zinc-300 font-medium">© 2026 Studio Khushi Chauhan</p>
+            <p className="text-[10px] md:text-[11px] uppercase tracking-[0.5em] text-zinc-300 font-medium">© 2026 Studio Khushi Chauhan</p>
             <div className="flex gap-2">
                <div className="w-1 h-1 rounded-full bg-zinc-200"></div>
                <div className="w-1 h-1 rounded-full bg-zinc-300"></div>

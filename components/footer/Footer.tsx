@@ -5,10 +5,22 @@ import Image from "next/image";
 
 export default function Footer() {
   const footerLinks = {
-    company: ["About Us", "Careers", "Sustainability", "Press"],
-    support: ["Contact Us", "Shipping", "Returns", "Size Guide"],
-    legal: ["Terms of Service", "Privacy Policy", "Cookie Policy"]
-  };
+    company: [
+      { label: "About Us", href: "/about", internal: true },
+      { label: "Careers", href: "/careers", internal: true },
+    ],
+    support: [
+      { label: "Contact Us", href: "mailto:support@khushichauhan.studio", internal: false },
+      { label: "FAQ", href: "/faq", internal: true },
+    ],
+    legal: [
+      { label: "Privacy Policy", href: "/privacy-policy", internal: true },
+      { label: "Refund Policy", href: "/refund-policy", internal: true },
+      { label: "Return Policy", href: "/return-policy", internal: true },
+      { label: "Shipping Policy", href: "/shipping-policy", internal: true },
+      { label: "Terms & Conditions", href: "/terms-and-conditions", internal: true },
+    ],
+  } as const;
 
   return (
     <footer className="bg-black text-white pt-24 pb-12 border-t border-white/10">
@@ -27,50 +39,69 @@ export default function Footer() {
                   fill
                   className="object-contain object-center md:object-left"
                   priority
+                  sizes="(max-width: 768px) 260px, 340px"
                 />
               </div>
             </Link>
-            <p className="text-gray-500 text-sm max-w-sm font-light leading-relaxed">
-              Khushi Desinger brings bespoke silhouettes and contemporary details
-              together for effortlessly elegant looks.
+            <p className="text-gray-400 text-sm max-w-sm font-light leading-relaxed">
+              Crafting luxury ethnic wear where traditional hand‑craft meets modern silhouettes.
+              From bespoke bridal lehengas to effortless casual‑fit sarees, we design for elegance.
             </p>
           </div>
 
           {/* Navigation Links - Balanced for Large Logo */}
           <div className="col-span-1 md:col-span-2 md:col-start-7 text-center md:text-left">
-            <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] mb-8 text-white/40">Company</h4>
+            <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] mb-8 text-white">Company</h4>
             <ul className="space-y-4">
-              {footerLinks.company.map((link) => (
-                <li key={link}>
-                  <Link href="#" className="text-[11px] uppercase tracking-widest text-gray-500 hover:text-white transition-colors">
-                    {link}
-                  </Link>
+              {footerLinks.company.map((item) => (
+                <li key={item.label}>
+                  {item.internal ? (
+                    <Link href={item.href} className="text-[11px] uppercase tracking-widest font-semibold text-white/80 hover:text-white transition-colors">
+                      {item.label}
+                    </Link>
+                  ) : (
+                    <a href={item.href} className="text-[11px] uppercase tracking-widest font-semibold text-white/80 hover:text-white transition-colors">
+                      {item.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
           </div>
 
           <div className="col-span-1 md:col-span-2 text-center md:text-left">
-            <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] mb-8 text-white/40">Support</h4>
+            <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] mb-8 text-white">Support</h4>
             <ul className="space-y-4">
-              {footerLinks.support.map((link) => (
-                <li key={link}>
-                  <Link href="#" className="text-[11px] uppercase tracking-widest text-gray-500 hover:text-white transition-colors">
-                    {link}
-                  </Link>
+              {footerLinks.support.map((item) => (
+                <li key={item.label}>
+                  {item.internal ? (
+                    <Link href={item.href} className="text-[11px] uppercase tracking-widest font-semibold text-white/80 hover:text-white transition-colors">
+                      {item.label}
+                    </Link>
+                  ) : (
+                    <a href={item.href} className="text-[11px] uppercase tracking-widest font-semibold text-white/80 hover:text-white transition-colors">
+                      {item.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
           </div>
 
           <div className="col-span-1 md:col-span-2 text-center md:text-left">
-            <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] mb-8 text-white/40">Legal</h4>
+            <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] mb-8 text-white">Legal</h4>
             <ul className="space-y-4">
-              {footerLinks.legal.map((link) => (
-                <li key={link}>
-                  <Link href="#" className="text-[11px] uppercase tracking-widest text-gray-500 hover:text-white transition-colors">
-                    {link}
-                  </Link>
+              {footerLinks.legal.map((item) => (
+                <li key={item.label}>
+                  {item.internal ? (
+                    <Link href={item.href} className="text-[11px] uppercase tracking-widest font-semibold text-white/80 hover:text-white transition-colors">
+                      {item.label}
+                    </Link>
+                  ) : (
+                    <a href={item.href} className="text-[11px] uppercase tracking-widest font-semibold text-white/80 hover:text-white transition-colors">
+                      {item.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>

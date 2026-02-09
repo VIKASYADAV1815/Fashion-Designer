@@ -5,6 +5,7 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import AnimatedButton from "@/components/buttons/AnimatedButton";
+import { useRouter } from "next/navigation";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,6 +14,7 @@ export default function ImageSplit() {
   const imageContainerRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
   const luxeRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -100,6 +102,7 @@ export default function ImageSplit() {
             <AnimatedButton 
               variant="solid" 
               className="bg-black text-white px-12 py-5 text-[10px] font-bold uppercase tracking-[0.3em] hover:bg-stone-800 transition-all"
+              onClick={() => router.push("/shop")}
             >
               View Collection
             </AnimatedButton>
@@ -118,6 +121,7 @@ export default function ImageSplit() {
                     fill
                     className="object-cover"
                     priority
+                    sizes="(max-width: 768px) 90vw, (max-width: 1200px) 40vw, 33vw"
                  />
               </div>
 

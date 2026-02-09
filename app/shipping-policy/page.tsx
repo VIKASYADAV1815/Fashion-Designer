@@ -36,117 +36,156 @@ export default function ShippingPolicyPage() {
           {/* Header */}
           <header className="mb-24 flex flex-col md:flex-row md:items-end justify-between border-b border-zinc-200 pb-12 gap-8">
             <div className="max-w-xl">
-              <h1 className="text-4xl font-light tracking-tight text-zinc-900 mb-4 uppercase">
+              <h1 className="text-5xl md:text-6xl font-light tracking-tight text-zinc-900 mb-4 uppercase">
                 Shipping <span className="font-bold">Policy</span>
               </h1>
-              <p className="text-[10px] uppercase tracking-[0.4em] text-zinc-400 font-semibold">
+              <p className="text-xs md:text-sm uppercase tracking-[0.4em] text-zinc-400 font-semibold">
                 Reliable and secure global delivery
               </p>
             </div>
             <div className="text-right flex flex-col gap-1">
-              <span className="text-[10px] uppercase tracking-widest font-bold text-zinc-800">Ref / SHP-026</span>
-              <span className="text-[9px] uppercase tracking-widest text-zinc-400 font-medium">Updated February 2026</span>
+              <span className="text-[11px] md:text-[12px] uppercase tracking-widest font-bold text-zinc-800">Effective Date</span>
+              <span className="text-[10px] md:text-[11px] uppercase tracking-widest text-zinc-400 font-medium">March 1, 2025</span>
             </div>
           </header>
 
           <div className="space-y-32">
             
-            {/* Section 01: Methods */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
               <div className="md:col-span-4 text-zinc-400">
-                <h2 className="text-[10px] uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
-                  01 / Logistics
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
+                  1. Processing Time
                 </h2>
               </div>
-              <div className="md:col-span-8 border-l border-zinc-200 pl-8">
-                <p className="text-[15px] leading-relaxed max-w-lg text-zinc-600 mb-6">
-                  To ensure the safety of our pieces, all shipments are dispatched via trusted premium carriers. Every package is fully insured and requires a <span className="text-zinc-900 font-semibold">signature upon delivery</span>.
+              <div className="md:col-span-8 border-l border-zinc-200 pl-8 space-y-6">
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">
+                  Order Processing: All orders are typically processed within 1–2 business days, excluding weekends and holidays. Once processed, you will receive a shipment notification with tracking details.
                 </p>
-                <div className="flex gap-12 pt-4">
-                  <div>
-                    <p className="text-[10px] uppercase font-bold text-zinc-800 mb-1">Standard</p>
-                    <p className="text-xs text-zinc-500 italic">5—7 Business Days</p>
-                  </div>
-                  <div>
-                    <p className="text-[10px] uppercase font-bold text-zinc-800 mb-1">Express</p>
-                    <p className="text-xs text-zinc-500 italic">1—2 Business Days</p>
-                  </div>
-                </div>
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">
+                  Custom Orders: Custom or personalized items may take additional time to process. We will notify you with an estimated shipping timeline if applicable.
+                </p>
               </div>
             </div>
 
-            {/* Section 02: Timelines */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
               <div className="md:col-span-4 text-zinc-400">
-                <h2 className="text-[10px] uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
-                  02 / Processing
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
+                  2. Shipping Methods & Delivery Times
                 </h2>
               </div>
-              <div className="md:col-span-8 border-l border-zinc-200 pl-8 space-y-12">
-                <div className="space-y-4">
-                  <h3 className="text-[11px] font-bold uppercase tracking-widest text-zinc-800">Ready-to-Wear</h3>
-                  <p className="text-sm leading-relaxed text-zinc-500 max-w-md">
-                    In-stock items are processed and dispatched within 48 hours of order confirmation, excluding weekends and public holidays.
-                  </p>
+              <div className="md:col-span-8 border-l border-zinc-200 pl-8 space-y-8">
+                <div>
+                  <h3 className="text-sm md:text-base font-bold uppercase tracking-widest text-zinc-800">Standard Shipping</h3>
+                  <p className="text-base md:text-lg text-zinc-600">Estimated Delivery Time: 5–7 business days</p>
+                  <p className="text-base md:text-lg text-zinc-600">Cost: Calculated at checkout based on location</p>
                 </div>
-                <div className="space-y-4 pt-6 border-t border-zinc-100">
-                  <h3 className="text-[11px] font-bold uppercase tracking-widest text-zinc-800">Bespoke Pieces</h3>
-                  <p className="text-sm leading-relaxed text-zinc-500 max-w-md">
-                    Made-to-order or tailored items follow a specialized crafting timeline. Estimated completion dates are provided at checkout and confirmed via email.
+                <div className="pt-4 border-t border-zinc-100">
+                  <h3 className="text-sm md:text-base font-bold uppercase tracking-widest text-zinc-800">Express Shipping</h3>
+                  <p className="text-base md:text-lg text-zinc-600">Estimated Delivery Time: 2–3 business days</p>
+                  <p className="text-base md:text-lg text-zinc-600">Cost: Calculated at checkout based on location</p>
+                </div>
+                <div className="pt-4 border-t border-zinc-100">
+                  <h3 className="text-sm md:text-base font-bold uppercase tracking-widest text-zinc-800">International Shipping</h3>
+                  <p className="text-base md:text-lg text-zinc-600">Estimated Delivery Time: 7–14 business days (destination dependent)</p>
+                  <p className="text-base md:text-lg text-zinc-600">Cost: Calculated at checkout based on location and method</p>
+                  <p className="text-base md:text-lg text-zinc-600 mt-3">
+                    Delivery times are estimates and may vary based on location, customs, and weather. Delays can occur during peak seasons or due to unforeseen circumstances.
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* Section 03: International */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
               <div className="md:col-span-4 text-zinc-400">
-                <h2 className="text-[10px] uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
-                  03 / International
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
+                  3. Shipping Charges
                 </h2>
               </div>
               <div className="md:col-span-8 border-l border-zinc-200 pl-8">
-                <ul className="space-y-5 max-w-md">
-                  {[
-                    "Global white-glove delivery",
-                    "Customs documentation handling",
-                    "Duty estimates provided at checkout",
-                    "Real-time waypoint tracking"
-                  ].map((text, i) => (
-                    <li key={i} className="flex items-baseline justify-between gap-4 group cursor-default">
-                      <span className="text-[13px] font-medium text-zinc-600 group-hover:text-zinc-900 transition-colors">{text}</span>
-                      <div className="flex-1 border-b border-dashed border-zinc-200"></div>
-                      <span className="text-[9px] font-bold uppercase text-zinc-300">Intl.{i+1}</span>
-                    </li>
-                  ))}
-                </ul>
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">
+                  Shipping charges are calculated at checkout based on the size and weight of your order and the shipping destination. You will be able to view the shipping cost before finalizing your order.
+                </p>
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600 mt-3">
+                  Free Shipping: We may offer free standard shipping on orders over a specified amount within your country. This offer is subject to change and typically does not apply to international orders unless specified.
+                </p>
               </div>
             </div>
 
-            {/* Section 04: Support */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
               <div className="md:col-span-4 text-zinc-400">
-                <h2 className="text-[10px] uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
-                  04 / Tracking
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
+                  4. Order Tracking
                 </h2>
               </div>
               <div className="md:col-span-8 border-l border-zinc-200 pl-8">
-                <div className="bg-zinc-50/50 p-10 max-w-lg border border-zinc-100">
-                  <p className="text-sm leading-relaxed text-zinc-500 mb-8 font-light italic">
-                    Once your order has been handed over to our carrier, you will receive a confirmation email containing your tracking information. For urgent logistics inquiries, contact us directly.
-                  </p>
-                  <p className="text-[10px] uppercase tracking-widest font-bold mb-1 text-zinc-300">Dispatch Desk</p>
-                  <a href="mailto:shipping@khushichauhan.studio" className="text-sm font-semibold border-b border-zinc-800 pb-1 hover:text-zinc-400 transition-colors">
-                    shipping@khushichauhan.studio
-                  </a>
-                </div>
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">
+                  Once your order has been shipped, we will send you a tracking number via email. You can use this to monitor the status of your shipment on the carrier&#39;s website. Please allow 24–48 hours for tracking information to update after receiving the shipment confirmation email.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+              <div className="md:col-span-4 text-zinc-400">
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
+                  5. Shipping Restrictions
+                </h2>
+              </div>
+              <div className="md:col-span-8 border-l border-zinc-200 pl-8 space-y-4">
+                <p className="text-base md:text-lg text-zinc-600">P.O. Boxes: We currently do not ship to P.O. Box addresses. Please provide a physical address.</p>
+                <p className="text-base md:text-lg text-zinc-600">
+                  International Shipping: We offer international shipping to select countries. If your country is not listed at checkout, please contact us for assistance.
+                </p>
+                <p className="text-base md:text-lg text-zinc-600">
+                  Customs & Duties: For international orders, customs duties, taxes, and import fees may be charged by your country&#39;s authorities upon delivery. These charges are the responsibility of the recipient.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+              <div className="md:col-span-4 text-zinc-400">
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
+                  6. Incorrect or Missing Information
+                </h2>
+              </div>
+              <div className="md:col-span-8 border-l border-zinc-200 pl-8 space-y-4">
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">
+                  Please ensure that your shipping address is accurate and complete. We are not responsible for delays, misdeliveries, or non‑deliveries due to incorrect address information. If you notice an error after placing an order, contact us immediately at <a className="underline font-semibold" href="mailto:support@khushichauhan.com">support@khushichauhan.com</a> before your order is shipped.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+              <div className="md:col-span-4 text-zinc-400">
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
+                  7. Delayed or Lost Shipments
+                </h2>
+              </div>
+              <div className="md:col-span-8 border-l border-zinc-200 pl-8 space-y-4">
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">
+                  While we strive to ensure timely delivery, we cannot guarantee delivery dates, as delays can occasionally occur due to circumstances beyond our control (e.g., weather, customs, or carrier delays). If your order is delayed or lost, contact us at <a className="underline font-semibold" href="mailto:support@khushichauhan.com">support@khushichauhan.com</a>, and we will work with the carrier to resolve the issue.
+                </p>
+                <p className="text-base md:text-lg text-zinc-600">Carrier Delays: We are not responsible for delays caused by the shipping carrier.</p>
+                <p className="text-base md:text-lg text-zinc-600">Lost Shipments: In the unlikely event that your package is lost during transit, contact us immediately so we can assist in filing a claim with the carrier.</p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+              <div className="md:col-span-4 text-zinc-400">
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
+                  8. Damaged or Incorrect Items
+                </h2>
+              </div>
+              <div className="md:col-span-8 border-l border-zinc-200 pl-8">
+                <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">
+                  If you receive a damaged or incorrect item, notify us immediately at <a className="underline font-semibold" href="mailto:support@khushichauhan.com">support@khushichauhan.com</a> with photos of the damage or incorrect item. We will offer a replacement or a full refund, depending on the circumstances.
+                </p>
               </div>
             </div>
 
           </div>
 
           <footer className="mt-40 border-t border-zinc-200 pt-8 flex justify-between items-center">
-            <p className="text-[9px] uppercase tracking-[0.5em] text-zinc-300 font-medium">© 2026 Studio Khushi Chauhan</p>
+            <p className="text-[10px] md:text-[11px] uppercase tracking-[0.5em] text-zinc-300 font-medium">© 2026 Studio Khushi Chauhan</p>
             <div className="flex gap-2">
                <div className="w-1 h-1 rounded-full bg-zinc-200"></div>
                <div className="w-1 h-1 rounded-full bg-zinc-300"></div>

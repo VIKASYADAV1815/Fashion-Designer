@@ -54,7 +54,13 @@
                className="group"
              >
                <div className="relative aspect-[3/4] overflow-hidden rounded-sm">
-                 <Image src={item.image} alt={item.title} fill className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  sizes="(max-width: 768px) 80vw, (max-width: 1200px) 33vw, 25vw"
+                />
                </div>
                <div className="mt-4 flex items-center justify-between">
                  <div>

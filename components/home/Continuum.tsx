@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import AnimatedButton from "@/components/buttons/AnimatedButton";
+import { useRouter } from "next/navigation";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -11,6 +12,7 @@ export default function AboutSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const lineRef = useRef<HTMLDivElement>(null);
   const logoBgRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -100,6 +102,7 @@ export default function AboutSection() {
                 <AnimatedButton 
                   variant="solid" 
                   className="px-8 bg-[#1A1A1A] text-white py-4 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-stone-800 transition-all active:scale-[0.97]"
+                  onClick={() => router.push("/shop")}
                 >
                   Explore Lookbook
                 </AnimatedButton>

@@ -328,6 +328,7 @@ export default function ProductPage() {
                   fill
                   priority
                   className="object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-110"
+                  sizes="(max-width: 768px) 90vw, (max-width: 1200px) 60vw, 50vw"
                 />
               </div>
               <div className="grid grid-cols-3 gap-4">
@@ -338,7 +339,7 @@ export default function ProductPage() {
                     onClick={() => setActiveImage(idx)}
                     aria-label={`Preview ${idx + 1}`}
                   >
-                    <Image src={img} alt="" fill className="object-cover" />
+                    <Image src={img} alt="" fill className="object-cover" sizes="(max-width: 768px) 30vw, 10vw" />
                   </button>
                 ))}
               </div>
