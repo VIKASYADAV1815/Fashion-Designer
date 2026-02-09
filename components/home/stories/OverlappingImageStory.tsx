@@ -95,7 +95,7 @@ export default function OverlappingImageStory() {
                 <AnimatedButton 
                   variant="outline"
                   onClick={() => {
-                    try { router.push("/shop"); } catch (e) { console.error("navigate /shop failed", e); }
+                    try { router.push("/collections"); } catch (e) { console.error("navigate /collections failed", e); }
                   }}
                 >
                   Explore More

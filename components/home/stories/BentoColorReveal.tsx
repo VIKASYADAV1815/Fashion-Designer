@@ -1,8 +1,11 @@
 "use client";
 
-import { ArrowRight, Plus } from "lucide-react";
+import { ArrowRight, ShoppingBag, Check } from "lucide-react";
 import InMotionSlider from "./InMotionSlider";
 import Link from "next/link";
+import { useCart } from "@/components/cart/CartProvider";
+import { motion } from "framer-motion";
+import { useState } from "react";
 
 const bentoProducts = [
   { type: "video", name: "Heritage Lehenga", price: "₹84,500", src: "https://res.cloudinary.com/dzq7axes2/video/upload/v1770113143/video1_em8fnl.mp4", span: "md:col-span-4 md:row-span-2", mobileRatio: "aspect-[9/15]" },
@@ -15,6 +18,10 @@ const bentoProducts = [
 ];
 
 export default function BentoWithCompactSlider() {
+  const { openCart } = useCart();
+  const { addItem } = useCart();
+  const [addedIndex, setAddedIndex] = useState<number | null>(null);
+  const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
   return (
     <section className="bg-[#fcfaf8] text-stone-900 py-10 md:py-20 overflow-hidden">
       <div className="container mx-auto px-4 md:px-8">
@@ -57,9 +64,29 @@ export default function BentoWithCompactSlider() {
                       <h3 className="text-lg font-serif leading-tight">{p.name}</h3>
                       <p className="text-sm font-light italic mt-1">{p.price}</p>
                     </div>
-                    <Link href="/shop" className="bg-white/20 backdrop-blur-md p-3 rounded-full text-white hover:bg-white hover:text-stone-900 transition-colors" aria-label="Open Shop">
-                        <Plus size={18} />
-                    </Link>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        addItem({ id: slug(p.name), name: p.name, price: Number(String(p.price).replace(/[^0-9]/g,"")) || 0, image: p.src });
+                        setAddedIndex(i);
+                        openCart();
+                        setTimeout(() => setAddedIndex(null), 1200);
+                      }}
+                      className="bg-white/20 backdrop-blur-md p-3 rounded-full text-white hover:bg-white hover:text-stone-900 transition-colors relative"
+                      aria-label="Add to Cart"
+                    >
+                      {addedIndex === i ? <Check size={18} /> : <ShoppingBag size={18} />}
+                      {addedIndex === i && (
+                        <motion.span
+                          initial={{ opacity: 0, y: 8 }}
+                          animate={{ opacity: 1, y: -6 }}
+                          exit={{ opacity: 0, y: -12 }}
+                          className="absolute -top-2 -right-2 text-[9px] bg-white text-stone-900 px-2 py-0.5 rounded-full"
+                        >
+                          Added
+                        </motion.span>
+                      )}
+                    </button>
                   </div>
                 </div>
                 {/* --- END FIX --- */}

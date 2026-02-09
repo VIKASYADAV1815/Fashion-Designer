@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 const faqs = [
   {
@@ -31,32 +32,40 @@ export default function FAQPage() {
 
   return (
     <main className="bg-white text-black min-h-screen font-sans selection:bg-black selection:text-white">
-      <div className="max-w-6xl mx-auto px-6 md:px-12 pt-28 md:pt-40 pb-24">
-        {/* Header Section */}
-        <header className="mb-20 border-b border-neutral-100 pb-10">
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-8xl font-light uppercase tracking-tighter"
-          >
-            Information
-          </motion.h1>
-          <motion.p 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="mt-4 text-sm md:text-base text-neutral-400 max-w-md leading-relaxed"
-          >
-            Everything you need to know about our shipping, returns, and bespoke services.
-          </motion.p>
-        </header>
+      {/* Hero */}
+      <section className="relative min-h-[45vh] md:min-h-[55vh] flex items-end">
+        <Image
+          src="/images/4.jpg"
+          alt="FAQ Hero"
+          fill
+          sizes="100vw"
+          priority
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+        <div className="relative z-10 w-full max-w-6xl mx-auto px-8 py-16 md:py-24 text-white">
+          <h1 className="text-4xl md:text-6xl font-light uppercase tracking-tighter">Information</h1>
+          <p className="mt-4 text-sm md:text-base text-white/80 max-w-2xl">
+            Everything you need to know about shipping, returns, sizing, and bespoke services.
+          </p>
+        </div>
+      </section>
+
+      <div className="max-w-6xl mx-auto px-6 md:px-12 pt-16 md:pt-24 pb-24">
+        {/* Section label */}
+        <div className="mb-12">
+          <span className="text-[10px] uppercase tracking-[0.5em] font-semibold text-neutral-400">
+            Frequently Asked Questions
+          </span>
+        </div>
 
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           {/* Left Label */}
           <div className="lg:col-span-4">
-            <h2 className="text-[10px] uppercase tracking-[0.5em] font-semibold text-neutral-400 sticky top-10">
-              Frequently Asked Questions
-            </h2>
+            <div className="sticky top-10">
+              <h2 className="text-2xl md:text-4xl font-light uppercase tracking-tighter">Answers & Guidance</h2>
+              <p className="mt-3 text-sm md:text-base text-neutral-500 max-w-sm">Tap a question to expand.</p>
+            </div>
           </div>
 
           {/* FAQ List */}
@@ -68,7 +77,7 @@ export default function FAQPage() {
                     onClick={() => setActiveIndex(activeIndex === i ? null : i)}
                     className="w-full py-8 md:py-10 flex items-center justify-between text-left group transition-colors hover:bg-neutral-50/50 px-2"
                   >
-                    <span className="text-lg md:text-xl font-light tracking-tight pr-8">
+                    <span className="text-xl md:text-2xl font-light tracking-tight pr-8">
                       {item.q}
                     </span>
                     <div className="relative flex items-center justify-center w-6 h-6">
@@ -93,7 +102,7 @@ export default function FAQPage() {
                         className="overflow-hidden"
                       >
                         <div className="pb-10 px-2 max-w-2xl">
-                          <p className="text-base md:text-lg text-neutral-500 font-light leading-relaxed">
+                          <p className="text-base md:text-lg text-neutral-600 font-light leading-relaxed">
                             {item.a}
                           </p>
                         </div>
@@ -106,18 +115,14 @@ export default function FAQPage() {
           </div>
         </section>
 
-        {/* Minimal Footer */}
-        <footer className="mt-32 pt-10 border-t border-neutral-100 flex flex-col md:flex-row justify-between items-start gap-6 text-[11px] uppercase tracking-[0.2em] text-neutral-400">
-          <div>© Khushi Chauhan Studio</div>
-          <div className="flex gap-8">
-            <a href="mailto:support@khushichauhan.com" className="text-black hover:opacity-60 transition-opacity">
-              Contact Support
-            </a>
-            <a href="#" className="text-black hover:opacity-60 transition-opacity">
-              Privacy Policy
-            </a>
-          </div>
-        </footer>
+        {/* Visual mosaic */}
+        <div className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-6">
+          {["/images/img7.png","/images/4.jpg","/images/img16.png"].map((src, i) => (
+            <div key={i} className="relative aspect-[4/5] overflow-hidden rounded-sm">
+              <Image src={src} alt={`FAQ Visual ${i+1}`} fill sizes="(max-width: 1024px) 90vw, 30vw" className="object-cover" />
+            </div>
+          ))}
+        </div>
       </div>
     </main>
   );

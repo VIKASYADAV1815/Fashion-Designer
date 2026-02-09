@@ -1,8 +1,9 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
-import { ShoppingBag } from "lucide-react";
+import { ShoppingBag, Check } from "lucide-react";
 import { motion } from "framer-motion";
+import { useCart } from "@/components/cart/CartProvider";
 
 const sliderProducts = [
   { name: "Mehendi Fit", price: "₹15,000", img: "/images/img21.png" },
@@ -18,6 +19,9 @@ const sliderProducts = [
 export default function InMotionSlider() {
   const [width, setWidth] = useState(0);
   const carousel = useRef<HTMLDivElement>(null);
+  const { addItem, openCart } = useCart();
+  const [addedIndex, setAddedIndex] = useState<number | null>(null);
+  const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 
   useEffect(() => {
     if (carousel.current) {
@@ -72,8 +76,17 @@ export default function InMotionSlider() {
 
                 {/* Fixed Cart Icon Logic */}
                 <div className="absolute bottom-6 right-6 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-out">
-                  <button className="bg-stone-900 text-white p-4 rounded-full shadow-xl border border-white/20 hover:bg-stone-800 active:scale-95 transition-all">
-                    <ShoppingBag size={20} />
+                  <button
+                    className="bg-stone-900 text-white p-4 rounded-full shadow-xl border border-white/20 hover:bg-stone-800 active:scale-95 transition-all relative"
+                    onClick={() => {
+                      addItem({ id: slug(item.name + idx), name: item.name, price: Number(String(item.price).replace(/[^0-9]/g,"")) || 0, image: item.img });
+                      setAddedIndex(idx);
+                      openCart();
+                      setTimeout(() => setAddedIndex(null), 1200);
+                    }}
+                    aria-label="Add to cart"
+                  >
+                    {addedIndex === idx ? <Check size={20} /> : <ShoppingBag size={20} />}
                   </button>
                 </div>
               </div>
