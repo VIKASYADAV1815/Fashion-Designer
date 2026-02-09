@@ -36,7 +36,7 @@ export default function CartProvider({ children }: { children: React.ReactNode }
     setItems((prev) => {
       const existing = prev.find((p) => p.id === item.id);
       if (existing) {
-        return prev.map((p) => (p.id === item.id ? { ...p, qty: p.qty + 1 } : p));
+        return prev.map((p) => (p.id === item.id ? { ...p, qty: p.qty + 1, image: item.image || p.image } : p));
       }
       return [...prev, { ...item, qty: 1 }];
     });

@@ -1,7 +1,6 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import Image from "next/image";
 import { useCart } from "./CartProvider";
 import { X } from "lucide-react";
 
@@ -45,11 +44,15 @@ export default function CartDrawer({ open, onClose }: { open: boolean; onClose: 
               {items.length === 0 && <p className="text-sm text-gray-400">Your cart is empty.</p>}
               {items.map((item) => (
                 <div key={item.id} className="flex items-center gap-4">
-                  {item.image && (
-                    <div className="relative w-16 h-20 overflow-hidden bg-white">
-                      <Image src={item.image} alt={item.name} fill className="object-cover" sizes="64px" />
-                    </div>
-                  )}
+                  <div className="relative w-16 h-20 overflow-hidden bg-white flex-shrink-0">
+                    {item.image ? (
+                      <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
+                    ) : (
+                      <div className="w-full h-full bg-neutral-800 flex items-center justify-center">
+                         <span className="text-[8px] uppercase text-gray-500">No Image</span>
+                      </div>
+                    )}
+                  </div>
                   <div className="flex-1">
                     <p className="text-xs uppercase tracking-[0.25em]">{item.name}</p>
                     <p className="text-xs text-gray-500">Qty: {item.qty}</p>
