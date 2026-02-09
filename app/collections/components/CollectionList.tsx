@@ -5,23 +5,23 @@ import Image from "next/image";
 
 const collections = [
   {
-    id: "ss26",
-    title: "Spring/Summer 2026",
-    description: "Ethereal Silence",
-    image: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070&auto=format&fit=crop"
+    id: "ethereal-silence",
+    title: "Ethereal Silence",
+    description: "A study in minimal silhouettes and luminous textures.",
+    image: "/images/4.jpg",
   },
   {
-    id: "fw25",
-    title: "Fall/Winter 2025",
-    description: "Urban Noir",
-    image: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=1887&auto=format&fit=crop"
+    id: "floral-organza",
+    title: "Floral Organza",
+    description: "Pastel florals and airy organza crafted for daylight elegance.",
+    image: "/images/img21.png",
   },
   {
-    id: "resort25",
-    title: "Resort 2025",
-    description: "Desert Rose",
-    image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1020&auto=format&fit=crop"
-  }
+    id: "chic-casuals",
+    title: "Chic Casuals",
+    description: "Effortless drape casual fits for everyday movement.",
+    image: "/images/img7.png",
+  },
 ];
 
 export default function CollectionList() {
@@ -36,17 +36,23 @@ export default function CollectionList() {
                    src={collection.image}
                    alt={collection.title}
                    fill
+                   sizes="(max-width:768px) 100vw, (max-width:1024px) 50vw, 50vw"
                    className="object-cover transition-transform duration-1000 group-hover:scale-105"
                  />
                </div>
-               <div className="w-full md:w-1/2 text-center md:text-left px-12">
-                  <span className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4 block">Collection {index + 1}</span>
-                  <h2 className="text-4xl md:text-6xl font-light uppercase tracking-tighter mb-6">{collection.title}</h2>
-                  <p className="text-lg italic font-serif text-gray-600 mb-8">{collection.description}</p>
-                  <Link href={`/collections/${collection.id}`} className="inline-block border-b border-black pb-1 text-xs uppercase tracking-widest hover:opacity-50 transition-opacity">
-                    Explore Campaign
-                  </Link>
-               </div>
+              <div className="w-full md:w-1/2 text-center md:text-left px-12">
+                 <span className="text-xs md:text-sm font-bold uppercase tracking-widest text-gray-500 mb-4 block">Collection {index + 1}</span>
+                 <h2 className="text-5xl md:text-7xl font-light uppercase tracking-tighter mb-6">{collection.title}</h2>
+                 <p className="text-base md:text-lg italic font-serif text-gray-600 mb-8">{collection.description}</p>
+                 <div className="flex flex-wrap items-center gap-6">
+                   <Link href={`/shop?query=${encodeURIComponent(collection.title.toLowerCase())}`} className="text-[11px] uppercase tracking-[0.3em] border border-black px-5 py-3 hover:bg-black hover:text-white transition-colors">
+                     Shop This Collection
+                   </Link>
+                   <Link href="/collections" className="text-[11px] uppercase tracking-[0.3em] border border-black/30 px-5 py-3 hover:bg-black hover:text-white transition-colors">
+                     View Lookbook
+                   </Link>
+                 </div>
+              </div>
              </div>
            ))}
          </div>

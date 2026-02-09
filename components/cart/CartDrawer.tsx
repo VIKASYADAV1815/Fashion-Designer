@@ -21,7 +21,7 @@ export default function CartDrawer({ open, onClose }: { open: boolean; onClose: 
             aria-hidden="true"
           />
           <motion.aside
-            className="fixed right-0 top-0 h-full w-[90vw] sm:w-105 bg-black text-white z-50 border-l border-white/10"
+            className="fixed right-0 top-0 h-full w-full sm:w-105 max-w-105 bg-black text-white z-50 border-l border-white/10 flex flex-col"
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
@@ -33,7 +33,7 @@ export default function CartDrawer({ open, onClose }: { open: boolean; onClose: 
               <h3 className="text-xs uppercase tracking-[0.25em]">Your Cart</h3>
               <button className="text-xs uppercase tracking-[0.25em] hover:opacity-70" onClick={clear}>Clear</button>
             </div>
-            <div className="p-6 space-y-6 overflow-y-auto h-[calc(100%-140px)]">
+            <div className="p-6 space-y-6 overflow-y-auto flex-1">
               {items.length === 0 && <p className="text-sm text-gray-400">Your cart is empty.</p>}
               {items.map((item) => (
                 <div key={item.id} className="flex items-center gap-4">
@@ -46,7 +46,7 @@ export default function CartDrawer({ open, onClose }: { open: boolean; onClose: 
                     <p className="text-xs uppercase tracking-[0.25em]">{item.name}</p>
                     <p className="text-xs text-gray-500">Qty: {item.qty}</p>
                   </div>
-                  <div className="text-xs">${(item.price * item.qty).toLocaleString()}</div>
+                  <div className="text-xs">₹{(item.price * item.qty).toLocaleString("en-IN")}</div>
                   <button className="text-xs underline" onClick={() => removeItem(item.id)}>Remove</button>
                 </div>
               ))}
@@ -54,7 +54,7 @@ export default function CartDrawer({ open, onClose }: { open: boolean; onClose: 
             <div className="p-6 border-t border-white/10">
               <div className="flex items-center justify-between">
                 <span className="text-xs uppercase tracking-[0.25em] text-gray-400">Total</span>
-                <span className="text-sm">${total.toLocaleString()}</span>
+                <span className="text-sm">₹{total.toLocaleString("en-IN")}</span>
               </div>
               <button className="mt-4 w-full bg-white text-black py-3 text-xs uppercase tracking-[0.25em] font-semibold hover:bg-gray-200">
                 Checkout

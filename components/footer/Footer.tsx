@@ -32,7 +32,7 @@ export default function Footer() {
           {/* Brand Column - Large Logo Display */}
           <div className="col-span-1 md:col-span-5 flex flex-col items-center md:items-start text-center md:text-left pl-0 md:pl-4">
             <Link href="/" aria-label="Home" className="inline-block mb-8 group">
-              <div className="relative w-[260px] h-[110px] md:w-[340px] md:h-[130px] transition-transform duration-500 group-hover:scale-[1.02]">
+              <div className="relative w-65 h-27.5 md:w-85 md:h-32.5 transition-transform duration-500 group-hover:scale-[1.02]">
                 <Image
                   src="/images/logo.png"
                   alt="Khushi Desinger logo"

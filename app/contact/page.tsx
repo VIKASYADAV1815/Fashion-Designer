@@ -1,85 +1,117 @@
 "use client";
 
 import Image from "next/image";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, ArrowRight } from "lucide-react";
 
 export default function ContactPage() {
   return (
     <main className="bg-white text-black min-h-screen font-sans selection:bg-black selection:text-white">
-      <section className="relative min-h-[45vh] md:min-h-[55vh] flex items-end">
+      {/* Hero Section */}
+      <section className="relative h-[50vh] md:h-[60vh] flex items-end overflow-hidden">
         <Image
           src="/images/4.jpg"
-          alt="Studio Contact"
+          alt="Khushi Chauhan Studio"
           fill
           priority
-          sizes="100vw"
-          className="object-cover"
+          className="object-cover transition-scale duration-[10s] hover:scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
-        <div className="relative z-10 w-full max-w-6xl mx-auto px-8 py-16 md:py-24 text-white">
-          <h1 className="text-4xl md:text-6xl font-light uppercase tracking-tighter">Contact Us</h1>
-          <p className="mt-4 text-sm md:text-base text-white/80 max-w-2xl">
-            We’re here to help with orders, shipping, sizing, and bespoke inquiries. Reach out anytime.
-          </p>
+        {/* Refined Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+        
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 pb-16 md:pb-24 text-white">
+          <span className="text-xs uppercase tracking-[0.5em] mb-4 block opacity-80">Get in Touch</span>
+          <h1 className="text-5xl md:text-7xl font-light uppercase tracking-tighter leading-none">
+            Contact <br /> <span className="italic">the Studio</span>
+          </h1>
         </div>
       </section>
 
-      <section className="max-w-6xl mx-auto px-8 py-16 md:py-24">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
-          <div className="md:col-span-5">
-            <div className="space-y-6">
-              <div className="flex items-start gap-4">
-                <Mail className="w-5 h-5 text-gray-600 mt-[2px]" />
-                <div>
-                  <h3 className="text-sm uppercase tracking-widest font-semibold">Email</h3>
-                  <p className="text-sm text-gray-600">
-                    support@khushichauhan.com
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <Phone className="w-5 h-5 text-gray-600 mt-[2px]" />
-                <div>
-                  <h3 className="text-sm uppercase tracking-widest font-semibold">Phone</h3>
-                  <p className="text-sm text-gray-600">
-                    +91 98765 43210
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <MapPin className="w-5 h-5 text-gray-600 mt-[2px]" />
-                <div>
-                  <h3 className="text-sm uppercase tracking-widest font-semibold">Studio</h3>
-                  <p className="text-sm text-gray-600">
-                    Khushi Chauhan Designer Studio, Dehradun
-                  </p>
-                </div>
+      {/* Content Section */}
+      <section className="max-w-7xl mx-auto px-6 md:px-12 py-20 md:py-32">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-20">
+          
+          {/* Info Column */}
+          <div className="lg:col-span-4 space-y-12">
+            <div>
+              <h2 className="text-xs uppercase tracking-[0.3em] font-bold mb-8 text-black/40">Inquiries</h2>
+              <div className="space-y-10">
+                <ContactItem 
+                  icon={<Mail className="w-4 h-4" />} 
+                  title="Email" 
+                  value="support@khushichauhan.com" 
+                />
+                <ContactItem 
+                  icon={<Phone className="w-4 h-4" />} 
+                  title="Phone" 
+                  value="+91 98765 43210" 
+                />
+                <ContactItem 
+                  icon={<MapPin className="w-4 h-4" />} 
+                  title="Studio" 
+                  value="Khushi Chauhan Designer Studio, Dehradun" 
+                />
               </div>
             </div>
+
+            <div className="pt-10 border-t border-black/5">
+              <h3 className="text-xs uppercase tracking-[0.2em] font-bold mb-4">Hours</h3>
+              <p className="text-sm text-gray-500 font-light italic">Monday — Saturday: 11:00 AM to 7:00 PM</p>
+            </div>
           </div>
-          <div className="md:col-span-7">
-            <form className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="text-[10px] uppercase tracking-[0.3em] text-gray-500">Name</label>
-                  <input className="mt-2 w-full border border-gray-200 rounded-md px-4 py-3 text-sm outline-none" placeholder="Your name" />
-                </div>
-                <div>
-                  <label className="text-[10px] uppercase tracking-[0.3em] text-gray-500">Email</label>
-                  <input type="email" className="mt-2 w-full border border-gray-200 rounded-md px-4 py-3 text-sm outline-none" placeholder="you@example.com" />
-                </div>
+
+          {/* Form Column */}
+          <div className="lg:col-span-8">
+            <form className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-10">
+              <div className="group">
+                <label className="text-xs uppercase tracking-[0.2em] text-gray-400 group-focus-within:text-black transition-colors">Full Name</label>
+                <input 
+                  className="mt-2 w-full border-b border-black/10 py-3 text-base outline-none focus:border-black transition-colors bg-transparent font-light" 
+                  placeholder="e.g. Ananya Sharma" 
+                />
               </div>
-              <div>
-                <label className="text-[10px] uppercase tracking-[0.3em] text-gray-500">Message</label>
-                <textarea className="mt-2 w-full border border-gray-200 rounded-md px-4 py-3 text-sm outline-none h-32" placeholder="How can we help?" />
+              <div className="group">
+                <label className="text-xs uppercase tracking-[0.2em] text-gray-400 group-focus-within:text-black transition-colors">Email Address</label>
+                <input 
+                  type="email" 
+                  className="mt-2 w-full border-b border-black/10 py-3 text-base outline-none focus:border-black transition-colors bg-transparent font-light" 
+                  placeholder="you@domain.com" 
+                />
               </div>
-              <button type="submit" className="px-6 py-3 bg-black text-white text-[10px] uppercase tracking-[0.3em] rounded-sm">
-                Send
-              </button>
+              <div className="md:col-span-2 group">
+                <label className="text-xs uppercase tracking-[0.2em] text-gray-400 group-focus-within:text-black transition-colors">Message</label>
+                <textarea 
+                  className="mt-2 w-full border-b border-black/10 py-3 text-base outline-none focus:border-black transition-colors bg-transparent font-light h-32 resize-none" 
+                  placeholder="How can we assist with your bespoke order?" 
+                />
+              </div>
+              <div className="md:col-span-2 pt-4">
+                <button 
+                  type="submit" 
+                  className="group flex items-center gap-4 bg-black text-white px-10 py-5 text-xs uppercase tracking-[0.3em] hover:bg-zinc-800 transition-all rounded-full md:rounded-none"
+                >
+                  Send Inquiry
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
+                </button>
+              </div>
             </form>
           </div>
+
         </div>
       </section>
     </main>
+  );
+}
+
+function ContactItem({ icon, title, value }: { icon: React.ReactNode, title: string, value: string }) {
+  return (
+    <div className="flex items-start gap-5">
+      <div className="mt-1 text-black/40">{icon}</div>
+      <div>
+        <h3 className="text-xs uppercase tracking-widest font-bold mb-1">{title}</h3>
+        <p className="text-base text-gray-600 font-light hover:text-black transition-colors cursor-default">
+          {value}
+        </p>
+      </div>
+    </div>
   );
 }

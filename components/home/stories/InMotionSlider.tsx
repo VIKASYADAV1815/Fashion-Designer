@@ -37,7 +37,7 @@ export default function InMotionSlider() {
           InMotion / <span className="text-stone-300">Spring 26</span>
         </h3>
         <div className="flex gap-2">
-          <span className="w-8 h-[1px] bg-stone-300 self-center" />
+          <span className="w-8 h-px bg-stone-300 self-center" />
           <p className="text-[10px] uppercase tracking-widest text-stone-400">
             Swipe to Explore
           </p>
@@ -58,10 +58,10 @@ export default function InMotionSlider() {
           {sliderProducts.map((item, idx) => (
             <div 
               key={idx} 
-              className="min-w-[280px] md:min-w-[340px] group select-none"
+              className="min-w-70 md:min-w-85 group select-none"
             >
               {/* Image Container */}
-              <div className="relative aspect-[3/4] overflow-hidden mb-4 rounded-md bg-stone-100">
+              <div className="relative aspect-3/4 overflow-hidden mb-4 rounded-md bg-stone-100">
                 <img
                   src={item.img}
                   alt={item.name}
@@ -101,7 +101,7 @@ export default function InMotionSlider() {
             </div>
           ))}
           {/* Extra padding at the end */}
-          <div className="min-w-[20px]" />
+          <div className="min-w-5" />
         </motion.div>
       </motion.div>
     </div>

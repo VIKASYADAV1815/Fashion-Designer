@@ -145,7 +145,7 @@ export default function Navbar() {
                       {link.name}
                       <span
                         className={cn(
-                          "absolute -bottom-1 left-0 w-full h-[1px] bg-white transform scale-x-0 transition-transform duration-300 origin-left",
+                          "absolute -bottom-1 left-0 w-full h-px bg-white transform scale-x-0 transition-transform duration-300 origin-left",
                           "group-hover:scale-x-100"
                         )}
                       />
@@ -161,7 +161,7 @@ export default function Navbar() {
                       {link.name}
                       <span
                         className={cn(
-                          "absolute -bottom-1 left-0 w-full h-[1px] bg-white transform scale-x-0 transition-transform duration-300 origin-left",
+                          "absolute -bottom-1 left-0 w-full h-px bg-white transform scale-x-0 transition-transform duration-300 origin-left",
                           activeCategory === link.id ? "scale-x-100" : "group-hover:scale-x-100"
                         )}
                       />

@@ -42,7 +42,7 @@ export default function FAQPage() {
           priority
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent" />
         <div className="relative z-10 w-full max-w-6xl mx-auto px-8 py-16 md:py-24 text-white">
           <h1 className="text-4xl md:text-6xl font-light uppercase tracking-tighter">Information</h1>
           <p className="mt-4 text-sm md:text-base text-white/80 max-w-2xl">
@@ -83,11 +83,11 @@ export default function FAQPage() {
                     <div className="relative flex items-center justify-center w-6 h-6">
                       <motion.span
                         animate={{ rotate: activeIndex === i ? 90 : 0 }}
-                        className="absolute h-[1px] w-full bg-black"
+                        className="absolute h-px w-full bg-black"
                       />
                       <motion.span
                         animate={{ rotate: activeIndex === i ? 0 : 90 }}
-                        className="absolute h-[1px] w-full bg-black"
+                        className="absolute h-px w-full bg-black"
                       />
                     </div>
                   </button>
@@ -118,7 +118,7 @@ export default function FAQPage() {
         {/* Visual mosaic */}
         <div className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-6">
           {["/images/img7.png","/images/4.jpg","/images/img16.png"].map((src, i) => (
-            <div key={i} className="relative aspect-[4/5] overflow-hidden rounded-sm">
+            <div key={i} className="relative aspect-4/5 overflow-hidden rounded-sm">
               <Image src={src} alt={`FAQ Visual ${i+1}`} fill sizes="(max-width: 1024px) 90vw, 30vw" className="object-cover" />
             </div>
           ))}

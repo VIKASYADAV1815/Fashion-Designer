@@ -23,7 +23,7 @@ export default function RefundPolicyPage() {
               <span className="[writing-mode:vertical-lr] rotate-180 text-[9px] uppercase tracking-[0.6em] font-semibold text-zinc-400 whitespace-nowrap">
                 khushi chauhan designer studio
               </span>
-              <div className="h-12 w-[1px] bg-zinc-100"></div>
+              <div className="h-12 w-px bg-zinc-100"></div>
             </div>
           ))}
         </div>

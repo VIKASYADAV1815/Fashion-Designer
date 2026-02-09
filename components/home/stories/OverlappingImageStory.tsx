@@ -111,7 +111,7 @@ export default function OverlappingImageStory() {
               - lg:h-[85vh] keeps it tall on big screens
               - h-[55vh] ensures it's tall and prominent on mobile
           */}
-          <div className="relative aspect-[9/14] h-[55vh] lg:h-[85vh] w-auto overflow-hidden shadow-2xl">
+          <div className="relative aspect-9/14 h-[55vh] lg:h-[85vh] w-auto overflow-hidden shadow-2xl">
             {frames.map((f, i) => (
               <div 
                 key={f.id} 
@@ -126,7 +126,7 @@ export default function OverlappingImageStory() {
                   sizes="(max-width: 1024px) 70vw, 40vw"
                 />
                 {/* Overlay for better mobile readability */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent lg:hidden" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent lg:hidden" />
               </div>
             ))}
           </div>

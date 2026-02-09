@@ -16,7 +16,7 @@ export default function LoginSignup() {
     <main className="min-h-screen w-full bg-[#FAF9F6] flex items-start justify-center p-4 md:p-8 pt-24 md:pt-36 font-sans selection:bg-[#C5A059]/20">
       
       {/* Main Card */}
-      <div className="w-full max-w-[1000px] flex flex-col md:flex-row min-h-[650px] bg-white rounded-2xl shadow-[0_40px_100px_-20px_rgba(0,0,0,0.06)] border border-stone-100 overflow-hidden">
+      <div className="w-full max-w-250 flex flex-col md:flex-row min-h-162.5 bg-white rounded-2xl shadow-[0_40px_100px_-20px_rgba(0,0,0,0.06)] border border-stone-100 overflow-hidden">
         
         {/* LEFT PANEL */}
         <div className="w-full md:w-[45%] bg-stone-900 p-8 md:p-12 flex flex-col relative overflow-hidden">
@@ -50,7 +50,7 @@ export default function LoginSignup() {
                   {mode === m && (
                     <motion.div 
                       layoutId="activeTab" 
-                      className="absolute bottom-0 left-0 w-full h-[1px] bg-[#C5A059]" 
+                      className="absolute bottom-0 left-0 w-full h-px bg-[#C5A059]" 
                     />
                   )}
                 </button>
@@ -79,7 +79,7 @@ export default function LoginSignup() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4, duration: 1 }}
-              className="max-w-[260px] space-y-4"
+              className="max-w-65 space-y-4"
             >
               <div className="h-px w-8 bg-stone-800 mx-auto" />
               <p className="text-[10px] leading-relaxed text-stone-400 font-light tracking-[0.05em] uppercase">
@@ -124,7 +124,7 @@ export default function LoginSignup() {
                   <label className="flex items-center gap-2 cursor-pointer group">
                     <input type="checkbox" className="sr-only peer" />
                     <div className="h-3 w-3 border border-stone-200 rounded-sm peer-checked:bg-stone-900 peer-checked:border-stone-900 transition-all flex items-center justify-center">
-                      <Check className="w-2 h-2 text-white stroke-[3]" />
+                      <Check className="w-2 h-2 text-white stroke-3" />
                     </div>
                     <span className="text-[8px] uppercase tracking-[0.2em] font-bold text-stone-400 group-hover:text-stone-800">Remember Me</span>
                   </label>

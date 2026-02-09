@@ -307,7 +307,7 @@ export default function ProductPage() {
   return (
     <ShopTransition>
       <div className="pt-24 md:pt-32 pb-24 bg-white text-black min-h-screen">
-        <div className="max-w-[1440px] mx-auto px-6 md:px-12">
+        <div className="max-w-360 mx-auto px-6 md:px-12">
           
           {/* Breadcrumbs */}
           <nav className="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-gray-400 mb-12">
@@ -321,7 +321,7 @@ export default function ProductPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
             
             <div className="lg:col-span-7 space-y-6">
-              <div className="relative aspect-[3/4] bg-neutral-50 overflow-hidden group">
+              <div className="relative aspect-3/4 bg-neutral-50 overflow-hidden group">
                 <Image
                   src={images3[activeImage]}
                   alt={product.name}
@@ -335,7 +335,7 @@ export default function ProductPage() {
                 {images3.slice(0, 3).map((img, idx) => (
                   <button
                     key={idx}
-                    className={`relative aspect-[3/4] w-full border transition-all duration-500 ${activeImage === idx ? 'border-black' : 'border-transparent opacity-60 hover:opacity-100'}`}
+                    className={`relative aspect-3/4 w-full border transition-all duration-500 ${activeImage === idx ? 'border-black' : 'border-transparent opacity-60 hover:opacity-100'}`}
                     onClick={() => setActiveImage(idx)}
                     aria-label={`Preview ${idx + 1}`}
                   >

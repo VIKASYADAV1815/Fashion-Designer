@@ -33,7 +33,7 @@ export default function CollectionHero() {
          sizes="100vw"
          className="object-cover"
        />
-       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent" />
+       <div className="absolute inset-0 bg-linear-to-trom-black/70 via-black/40 to-transparent" />
        <div ref={textRef} className="relative z-10 text-center text-white px-6">
          <h1 className="text-6xl md:text-9xl font-light uppercase tracking-tighter mb-6">
            Lookbook
