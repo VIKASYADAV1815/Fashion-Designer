@@ -67,7 +67,7 @@ export default function BentoWithCompactSlider() {
                     <button
                       type="button"
                       onClick={() => {
-                        addItem({ id: slug(p.name), name: p.name, price: Number(String(p.price).replace(/[^0-9]/g,"")) || 0, image: p.src });
+                        addItem({ id: slug(p.name), name: p.name, price: Number(String(p.price).replace(/[^0-9]/g,"")) || 0, image: p.type === "image" ? p.src : undefined });
                         setAddedIndex(i);
                         openCart();
                         setTimeout(() => setAddedIndex(null), 1200);

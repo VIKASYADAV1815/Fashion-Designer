@@ -1,23 +1,12 @@
-"use client";
-
 import React from 'react';
 
 export default function PrivacyPolicyPage() {
   return (
     <main className="bg-white text-zinc-700 min-h-screen flex font-sans selection:bg-zinc-100 relative">
-      <style dangerouslySetInnerHTML={{ __html: `
-        @keyframes tickerVertical {
-          0% { transform: translateY(0); }
-          100% { transform: translateY(-50%); }
-        }
-        .animate-ticker-studio {
-          animation: tickerVertical 40s linear infinite;
-        }
-      `}} />
 
       {/* LEFT SIDE: Branded Ticker - Refined weight and subtle border */}
       <aside className="hidden md:flex w-14 border-r border-zinc-200 flex-col overflow-hidden sticky top-0 h-screen bg-white z-20">
-        <div className="animate-ticker-studio flex flex-col items-center pt-10">
+        <div className="flex flex-col items-center pt-10">
           {[...Array(10)].map((_, i) => (
             <div key={i} className="flex flex-col items-center py-16 gap-20">
               <span className="[writing-mode:vertical-lr] rotate-180 text-[9px] uppercase tracking-[0.6em] font-semibold text-zinc-400 whitespace-nowrap">

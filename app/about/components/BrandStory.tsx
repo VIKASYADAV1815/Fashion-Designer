@@ -16,7 +16,7 @@ export default function BrandStory() {
           sizes="100vw"
         />
       </div>
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/30" />
+      <div className="absolute inset-0 bg-linear-to-trom-black via-black/50 to-black/30" />
 
       <div className="relative z-10 max-w-4xl px-6 text-center py-24 md:py-32">
         <h2 className="text-xs font-bold uppercase tracking-[0.3em] mb-6 text-gray-300">Our Philosophy</h2>

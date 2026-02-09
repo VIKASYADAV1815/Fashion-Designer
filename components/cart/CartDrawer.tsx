@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { useCart } from "./CartProvider";
+import { X } from "lucide-react";
 
 export default function CartDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
   const { items, removeItem, clear } = useCart();
@@ -30,6 +31,13 @@ export default function CartDrawer({ open, onClose }: { open: boolean; onClose: 
             aria-label="Cart Drawer"
           >
             <div className="p-6 flex items-center justify-between border-b border-white/10">
+              <button
+                className="sm:hidden p-2 rounded-md hover:bg-white/10"
+                aria-label="Close cart"
+                onClick={onClose}
+              >
+                <X size={18} />
+              </button>
               <h3 className="text-xs uppercase tracking-[0.25em]">Your Cart</h3>
               <button className="text-xs uppercase tracking-[0.25em] hover:opacity-70" onClick={clear}>Clear</button>
             </div>

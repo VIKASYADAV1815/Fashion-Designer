@@ -23,10 +23,10 @@ export default function CollectionsPage() {
               </div>
             </div>
             <div className="lg:col-span-7 grid grid-cols-2 gap-6">
-              <div className="relative aspect-[4/5] overflow-hidden bg-neutral-100">
+              <div className="relative aspect-4/5 overflow-hidden bg-neutral-100">
                 <Image src="/images/img7.png" alt="Studio Visual 1" fill sizes="(max-width:1024px) 90vw, 35vw" className="object-cover" />
               </div>
-              <div className="relative aspect-[4/5] overflow-hidden bg-neutral-100">
+              <div className="relative aspect-4/5 overflow-hidden bg-neutral-100">
                 <Image src="/images/4.jpg" alt="Studio Visual 2" fill sizes="(max-width:1024px) 90vw, 35vw" className="object-cover" />
               </div>
             </div>

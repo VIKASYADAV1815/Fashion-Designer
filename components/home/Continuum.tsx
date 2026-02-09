@@ -68,7 +68,7 @@ export default function AboutSection() {
       {/* BACKGROUND LOGO */}
       <div 
         ref={logoBgRef}
-        className="absolute bottom-0 right-0 select-none pointer-events-none opacity-[0.05] w-[35vw] max-w-[450px] z-0 translate-x-10"
+        className="absolute bottom-0 right-0 select-none pointer-events-none opacity-[0.05] w-[35vw] max-w-112.5 z-0 translate-x-10"
       >
         <img 
           src="/images/logo.png" 
@@ -120,7 +120,7 @@ export default function AboutSection() {
                 <div className="flex flex-col space-y-4">
                   <div className="flex items-center gap-3">
                     <span className="text-[10px] font-mono text-stone-300">0{i + 1}</span>
-                    <div className="h-[1px] flex-1 bg-stone-200 group-hover:bg-[#1A1A1A] transition-all duration-500 origin-left" />
+                    <div className="h-px flex-1 bg-stone-200 group-hover:bg-[#1A1A1A] transition-all duration-500 origin-left" />
                   </div>
                   <h3 className="text-base uppercase tracking-[0.15em] font-bold text-stone-800">
                     {item.title}

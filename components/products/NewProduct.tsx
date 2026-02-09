@@ -49,7 +49,7 @@
                transition={{ delay: i * 0.1 }}
                className="group"
              >
-               <div className="relative aspect-[3/4] overflow-hidden rounded-sm">
+               <div className="relative aspect-3/4 overflow-hidden rounded-sm">
                 <Image
                   src={item.image}
                   alt={item.title}

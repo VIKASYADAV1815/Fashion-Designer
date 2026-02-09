@@ -112,7 +112,7 @@ export default function ImageSplit() {
           <div className="lg:col-span-5 relative flex justify-center lg:justify-end">
             <div 
               ref={imageContainerRef}
-              className="relative w-full max-w-md aspect-[3/4] lg:aspect-[2/3] overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)]"
+              className="relative w-full max-w-md aspect-3/4 lg:aspect-2/3 overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)]"
             >
               <div ref={imageRef} className="w-full h-full relative">
                  <Image 
@@ -135,7 +135,7 @@ export default function ImageSplit() {
               </div>
             </div>
 
-            <div className="hidden xl:block absolute -bottom-6 -left-12 bg-white p-6 shadow-2xl max-w-[200px] z-20 border border-stone-50">
+            <div className="hidden xl:block absolute -bottom-6 -left-12 bg-white p-6 shadow-2xl max-w-50 z-20 border border-stone-50">
               <h4 className="text-[9px] font-bold uppercase tracking-widest mb-2 text-stone-400">Embroidery Detail</h4>
               <p className="text-xs font-light text-stone-600 leading-relaxed italic font-serif">
                 &quot;The interplay of pastel floral beads against a radiant gold base.&quot;

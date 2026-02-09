@@ -85,7 +85,7 @@ export default function ShopGrid({ category }: ShopGridProps) {
 
   return (
     <section className="py-24 px-6 md:px-14 bg-[#FCFCFC] text-black min-h-screen">
-      <div className="max-w-[1600px] mx-auto">
+      <div className="max-w-400 mx-auto">
 
         {/* Header */}
         <header className="mb-16 text-center">
@@ -147,7 +147,7 @@ export default function ShopGrid({ category }: ShopGridProps) {
             "
           >
             {/* Search */}
-            <div className="flex items-center gap-4 flex-1 min-w-[160px] sm:min-w-[240px]">
+            <div className="flex items-center gap-4 flex-1 min-w-40 sm:min-w-60">
               <Search className="w-5 h-5 text-gray-500" />
               <input
                 value={query}

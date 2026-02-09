@@ -33,7 +33,7 @@ export default function CollectionHero() {
          sizes="100vw"
          className="object-cover"
        />
-       <div className="absolute inset-0 bg-linear-to-trom-black/70 via-black/40 to-transparent" />
+       <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/40 to-transparent" />
        <div ref={textRef} className="relative z-10 text-center text-white px-6">
          <h1 className="text-6xl md:text-9xl font-light uppercase tracking-tighter mb-6">
            Lookbook
@@ -42,8 +42,8 @@ export default function CollectionHero() {
            Crafting luxury ethnic wear where traditional hand‑craft meets modern silhouettes. From bespoke bridal lehengas to effortless casual‑fit sarees, we design for elegance.
          </p>
          <div className="mt-8 flex items-center justify-center gap-6">
-           <Link href="/shop" className="text-[11px] uppercase tracking-[0.3em] border border-white px-5 py-3 hover:bg-white hover:text-black transition-colors">Shop Collection</Link>
-           <Link href="/" className="text-[11px] uppercase tracking-[0.3em] border border-white/40 px-5 py-3 hover:bg-white hover:text-black transition-colors">Home</Link>
+           <Link href="/shop" className="text-[11px] uppercase tracking-[0.3em] bg-black text-white border border-black px-5 py-3 hover:bg-black/90 transition-colors">Shop Collection</Link>
+           <Link href="/" className="text-[11px] uppercase tracking-[0.3em] bg-black text-white border border-black px-5 py-3 hover:bg-black/90 transition-colors">Home</Link>
          </div>
        </div>
        <div className="absolute bottom-4 left-0 right-0 text-center text-[11px] uppercase tracking-[0.3em] text-white/70">
