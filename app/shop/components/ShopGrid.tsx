@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { Search, Maximize2, Minimize2 } from "lucide-react";
 import ShopCard from "./ShopCard";
-import productsData from "@/lib/products.json";
+import productsData from "@/lib/products.json" assert { type: "json" };
 
 // --- Types ---
 type Product = {

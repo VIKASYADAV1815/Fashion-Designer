@@ -5,6 +5,7 @@ import Image from "next/image";
 
 interface Product {
   id: string;
+  slug?: string;
   name: string;
   price: number;
   image: string;

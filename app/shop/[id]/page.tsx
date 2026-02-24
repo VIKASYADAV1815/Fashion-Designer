@@ -16,7 +16,7 @@ import {
 import AnimatedButton from "@/components/buttons/AnimatedButton";
 import { useCart } from "@/components/cart/CartProvider";
 import ShopTransition from "../components/ShopTransition";
-import productsData from "@/lib/products.json";
+import productsData from "@/lib/products.json" assert { type: "json" };
 
 // Mock data
 const products = productsData;
@@ -51,7 +51,7 @@ export default function ProductPage() {
 
   return (
     <ShopTransition>
-      <div className="pt-24 md:pt-32 pb-24 bg-white text-black min-h-screen">
+      <div className="pt-24 md:pt-32 pb-16 bg-white text-black min-h-screen">
         <div className="max-w-[1200px] mx-auto px-6 md:px-12">
           
           {/* Breadcrumbs */}
@@ -95,14 +95,15 @@ export default function ProductPage() {
                   <h3 className="text-xs uppercase tracking-[0.3em] font-bold mb-6 flex items-center gap-2">
                     <Play size={14} /> Motion Preview
                   </h3>
-                  <div className="relative aspect-video max-h-[400px] bg-neutral-900 overflow-hidden group">
+                  <div className="relative aspect-video max-h-[360px] bg-neutral-900 overflow-hidden group">
                     <video 
                       src={(product as any).video}
                       autoPlay
                       loop
                       muted
                       playsInline
-                      className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-700"
+                      preload="metadata"
+                      className="w-full h-full object-cover opacity-85 group-hover:opacity-100 transition-opacity duration-500"
                     />
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                        <div className="w-16 h-16 rounded-full border border-white/20 flex items-center justify-center backdrop-blur-sm">
@@ -204,42 +205,47 @@ export default function ProductPage() {
                   </div>
                 </div>
 
-                <div className="pt-12 space-y-10">
-                  {(product as any).studio && (
-                    <div className="p-8 bg-neutral-50 border border-neutral-100">
-                      <h3 className="text-xs uppercase tracking-widest font-bold mb-4">{ (product as any).studio.name }</h3>
-                      <p className="text-sm text-gray-600 font-light leading-relaxed mb-3">
-                        { (product as any).studio.address }
-                      </p>
-                      <p className="text-sm text-[#D7B63F] font-medium tracking-wide">
-                        { (product as any).studio.landmark }
-                      </p>
-                    </div>
-                  )}
-                  <div>
-                    <h3 className="text-xs uppercase tracking-widest font-bold mb-4">Composition & Care</h3>
-                    <p className="text-base text-gray-700 font-light leading-relaxed">Materials selected for longevity and comfort. Follow fabric-specific care; dry clean recommended for delicate pieces.</p>
-                  </div>
-                  <div>
-                    <h3 className="text-xs uppercase tracking-widest font-bold mb-4">Delivery & Returns</h3>
-                    <p className="text-base text-gray-700 font-light leading-relaxed">Dispatch in 2–4 business days. Free shipping across India. 14‑day returns for unworn items with original tags.</p>
-                  </div>
-                  <div>
-                    <h3 className="text-xs uppercase tracking-widest font-bold mb-4">Payment & Security</h3>
-                    <p className="text-base text-gray-700 font-light leading-relaxed">Secure checkout with UPI, major cards, and NetBanking supported.</p>
-                  </div>
-                  <div>
-                    <h3 className="text-xs uppercase tracking-widest font-bold mb-4">Fit & Sizing</h3>
-                    <p className="text-base text-gray-700 font-light leading-relaxed">Refer to the size guide for measurements. Contact support for bespoke sizing.</p>
-                  </div>
-                  <div>
-                    <h3 className="text-xs uppercase tracking-widest font-bold mb-4">Customer Support</h3>
-                    <p className="text-base text-gray-700 font-light leading-relaxed">Concierge assistance via chat and phone during business hours.</p>
-                  </div>
-                </div>
+                {/* General info moved to full-width section below to balance layout */}
 
               </div>
             </div>
+          
+          {/* Full-width informational sections to fill space under media */}
+          <div className="mt-20 grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-16">
+            {(product as any).studio && (
+              <div className="lg:col-span-1 p-8 bg-neutral-50 border border-neutral-100">
+                <h3 className="text-xs uppercase tracking-widest font-bold mb-4">{ (product as any).studio.name }</h3>
+                <p className="text-sm text-gray-600 font-light leading-relaxed mb-3">
+                  { (product as any).studio.address }
+                </p>
+                <p className="text-sm text-[#D7B63F] font-medium tracking-wide">
+                  { (product as any).studio.landmark }
+                </p>
+              </div>
+            )}
+            <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
+                <h3 className="text-xs uppercase tracking-widest font-bold mb-4">Composition & Care</h3>
+                <p className="text-base text-gray-700 font-light leading-relaxed">Materials selected for longevity and comfort. Follow fabric-specific care; dry clean recommended for delicate pieces.</p>
+              </div>
+              <div>
+                <h3 className="text-xs uppercase tracking-widest font-bold mb-4">Delivery & Returns</h3>
+                <p className="text-base text-gray-700 font-light leading-relaxed">Dispatch in 2–4 business days. Free shipping across India. 14‑day returns for unworn items with original tags.</p>
+              </div>
+              <div>
+                <h3 className="text-xs uppercase tracking-widest font-bold mb-4">Payment & Security</h3>
+                <p className="text-base text-gray-700 font-light leading-relaxed">Secure checkout with UPI, major cards, and NetBanking supported.</p>
+              </div>
+              <div>
+                <h3 className="text-xs uppercase tracking-widest font-bold mb-4">Fit & Sizing</h3>
+                <p className="text-base text-gray-700 font-light leading-relaxed">Refer to the size guide for measurements. Contact support for bespoke sizing.</p>
+              </div>
+              <div>
+                <h3 className="text-xs uppercase tracking-widest font-bold mb-4">Customer Support</h3>
+                <p className="text-base text-gray-700 font-light leading-relaxed">Concierge assistance via chat and phone during business hours.</p>
+              </div>
+            </div>
+          </div>
           </div>
         </div>
       </div>
