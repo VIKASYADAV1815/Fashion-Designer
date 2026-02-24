@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
 
 interface Product {
   id: string;
@@ -23,14 +22,8 @@ function slugify(s: string) {
 
 export default function ShopCard({ product, index }: ShopCardProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.1, duration: 0.8, ease: "easeOut" }}
-      className="group cursor-pointer"
-    >
-      <Link href={`/shop/${slugify(product.name)}`} className="block">
+    <div className="group cursor-pointer">
+      <Link href={`/shop/${product.slug || slugify(product.name)}`} className="block">
         <div className="relative aspect-3/4 overflow-hidden mb-6 bg-gray-100">
           <Image
             src={product.image}
@@ -56,6 +49,6 @@ export default function ShopCard({ product, index }: ShopCardProps) {
           <p className="text-xs font-light tracking-wider">₹{product.price.toLocaleString("en-IN")}</p>
         </div>
       </Link>
-    </motion.div>
+    </div>
   );
 }

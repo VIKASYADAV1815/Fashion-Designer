@@ -105,10 +105,10 @@ export default function LoginSignup() {
               className="w-full max-w-[320px] mx-auto"
             >
               <div className="mb-10 text-center md:text-left">
-                <h2 className="text-2xl font-serif text-stone-900 tracking-tight">
+                <h2 className="text-3xl font-serif text-stone-900 tracking-tight">
                   {mode === "login" ? "Sign In" : "Create Account"}
                 </h2>
-                <p className="text-[9px] uppercase tracking-widest text-stone-400 mt-2">
+                <p className="text-[10px] uppercase tracking-widest text-stone-400 mt-3">
                   {mode === "login" ? "Welcome back to your account" : "Join our designer community"}
                 </p>
               </div>
@@ -126,20 +126,20 @@ export default function LoginSignup() {
                     <div className="h-3 w-3 border border-stone-200 rounded-sm peer-checked:bg-stone-900 peer-checked:border-stone-900 transition-all flex items-center justify-center">
                       <Check className="w-2 h-2 text-white stroke-3" />
                     </div>
-                    <span className="text-[8px] uppercase tracking-[0.2em] font-bold text-stone-400 group-hover:text-stone-800">Remember Me</span>
+                    <span className="text-[9px] uppercase tracking-[0.2em] font-bold text-stone-400 group-hover:text-stone-800">Remember Me</span>
                   </label>
                   {mode === "login" && (
-                    <button className="text-[8px] uppercase tracking-widest text-[#C5A059] hover:text-stone-900 font-bold">
+                    <button className="text-[9px] uppercase tracking-widest text-[#C5A059] hover:text-stone-900 font-bold">
                       Forgot Password?
                     </button>
                   )}
                 </div>
 
                 <div className="pt-6">
-                  <button className="group relative w-full overflow-hidden rounded-lg bg-stone-900 px-6 py-3.5 text-white transition-all duration-500">
-                    <span className="relative z-10 flex items-center justify-center gap-3 text-[9px] font-bold uppercase tracking-[0.5em]">
+                  <button className="group relative w-full overflow-hidden rounded-lg bg-stone-900 px-6 py-4 text-white transition-all duration-500">
+                    <span className="relative z-10 flex items-center justify-center gap-3 text-[10px] font-bold uppercase tracking-[0.5em]">
                       {mode === "login" ? "Sign In" : "Register"}
-                      <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                      <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </span>
                     <div className="absolute inset-0 bg-[#C5A059] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                   </button>
@@ -170,7 +170,7 @@ function LuxeInput({ label, type, id }: { label: string; type: string; id: strin
       <label
         htmlFor={id}
         className={cn(
-          "absolute left-4 text-[8px] uppercase tracking-[0.3em] transition-all duration-300 pointer-events-none z-10",
+          "absolute left-4 text-[10px] uppercase tracking-[0.3em] transition-all duration-300 pointer-events-none z-10",
           focused || value ? "top-2 text-[#C5A059] font-bold" : "top-4 text-stone-400"
         )}
       >
@@ -185,7 +185,7 @@ function LuxeInput({ label, type, id }: { label: string; type: string; id: strin
         onBlur={() => setFocused(false)}
         autoComplete={type === "email" ? "email" : "current-password"}
         className={cn(
-          "w-full rounded-lg border bg-stone-50/20 px-4 pt-6 pb-2 text-[12px] text-stone-900 outline-none transition-all duration-300",
+          "w-full rounded-lg border bg-stone-50/20 px-4 pt-7 pb-3 text-[14px] text-stone-900 outline-none transition-all duration-300",
           "border-stone-100 hover:border-stone-200 focus:border-[#C5A059] focus:bg-white focus:ring-4 focus:ring-[#C5A059]/5"
         )}
       />

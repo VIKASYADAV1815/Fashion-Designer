@@ -23,7 +23,14 @@ export default function Navbar() {
   const pathname = usePathname();
   useEffect(() => {
     console.log("[nav] route changed:", pathname);
-  }, [pathname]);
+    const t = setTimeout(() => {
+      setActiveCategory(null);
+      setIsMobileMenuOpen(false);
+      setSearchOpen(false);
+      closeCart();
+    }, 0);
+    return () => clearTimeout(t);
+  }, [pathname, closeCart]);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const dy = latest - lastY.current;

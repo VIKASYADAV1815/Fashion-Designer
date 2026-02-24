@@ -1,13 +1,14 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { Search, Maximize2, Minimize2 } from "lucide-react";
 import ShopCard from "./ShopCard";
+import productsData from "@/lib/products.json";
 
 // --- Types ---
 type Product = {
   id: string;
+  slug?: string;
   name: string;
   price: number;
   category: string;
@@ -19,42 +20,7 @@ type ShopGridProps = {
 };
 
 // --- Data ---
-const products: Product[] = [
-  { id: "d1", name: "Silk Evening Dress", price: 890, category: "Dress", image: "/images/4.jpg" },
-  { id: "d2", name: "Velvet A-Line Dress", price: 760, category: "Dress", image: "/images/img2.jpg" },
-  { id: "d3", name: "Embroidered Cocktail Dress", price: 980, category: "Dress", image: "/images/img15.png" },
-  { id: "d4", name: "Minimal Column Dress", price: 650, category: "Dress", image: "/images/3.jpg" },
-  { id: "d5", name: "Draped Satin Dress", price: 720, category: "Dress", image: "/images/img21.png" },
-
-  { id: "l1", name: "Heritage Lehenga", price: 1450, category: "Lehenga", image: "/images/img17.png" },
-  { id: "l2", name: "Floral Embroidered Lehenga", price: 1560, category: "Lehenga", image: "/images/img11.png" },
-  { id: "l3", name: "Golden Zari Lehenga", price: 1720, category: "Lehenga", image: "/images/img7.png" },
-  { id: "l4", name: "Classic Bridal Lehenga", price: 1850, category: "Lehenga", image: "/images/img10.png" },
-  { id: "l5", name: "Contemporary Lehenga Set", price: 1320, category: "Lehenga", image: "/images/img12.png" },
-
-  { id: "s1", name: "Handloom Silk Saree", price: 620, category: "Saree", image: "/images/img5.jpg" },
-  { id: "s2", name: "Chiffon Printed Saree", price: 480, category: "Saree", image: "/images/img16.png" },
-  { id: "s3", name: "Banarasi Brocade Saree", price: 980, category: "Saree", image: "/images/img14.png" },
-  { id: "s4", name: "Pastel Organza Saree", price: 540, category: "Saree", image: "/images/img13.png" },
-  { id: "s5", name: "Classic Red Silk Saree", price: 890, category: "Saree", image: "/images/2.jpg" },
-  { id: "s6", name: "Ivory Sheer Saree", price: 760, category: "Saree", image: "/images/0.jpg" },
-  { id: "s7", name: "Amber Satin Saree", price: 820, category: "Saree", image: "/images/1.jpg" },
-  { id: "s8", name: "Midnight Blue Saree", price: 910, category: "Saree", image: "/images/3.jpg" },
-  { id: "s9", name: "Rose Organza Saree", price: 690, category: "Saree", image: "/images/5.jpg" },
-
-  { id: "dc1", name: "Drape Casual Set", price: 480, category: "Drape Casual Fit", image: "/images/img3.jpg" },
-  { id: "dc2", name: "Relaxed Drape Co-ord", price: 520, category: "Drape Casual Fit", image: "/images/img9.png" },
-  { id: "dc3", name: "Everyday Drape Dress", price: 430, category: "Drape Casual Fit", image: "/images/img8.png" },
-  { id: "dc4", name: "Layered Drape Tunic", price: 410, category: "Drape Casual Fit", image: "/images/img6.jpg" },
-  { id: "dc5", name: "Effortless Drape Kurta", price: 450, category: "Drape Casual Fit", image: "/images/img1.jpg" },
-  { id: "dc6", name: "Soft Drape Column", price: 640, category: "Drape Casual Fit", image: "/images/3.jpg" },
-  { id: "dc7", name: "Moody Drape Cocktail", price: 920, category: "Drape Casual Fit", image: "/images/img15.png" },
-  { id: "dc8", name: "Satin Drape Evening", price: 730, category: "Drape Casual Fit", image: "/images/img21.png" },
-  { id: "dc9", name: "Olive Drape Set", price: 520, category: "Drape Casual Fit", image: "/images/img20.png" },
-  { id: "dc10", name: "Charcoal Drape Dress", price: 610, category: "Drape Casual Fit", image: "/images/4.jpg" },
-  { id: "dc11", name: "Sand Drape Tunic", price: 480, category: "Drape Casual Fit", image: "/images/img4.jpg" },
-  { id: "dc12", name: "Clay Drape Co-ord", price: 560, category: "Drape Casual Fit", image: "/images/2.jpg" },
-];
+const products = productsData as Product[];
 
 export default function ShopGrid({ category }: ShopGridProps) {
   const [query, setQuery] = useState("");
@@ -85,13 +51,13 @@ export default function ShopGrid({ category }: ShopGridProps) {
 
   return (
     <section className="py-24 px-6 md:px-14 bg-[#FCFCFC] text-black min-h-screen">
-      <div className="max-w-400 mx-auto">
+      <div className="max-w-[1600px] mx-auto">
 
         {/* Header */}
         <header className="mb-16 text-center">
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
+          <div className="space-y-4">
             <span className="text-xs uppercase tracking-[0.35em] text-gray-400">
-              Prêt-à-Porter
+              READY TO WEAR 
             </span>
 
             <h2 className="text-5xl md:text-7xl font-extralight uppercase tracking-tight">
@@ -105,7 +71,7 @@ export default function ShopGrid({ category }: ShopGridProps) {
               </span>
               <div className="h-px w-16 bg-black/10" />
             </div>
-          </motion.div>
+          </div>
         </header>
 
         {/* MOBILE FILTER QUICK BAR */}
@@ -235,23 +201,15 @@ export default function ShopGrid({ category }: ShopGridProps) {
         </div>
 
         {/* MOBILE FILTERS DRAWER */}
-        <AnimatePresence>
-          {mobileFiltersOpen && (
+        {mobileFiltersOpen && (
             <>
-              <motion.div
+              <div
                 className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
                 onClick={() => setMobileFiltersOpen(false)}
                 aria-hidden="true"
               />
-              <motion.aside
+              <aside
                 className="fixed left-0 top-0 h-full w-[85vw] bg-white z-50 shadow-xl border-r border-black/10"
-                initial={{ x: "-100%" }}
-                animate={{ x: 0 }}
-                exit={{ x: "-100%" }}
-                transition={{ type: "tween", duration: 0.3 }}
                 role="dialog"
                 aria-label="Filters"
               >
@@ -347,14 +305,12 @@ export default function ShopGrid({ category }: ShopGridProps) {
                     </button>
                   </div>
                 </div>
-              </motion.aside>
+              </aside>
             </>
           )}
-        </AnimatePresence>
 
         {/* Grid */}
-        <motion.div
-          layout
+        <div
           className={`grid gap-x-6 md:gap-x-12 gap-y-12 md:gap-y-24 transition-all duration-700
             ${
               columns === 2
@@ -364,25 +320,15 @@ export default function ShopGrid({ category }: ShopGridProps) {
                 : "grid-cols-2 md:grid-cols-2 lg:grid-cols-4"
             }`}
         >
-          <AnimatePresence mode="popLayout">
             {filtered.map((product, index) => {
               const displayProduct = category ? { ...product, category: "" } : product;
               return (
-                <motion.div
-                key={product.id}
-                layout
-                initial={{ opacity: 0, filter: "blur(10px)" }}
-                animate={{ opacity: 1, filter: "blur(0px)" }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.5, delay: index * 0.02 }}
-                className={size === "compact" ? "px-4" : "px-0"}
-              >
+                <div key={product.id} className={size === "compact" ? "px-4" : "px-0"}>
                 <ShopCard product={displayProduct} index={index} />
-              </motion.div>
+                </div>
               );
             })}
-          </AnimatePresence>
-        </motion.div>
+        </div>
 
       </div>
     </section>

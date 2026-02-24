@@ -1,8 +1,7 @@
-"use client";
-
-import { useParams } from "next/navigation";
 import ShopGrid from "@/app/shop/components/ShopGrid";
 import ShopTransition from "@/app/shop/components/ShopTransition";
+import React from "react";
+export const dynamic = "force-dynamic";
 
 const categoryTitles: Record<string, string> = {
   women: "Womenswear",
@@ -15,9 +14,8 @@ const categoryTitles: Record<string, string> = {
   saree: "Saree",
 };
 
-export default function CategoryPage() {
-  const params = useParams();
-  const category = params?.category as string;
+export default async function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
+  const { category } = await params;
   
   // In a real app, we would filter products by category here or fetch from API
   // For now, we reuse ShopGrid but change the title

@@ -1,0 +1,58 @@
+[
+  {
+    "id": "32-kali-bridal-lehenga",
+    "slug": "32-kali-bridal-lehenga",
+    "name": "32-kali bridal lehenga",
+    "price": 1450,
+    "category": "Lehenga",
+    "subCategory": "Bridal Lehenga",
+    "image": "/images/img17.png",
+    "images": [
+      "/images/img17.png",
+      "/images/img10.png",
+      "/images/img11.png",
+      "/images/img12.png",
+      "/images/img7.png",
+      "/images/img12.png"
+    ],
+    "video": "https://assets.mixkit.co/videos/preview/mixkit-fashion-model-in-a-red-dress-walking-on-a-rooftop-34441-large.mp4",
+    "description": "32-kali bridal lehenga crafted in rich silk and georgette with full flare, highlighted with gotta patti detailing on each panel and finished with a heavy gotta & lace border at the hem. \n\nLehenga includes soft lining and double can-can for enhanced volume and graceful fall. \n\nBlouse made in matching fabric featuring intricate hand embroidery (zari, sequins) on neckline, sleeves, and back with tailored finishing. \n\nDupatta in organza adorned with gotta patti border on all four sides, elegant lace edging. \n\nOverall ensemble offers a traditional bridal look with coordinated gotta and lace work across lehenga and dupatta for a rich, cohesive finish.",
+    "details": [
+      "Colour: Space Cherry",
+      "Style No: KCB001",
+      "Number of component: 3",
+      "Wash Care: Dry clean only",
+      "Country of Origin: India",
+      "Fabric: Rich Silk & Georgette",
+      "Work: Gotta Patti & Hand Embroidery",
+      "Includes: Lehenga, Blouse, Dupatta"
+    ],
+    "studio": {
+      "name": "Khushi Chauhan Designer Studio",
+      "address": "Shop no. 113, 114, 115 Swaraj Plaza, 72 Rajpur Road, Dehradun-248001",
+      "landmark": "Opp. Madhu Ban Hotel, Uttarakhand"
+    }
+  },
+  {
+    "id": "d1",
+    "slug": "silk-evening-dress",
+    "name": "Silk Evening Dress",
+    "price": 890,
+    "category": "Dress",
+    "image": "/images/4.jpg",
+    "images": ["/images/4.jpg", "/images/3.jpg"],
+    "description": "Fluid silk evening dress with bias cut and elegant drape.",
+    "details": ["100% Mulberry Silk", "Bias Cut", "Invisible Zipper", "Dry Clean"]
+  },
+  {
+    "id": "l2",
+    "slug": "floral-embroidered-lehenga",
+    "name": "Floral Embroidered Lehenga",
+    "price": 1560,
+    "category": "Lehenga",
+    "image": "/images/img11.png",
+    "images": ["/images/img11.png", "/images/img12.png"],
+    "description": "Florals in fine threadwork over a structured base.",
+    "details": ["Floral Embroidery", "Structured Waist", "Dupatta Included", "Dry Clean"]
+  }
+]
