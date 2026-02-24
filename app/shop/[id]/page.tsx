@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useMemo } from "react";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import { 
@@ -11,244 +11,234 @@ import {
   Truck, 
   RefreshCw,
   Info,
+  Scissors,
+  Sparkles,
   Play
 } from "lucide-react";
-import AnimatedButton from "@/components/buttons/AnimatedButton";
-import { useCart } from "@/components/cart/CartProvider";
-import ShopTransition from "../components/ShopTransition";
-import productsData from "@/lib/products.json" assert { type: "json" };
 
-// Mock data
-const products = productsData;
+import { useCart } from "@/components/cart/CartProvider";
+import Lightbox from "@/components/lightbox/Lightbox";
+import ShopTransition from "../components/ShopTransition";
+import productsData from "@/lib/products.json";
+
+interface Product {
+  id: string;
+  name: string;
+  price: number;
+  category: string;
+  description: string;
+  images: string[];
+  details: string[];
+  video?: string;
+  studio?: {
+    name: string;
+    address: string;
+    landmark: string;
+  };
+}
+
+const products = productsData as Product[];
 
 export default function ProductPage() {
   const params = useParams();
   const router = useRouter();
   const [activeImage, setActiveImage] = useState(0);
+  const [showVideo, setShowVideo] = useState(false);
   const [qty, setQty] = useState(1);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
   const { addItem, openCart } = useCart();
 
   const id = params?.id as string;
-  const slugify = (s: string) =>
-    s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-  
-  const product = products.find((p) => p.id === id || slugify(p.name) === id);
-  const imagesToShow = product?.images || [];
+  const product = useMemo(() => 
+    products.find((p) => p.id === id || p.name.toLowerCase().replace(/[^a-z0-9]+/g, "-") === id), 
+  [id]);
 
-  if (!id) return null;
-
-  if (!product) {
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-white text-black font-light px-6 text-center">
-        <h2 className="text-3xl mb-4 tracking-tighter uppercase">Selection Not Found</h2>
-        <p className="text-gray-500 mb-8 max-w-xs">The piece you are looking for might have been moved or is no longer available.</p>
-        <AnimatedButton onClick={() => router.push("/shop")}>
-          Return to Atelier
-        </AnimatedButton>
-      </div>
-    );
-  }
+  if (!product) return null;
 
   return (
     <ShopTransition>
-      <div className="pt-24 md:pt-32 pb-16 bg-white text-black min-h-screen">
-        <div className="max-w-[1200px] mx-auto px-6 md:px-12">
+      <div className="pt-24 md:pt-32 bg-white text-black min-h-screen">
+        <div className="flex flex-col lg:flex-row min-h-screen">
           
-          {/* Breadcrumbs */}
-          <nav className="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-gray-400 mb-12">
-            <span className="cursor-pointer hover:text-black transition-colors" onClick={() => router.push("/")}>Home</span>
-            <ChevronRight size={10} />
-            <span className="cursor-pointer hover:text-black transition-colors" onClick={() => router.push("/shop")}>Shop</span>
-            <ChevronRight size={10} />
-            <span className="text-black">{product.category}</span>
-          </nav>
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
-            
-            <div className="lg:col-span-7 space-y-8">
-              <div className="relative aspect-[4/5] max-h-[700px] bg-neutral-50 overflow-hidden group">
+          {/* LEFT: MEDIA SECTION WITH SEPARATED VIDEO OVERLAY */}
+          <div className="lg:w-[45%] lg:h-screen lg:sticky lg:top-0 bg-[#F6F6F6] flex items-center justify-center p-6 md:p-12">
+            <div className="relative w-full max-w-[480px] aspect-[4/5] bg-white shadow-sm overflow-hidden group">
+              
+              <div key={activeImage} className={`absolute inset-0 transition-opacity duration-500 ${showVideo ? 'opacity-0' : 'opacity-100'}`}>
                 <Image
-                  src={imagesToShow[activeImage]}
+                  src={product.images[activeImage]}
                   alt={product.name}
                   fill
                   priority
-                  className="object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-110"
-                  sizes="(max-width: 768px) 90vw, (max-width: 1200px) 60vw, 50vw"
+                  className="object-cover"
                 />
               </div>
-              <div className="grid grid-cols-6 gap-2">
-                {imagesToShow.map((img, idx) => (
-                  <button
-                    key={idx}
-                    className={`relative aspect-[4/5] w-full border transition-all duration-500 ${activeImage === idx ? 'border-black' : 'border-transparent opacity-60 hover:opacity-100'}`}
-                    onClick={() => setActiveImage(idx)}
-                    aria-label={`Preview ${idx + 1}`}
-                  >
-                    <Image src={img} alt="" fill className="object-cover" sizes="(max-width: 768px) 15vw, 5vw" />
-                  </button>
-                ))}
-              </div>
+              <button
+                aria-label="Open image"
+                onClick={() => { setLightboxOpen(true); setLightboxIndex(activeImage); }}
+                className="absolute inset-0 z-20"
+              />
 
-              {/* Video Section */}
-              {(product as any).video && (
-                <div className="pt-8 border-t border-neutral-100">
-                  <h3 className="text-xs uppercase tracking-[0.3em] font-bold mb-6 flex items-center gap-2">
-                    <Play size={14} /> Motion Preview
-                  </h3>
-                  <div className="relative aspect-video max-h-[360px] bg-neutral-900 overflow-hidden group">
-                    <video 
-                      src={(product as any).video}
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      preload="metadata"
-                      className="w-full h-full object-cover opacity-85 group-hover:opacity-100 transition-opacity duration-500"
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                       <div className="w-16 h-16 rounded-full border border-white/20 flex items-center justify-center backdrop-blur-sm">
-                          <Play className="text-white fill-white w-6 h-6 ml-1" />
-                       </div>
-                    </div>
-                  </div>
+              {/* Unique Video Layer - Picture-in-Picture Style */}
+              {product.video && (
+                <div className={`absolute inset-0 z-10 bg-black transition-transform duration-700 ease-in-out ${showVideo ? 'translate-y-0' : 'translate-y-full'}`}>
+                   <video src={product.video} autoPlay loop muted playsInline className="w-full h-full object-cover" />
+                   <button 
+                    onClick={() => setShowVideo(false)}
+                    className="absolute top-6 right-6 text-white text-[10px] uppercase tracking-widest bg-white/10 backdrop-blur-md px-3 py-1 border border-white/20"
+                   >
+                    Close [x]
+                   </button>
                 </div>
               )}
-            </div>
-
-            {/* RIGHT: Product Details */}
-            <div className="lg:col-span-5">
-              <div className="lg:sticky lg:top-32 space-y-10">
-                
-                {/* Header */}
-                <header className="space-y-4">
-                  <span className="inline-block px-3 py-1 border border-neutral-200 text-xs uppercase tracking-[0.3em] text-gray-500">
-                    {product.category}
-                  </span>
-                  <h1 className="text-5xl md:text-7xl font-extralight tracking-tighter uppercase leading-[0.9]">
-                    {product.name}
-                  </h1>
-                  <p className="text-3xl font-light text-neutral-900 tracking-tight">
-                    ₹{product.price.toLocaleString("en-IN")}
-                  </p>
-                </header>
-
-                <div className="h-px bg-neutral-100 w-full" />
-
-                {/* Description */}
-                <div className="max-w-md">
-                  <p className="text-lg text-gray-700 font-light leading-relaxed">
-                    {product.description}
-                  </p>
-                </div>
-
-                {/* Quantity & Cart Action */}
-                <div className="space-y-6">
-                  <div className="flex items-center justify-between border-b border-neutral-100 pb-4">
-                    <span className="text-xs uppercase tracking-widest font-bold">Quantity</span>
-                    <div className="flex items-center gap-6">
-                      <button 
-                        onClick={() => setQty(q => Math.max(1, q - 1))}
-                        className="p-1 hover:text-gray-400 transition-colors"
+              
+              {/* GLASS THUMBNAILS + UNIQUE VIDEO TRIGGER */}
+              <div className="absolute bottom-4 left-4 right-4 z-20">
+                <div className="bg-black/10 backdrop-blur-xl border border-white/10 p-2 flex items-center justify-between rounded-sm">
+                  <div className="flex gap-1.5 overflow-x-auto">
+                    {product.images.map((img, idx) => (
+                      <button
+                        key={idx}
+                        className={`relative w-10 h-14 border transition-all ${activeImage === idx && !showVideo ? 'border-white' : 'border-transparent opacity-50'}`}
+                        onClick={() => { setActiveImage(idx); setShowVideo(false); }}
                       >
-                        <Minus size={20} strokeWidth={1} />
+                        <Image src={img} alt="" fill className="object-cover" />
                       </button>
-                      <span className="w-6 text-center text-base font-light leading-none">{qty}</span>
-                      <button 
-                        onClick={() => setQty(q => q + 1)}
-                        className="p-1 hover:text-gray-400 transition-colors"
-                      >
-                        <Plus size={20} strokeWidth={1} />
-                      </button>
-                    </div>
-                  </div>
-
-                  <AnimatedButton
-                    className="w-full py-7 bg-black text-white hover:bg-neutral-800 transition-all rounded-none uppercase tracking-[0.3em] text-xs"
-                    onClick={() => {
-                      for (let i = 0; i < qty; i++) {
-                        addItem({ id: product.id, name: product.name, price: product.price, image: product.images[0] });
-                      }
-                      openCart();
-                    }}
-                  >
-                    Add to Cart
-                  </AnimatedButton>
-                </div>
-
-                {/* Specs Grid */}
-                <div className="pt-8">
-                  <h3 className="text-xs uppercase tracking-widest font-bold mb-6 flex items-center gap-2">
-                    <Info size={16} /> Product Specifications
-                  </h3>
-                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-10">
-                    {product.details.map((detail, i) => (
-                      <li key={i} className="text-sm text-gray-600 flex items-center gap-4 font-light">
-                        <span className="w-1.5 h-1.5 bg-neutral-300 rotate-45" />
-                        {detail}
-                      </li>
                     ))}
-                  </ul>
+                  </div>
+
+                  {product.video && (
+                    <button 
+                      onClick={() => setShowVideo(true)}
+                      className={`relative w-16 h-14 overflow-hidden border transition-all flex flex-col items-center justify-center gap-1 ${showVideo ? 'border-white bg-white/20' : 'border-white/20 bg-black/40'}`}
+                    >
+                      <Play size={14} className="text-white fill-white" />
+                      <span className="text-[7px] text-white uppercase tracking-tighter font-bold">In Motion</span>
+                    </button>
+                  )}
                 </div>
-
-                <div className="grid grid-cols-3 gap-6 pt-12 border-t border-neutral-100">
-                  <div className="flex flex-col items-center text-center gap-4">
-                    <Truck size={24} strokeWidth={1} className="text-neutral-400" />
-                    <span className="text-[10px] uppercase tracking-widest text-gray-500 leading-tight">Complimentary Shipping</span>
-                  </div>
-                  <div className="flex flex-col items-center text-center gap-4">
-                    <ShieldCheck size={24} strokeWidth={1} className="text-neutral-400" />
-                    <span className="text-[10px] uppercase tracking-widest text-gray-500 leading-tight">Secure Checkout</span>
-                  </div>
-                  <div className="flex flex-col items-center text-center gap-4">
-                    <RefreshCw size={24} strokeWidth={1} className="text-neutral-400" />
-                    <span className="text-[10px] uppercase tracking-widest text-gray-500 leading-tight">14 Day Returns</span>
-                  </div>
-                </div>
-
-                {/* General info moved to full-width section below to balance layout */}
-
               </div>
             </div>
-          
-          {/* Full-width informational sections to fill space under media */}
-          <div className="mt-20 grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-16">
-            {(product as any).studio && (
-              <div className="lg:col-span-1 p-8 bg-neutral-50 border border-neutral-100">
-                <h3 className="text-xs uppercase tracking-widest font-bold mb-4">{ (product as any).studio.name }</h3>
-                <p className="text-sm text-gray-600 font-light leading-relaxed mb-3">
-                  { (product as any).studio.address }
+          </div>
+
+          {/* RIGHT: COMPACT CONTENT */}
+          <div className="lg:w-[55%] p-6 md:p-12 lg:p-20 space-y-10 bg-white">
+            
+            <nav className="flex items-center gap-3 text-[10px] uppercase tracking-[0.2em] text-neutral-400">
+              <span className="cursor-pointer hover:text-black transition-colors" onClick={() => router.push("/")}>Home</span>
+              <ChevronRight size={10} className="opacity-30" />
+              <span className="text-black font-medium">{product.category}</span>
+            </nav>
+
+            <header className="space-y-4">
+              <h1 className="text-4xl md:text-5xl font-extralight tracking-tighter uppercase leading-tight">
+                {product.name}
+              </h1>
+              <div className="inline-flex border-l-2 border-black pl-5">
+                <p className="text-3xl font-light text-neutral-900 tracking-tighter">
+                  ₹{product.price.toLocaleString("en-IN")}
                 </p>
-                <p className="text-sm text-[#D7B63F] font-medium tracking-wide">
-                  { (product as any).studio.landmark }
+              </div>
+            </header>
+
+            {/* CUSTOMIZABLE BANNER - REDUCED WIDTH */}
+            <div className="group relative overflow-hidden bg-neutral-900 p-5 text-white transition-all hover:bg-black cursor-default max-w-md">
+              <div className="relative z-10 flex items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <Scissors size={14} className="text-[#D7B63F]" />
+                  <div>
+                    <h4 className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#D7B63F]">Bespoke</h4>
+                    <p className="text-[11px] font-light text-neutral-400">Customized to fit</p>
+                  </div>
+                </div>
+                <button className="border border-neutral-700 px-4 py-2 text-[9px] uppercase tracking-widest hover:bg-white hover:text-black transition-colors whitespace-nowrap">
+                  Inquire
+                </button>
+              </div>
+            </div>
+
+            <p className="text-[18px] md:text-[20px] lg:text-[22px] text-neutral-700 font-light leading-8 max-w-2xl">
+              {product.description}
+            </p>
+
+            {/* SPECIFICATIONS */}
+            <div className="space-y-4 max-w-lg">
+              <h3 className="text-[12px] md:text-[13px] lg:text-sm uppercase tracking-[0.2em] font-semibold flex items-center gap-2">
+                <Info size={14} /> Product Specs
+              </h3>
+              <div className="border-t border-neutral-100 divide-y divide-neutral-50">
+                {product.details.slice(0, 3).map((detail, i) => {
+                  const [label, ...rest] = detail.split(':');
+                  return (
+                    <div key={i} className="grid grid-cols-3 py-3 px-1">
+                      <span className="text-[12px] md:text-[13px] uppercase tracking-widest text-neutral-500 font-medium">{label}</span>
+                      <span className="col-span-2 text-[14px] md:text-[15px] text-neutral-800 font-light pl-4">{rest.join(':') || 'Atelier'}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* ACTIONS - REDUCED WIDTH BUTTON */}
+            <div className="space-y-6 pt-4">
+              <div className="flex items-center justify-between border-y border-neutral-100 py-4 max-w-md">
+                <span className="text-[12px] md:text-sm uppercase tracking-widest font-semibold">Quantity</span>
+                <div className="flex items-center gap-4">
+                  <button onClick={() => setQty(q => Math.max(1, q - 1))} className="w-9 h-9 md:w-10 md:h-10 rounded-full border border-neutral-300 hover:border-black flex items-center justify-center transition-colors" aria-label="Decrease quantity"><Minus size={20} /></button>
+                  <span className="text-lg md:text-xl font-medium w-8 text-center">{qty}</span>
+                  <button onClick={() => setQty(q => q + 1)} className="w-9 h-9 md:w-10 md:h-10 rounded-full border border-neutral-300 hover:border-black flex items-center justify-center transition-colors" aria-label="Increase quantity"><Plus size={20} /></button>
+                </div>
+              </div>
+              
+              <button 
+                className="w-full max-w-xs py-5 bg-black text-white uppercase tracking-[0.3em] text-[11px] font-bold hover:bg-neutral-800 transition-all active:scale-[0.98]"
+                onClick={() => {
+                  for (let i = 0; i < qty; i++) addItem({ id: product.id, name: product.name, price: product.price, image: product.images[0] });
+                  openCart();
+                }}
+              >
+                Add to Cart
+              </button>
+            </div>
+
+            {/* COMPACT FOOTER */}
+            <div className="flex flex-wrap gap-8 border-t border-neutral-100 pt-8">
+              <Badge icon={<Truck size={16} />} label="Worldwide" />
+              <Badge icon={<ShieldCheck size={16} />} label="Authentic" />
+              <Badge icon={<RefreshCw size={16} />} label="14-Day Return" />
+            </div>
+
+            {product.studio && (
+              <div className="pt-4">
+                <p className="text-[10px] uppercase tracking-widest font-bold mb-2 text-neutral-400">Atelier Studio</p>
+                <p className="text-[12px] text-neutral-600 font-light max-w-xs leading-snug">
+                  {product.studio.address} • <span className="text-[#D7B63F] font-medium">{product.studio.landmark}</span>
                 </p>
               </div>
             )}
-            <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div>
-                <h3 className="text-xs uppercase tracking-widest font-bold mb-4">Composition & Care</h3>
-                <p className="text-base text-gray-700 font-light leading-relaxed">Materials selected for longevity and comfort. Follow fabric-specific care; dry clean recommended for delicate pieces.</p>
-              </div>
-              <div>
-                <h3 className="text-xs uppercase tracking-widest font-bold mb-4">Delivery & Returns</h3>
-                <p className="text-base text-gray-700 font-light leading-relaxed">Dispatch in 2–4 business days. Free shipping across India. 14‑day returns for unworn items with original tags.</p>
-              </div>
-              <div>
-                <h3 className="text-xs uppercase tracking-widest font-bold mb-4">Payment & Security</h3>
-                <p className="text-base text-gray-700 font-light leading-relaxed">Secure checkout with UPI, major cards, and NetBanking supported.</p>
-              </div>
-              <div>
-                <h3 className="text-xs uppercase tracking-widest font-bold mb-4">Fit & Sizing</h3>
-                <p className="text-base text-gray-700 font-light leading-relaxed">Refer to the size guide for measurements. Contact support for bespoke sizing.</p>
-              </div>
-              <div>
-                <h3 className="text-xs uppercase tracking-widest font-bold mb-4">Customer Support</h3>
-                <p className="text-base text-gray-700 font-light leading-relaxed">Concierge assistance via chat and phone during business hours.</p>
-              </div>
-            </div>
-          </div>
+
           </div>
         </div>
       </div>
+      {lightboxOpen && (
+        <Lightbox
+          images={product.images}
+          index={lightboxIndex}
+          onClose={() => setLightboxOpen(false)}
+          onPrev={() => setLightboxIndex(i => (i - 1 + product.images.length) % product.images.length)}
+          onNext={() => setLightboxIndex(i => (i + 1) % product.images.length)}
+        />
+      )}
     </ShopTransition>
+  );
+}
+
+function Badge({ icon, label }: { icon: React.ReactNode, label: string }) {
+  return (
+    <div className="flex items-center gap-2">
+      <div className="text-neutral-400">{icon}</div>
+      <span className="text-[10px] uppercase tracking-widest font-bold">{label}</span>
+    </div>
   );
 }
