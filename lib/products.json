@@ -36,6 +36,39 @@
     }
   },
   {
+    "id": "rivayat-red-lehenga",
+    "slug": "rivayat-red-lehenga",
+    "name": "Rivayat Red Lehenga",
+    "tagline": "Classic Plain Red Lehenga with Elegant Fall",
+    "price": 68000,
+    "category": "Lehenga",
+    "subCategory": "Bridal Lehenga",
+    "image": "/lehanga/l21.jpg",
+    "images": [
+      "/lehanga/l21.jpg",
+      "/lehanga/l22.webp",
+      "/lehanga/l23.webp",
+      "/lehanga/l24.webp",
+      
+      "/lehanga/l26.webp",
+      "/lehanga/l27.webp"
+    ],
+    "video": "https://assets.mixkit.co/videos/preview/mixkit-fashion-model-in-a-red-dress-walking-on-a-rooftop-34441-large.mp4",
+    "description": "Classic plain red lehenga with elegant fall\nHand-embroidered buti work on blouse\nPremium handwork lace border on dupatta\nLightweight yet rich bridal look\nIdeal for wedding pheras, bridal entry & traditional ceremonies",
+    "details": [
+      "Colour: Blood Red",
+      "Style No: KCB002",
+      "Number of component: 3",
+      "Wash Care: Dry clean only",
+      "Country of Origin: India"
+    ],
+    "studio": {
+      "name": "Khushi Chauhan Designer Studio",
+      "address": "Shop no. 113,114,115 Swaraj Plaza, 72 Rajpur Road, Dehradun-248001",
+      "landmark": "Opp. Madhu Ban Hotal, Uttarakhand"
+    }
+  },
+  {
     "id": "d1",
     "slug": "silk-evening-dress",
     "name": "Silk Evening Dress",

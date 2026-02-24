@@ -58,6 +58,8 @@ export default function ProductPage() {
 
   if (!product) return null;
 
+  const descriptionPoints = product.description.split('\n').filter(p => p.trim() !== '');
+
   return (
     <ShopTransition>
       <div className="pt-24 md:pt-32 bg-white text-black min-h-screen">
@@ -165,9 +167,24 @@ export default function ProductPage() {
               </div>
             </div>
 
-            <p className="text-[18px] md:text-[20px] lg:text-[22px] text-neutral-700 font-light leading-8 max-w-2xl">
-              {product.description}
-            </p>
+            <div className="max-w-2xl space-y-4">
+              {descriptionPoints.length > 1 ? (
+                <ul className="space-y-3">
+                  {descriptionPoints.map((point, i) => (
+                    <li key={i} className="flex items-start gap-3 group/item">
+                      <div className="mt-2.5 w-1.5 h-[1px] bg-neutral-300 transition-all duration-300 group-hover/item:w-3 group-hover/item:bg-black" />
+                      <span className="text-[16px] md:text-[18px] text-neutral-600 font-light leading-relaxed tracking-tight">
+                        {point}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-[18px] md:text-[20px] lg:text-[22px] text-neutral-700 font-light leading-8">
+                  {product.description}
+                </p>
+              )}
+            </div>
 
             {/* SPECIFICATIONS */}
             <div className="space-y-4 max-w-lg">
