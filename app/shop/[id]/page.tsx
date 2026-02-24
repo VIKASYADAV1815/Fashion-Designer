@@ -152,21 +152,46 @@ export default function ProductPage() {
             </header>
 
             {/* CUSTOMIZABLE BANNER - REDUCED WIDTH */}
-            <div className="group relative overflow-hidden bg-neutral-900 p-5 text-white transition-all hover:bg-black cursor-default max-w-md">
-              <div className="relative z-10 flex items-center justify-between gap-4">
-                <div className="flex items-center gap-3">
-                  <Scissors size={14} className="text-[#D7B63F]" />
-                  <div>
-                    <h4 className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#D7B63F]">Bespoke</h4>
-                    <p className="text-[11px] font-light text-neutral-400">Customized to fit</p>
-                  </div>
-                </div>
-                <button className="border border-neutral-700 px-4 py-2 text-[9px] uppercase tracking-widest hover:bg-white hover:text-black transition-colors whitespace-nowrap">
-                  Inquire
-                </button>
-              </div>
-            </div>
+           <div className="group relative overflow-hidden bg-[#121212] p-6 text-white transition-all duration-500 hover:shadow-2xl hover:shadow-black/50 cursor-default max-w-md border border-neutral-800/50 hover:border-[#D7B63F]/30">
+  
+  {/* Subtle Gradient Glow Backdrop */}
+  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#D7B63F]/5 via-transparent to-transparent" />
 
+  {/* Animated "Sweep" Effect */}
+  <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-[1.5s] ease-in-out bg-gradient-to-r from-transparent via-white/[0.03] to-transparent" />
+
+  <div className="relative z-10 flex items-center justify-between gap-6">
+    <div className="flex items-center gap-4">
+      <div className="relative">
+        {/* Pulsing ring around the icon on hover */}
+        <div className="absolute inset-0 scale-100 group-hover:scale-150 opacity-0 group-hover:opacity-100 transition-all duration-700 rounded-full border border-[#D7B63F]/20" />
+        <Scissors size={16} className="text-[#D7B63F] transform group-hover:rotate-12 transition-transform duration-500" />
+      </div>
+      
+      <div>
+        <h4 className="text-[10px] uppercase tracking-[0.4em] font-bold text-[#D7B63F] mb-0.5">
+          Bespoke
+        </h4>
+        <p className="text-[12px] font-light text-neutral-500 group-hover:text-neutral-300 transition-colors duration-500">
+          Tailored to your precision
+        </p>
+      </div>
+    </div>
+
+    <button 
+      onClick={() => router.push("/contact")}
+      className="relative overflow-hidden border border-neutral-700 px-5 py-2.5 text-[9px] uppercase tracking-[0.2em] transition-all duration-300 hover:border-[#D7B63F] hover:text-white group/btn"
+    >
+      <span className="relative z-10">Inquire</span>
+      {/* Button Fill Animation */}
+      <div className="absolute inset-0 -z-0 translate-y-full group-hover/btn:translate-y-0 bg-[#D7B63F] transition-transform duration-300 ease-out" />
+      {/* Secondary text color change for contrast when filled */}
+      <span className="absolute inset-0 z-20 flex items-center justify-center opacity-0 group-hover/btn:opacity-100 text-black transition-opacity duration-300">
+        Inquire
+      </span>
+    </button>
+  </div>
+</div>
             <div className="max-w-2xl space-y-4">
               {descriptionPoints.length > 1 ? (
                 <ul className="space-y-3">

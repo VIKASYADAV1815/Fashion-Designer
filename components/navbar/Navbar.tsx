@@ -27,10 +27,9 @@ export default function Navbar() {
       setActiveCategory(null);
       setIsMobileMenuOpen(false);
       setSearchOpen(false);
-      closeCart();
     }, 0);
     return () => clearTimeout(t);
-  }, [pathname, closeCart]);
+  }, [pathname]);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const dy = latest - lastY.current;
@@ -150,7 +149,7 @@ export default function Navbar() {
             </div>
 
             {/* Center: nav links */}
-            <div className="flex flex-1 items-center justify-center gap-10">
+            <div className="flex flex-1 items-center justify-center gap-6">
               {navLinks.map((link: NavLink) => (
                 <div
                   key={link.id}
@@ -162,7 +161,7 @@ export default function Navbar() {
                   {!link.dropdown ? (
                     <Link
                       href={link.href || "#"}
-                      className="text-xs font-semibold uppercase tracking-[0.25em] text-white hover:text-gray-300 transition-colors relative group"
+                      className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white hover:text-gray-300 transition-colors relative group whitespace-nowrap"
                     >
                       {link.name}
                       <span
@@ -176,7 +175,7 @@ export default function Navbar() {
                     <button
                       onClick={() => setActiveCategory(link.id)}
                       onFocus={() => setActiveCategory(link.id)}
-                      className="text-xs font-semibold uppercase tracking-[0.25em] text-white hover:text-gray-300 transition-colors relative group"
+                      className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white hover:text-gray-300 transition-colors relative group whitespace-nowrap"
                       aria-haspopup="menu"
                       aria-expanded={activeCategory === link.id}
                     >
