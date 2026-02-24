@@ -26,6 +26,8 @@ interface Product {
   name: string;
   price: number;
   category: string;
+  subCategory?: string;
+  tagline?: string;
   description: string;
   images: string[];
   details: string[];
@@ -135,6 +137,11 @@ export default function ProductPage() {
               <h1 className="text-4xl md:text-5xl font-extralight tracking-tighter uppercase leading-tight">
                 {product.name}
               </h1>
+              {product.tagline && (
+                <p className="text-sm md:text-base italic text-neutral-600">
+                  {product.tagline}
+                </p>
+              )}
               <div className="inline-flex border-l-2 border-black pl-5">
                 <p className="text-3xl font-light text-neutral-900 tracking-tighter">
                   ₹{product.price.toLocaleString("en-IN")}
@@ -168,7 +175,14 @@ export default function ProductPage() {
                 <Info size={14} /> Product Specs
               </h3>
               <div className="border-t border-neutral-100 divide-y divide-neutral-50">
-                {product.details.slice(0, 3).map((detail, i) => {
+                {/* Derived Category row */}
+                <div className="grid grid-cols-3 py-3 px-1">
+                  <span className="text-[12px] md:text-[13px] uppercase tracking-widest text-neutral-500 font-medium">Category</span>
+                  <span className="col-span-2 text-[14px] md:text-[15px] text-neutral-800 font-light pl-4">
+                    {product.subCategory || product.category}
+                  </span>
+                </div>
+                {product.details.map((detail, i) => {
                   const [label, ...rest] = detail.split(':');
                   return (
                     <div key={i} className="grid grid-cols-3 py-3 px-1">
@@ -211,7 +225,7 @@ export default function ProductPage() {
 
             {product.studio && (
               <div className="pt-4">
-                <p className="text-[10px] uppercase tracking-widest font-bold mb-2 text-neutral-400">Atelier Studio</p>
+                <p className="text-[10px] uppercase tracking-widest font-bold mb-2 text-neutral-400">{product.studio.name}</p>
                 <p className="text-[12px] text-neutral-600 font-light max-w-xs leading-snug">
                   {product.studio.address} • <span className="text-[#D7B63F] font-medium">{product.studio.landmark}</span>
                 </p>
