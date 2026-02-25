@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { Search, Maximize2, Minimize2 } from "lucide-react";
 import ShopCard from "./ShopCard";
-import productsData from "@/lib/products.json" assert { type: "json" };
+import productsData from "@/lib/products.json";
 
 // --- Types ---
 type Product = {
@@ -17,12 +17,14 @@ type Product = {
 
 type ShopGridProps = {
   category?: string;
+  initialProducts?: Product[];
 };
 
 // --- Data ---
-const products = productsData as Product[];
+const staticProducts = productsData as Product[];
 
-export default function ShopGrid({ category }: ShopGridProps) {
+export default function ShopGrid({ category, initialProducts }: ShopGridProps) {
+  const products = initialProducts || staticProducts;
   const [query, setQuery] = useState("");
   const [minPrice, setMinPrice] = useState<number | "">(0);
   const [maxPrice, setMaxPrice] = useState<number | "">("");
@@ -167,6 +169,7 @@ export default function ShopGrid({ category }: ShopGridProps) {
                 {[2, 3, 4].map((num) => (
                   <button
                     key={num}
+                    suppressHydrationWarning
                     onClick={() => setColumns(num as 2 | 3 | 4)}
                     className={`w-9 h-9 rounded-full text-sm transition-all flex items-center justify-center
                       ${
@@ -184,12 +187,14 @@ export default function ShopGrid({ category }: ShopGridProps) {
 
               <div className="flex items-center gap-2">
                 <button
+                  suppressHydrationWarning
                   onClick={() => setSize("compact")}
                   className={`p-2 ${size === "compact" ? "text-black" : "text-gray-400"}`}
                 >
                   <Minimize2 className="w-5 h-5" />
                 </button>
                 <button
+                  suppressHydrationWarning
                   onClick={() => setSize("comfort")}
                   className={`p-2 ${size === "comfort" ? "text-black" : "text-gray-400"}`}
                 >
@@ -268,6 +273,7 @@ export default function ShopGrid({ category }: ShopGridProps) {
                       {[2, 3, 4].map((num) => (
                         <button
                           key={num}
+                          suppressHydrationWarning
                           onClick={() => setColumns(num as 2 | 3 | 4)}
                           className={`px-3 py-2 rounded-md text-sm border
                             ${columns === num ? "bg-black text-white" : "bg-white text-gray-600"}`}
@@ -281,6 +287,7 @@ export default function ShopGrid({ category }: ShopGridProps) {
                     <span className="block text-[10px] uppercase tracking-[0.3em] mb-2">Card Size</span>
                     <div className="flex items-center gap-3">
                       <button
+                        suppressHydrationWarning
                         onClick={() => setSize("compact")}
                         className={`px-3 py-2 rounded-md text-sm border
                           ${size === "compact" ? "bg-black text-white" : "bg-white text-gray-600"}`}
@@ -288,6 +295,7 @@ export default function ShopGrid({ category }: ShopGridProps) {
                         Compact
                       </button>
                       <button
+                        suppressHydrationWarning
                         onClick={() => setSize("comfort")}
                         className={`px-3 py-2 rounded-md text-sm border
                           ${size === "comfort" ? "bg-black text-white" : "bg-white text-gray-600"}`}
@@ -298,6 +306,7 @@ export default function ShopGrid({ category }: ShopGridProps) {
                   </div>
                   <div className="pt-2">
                     <button
+                      suppressHydrationWarning
                       className="w-full py-3 bg-black text-white text-[11px] uppercase tracking-[0.3em] rounded-md"
                       onClick={() => setMobileFiltersOpen(false)}
                     >

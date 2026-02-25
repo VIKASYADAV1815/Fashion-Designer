@@ -1,6 +1,8 @@
 import ShopGrid from "@/app/shop/components/ShopGrid";
 import ShopTransition from "@/app/shop/components/ShopTransition";
 import React from "react";
+import productsData from "@/lib/products.json";
+
 export const dynamic = "force-dynamic";
 
 const categoryTitles: Record<string, string> = {
@@ -25,7 +27,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
   return (
     <ShopTransition>
       <div className="min-h-screen mt-12 bg-white text-black">
-        <ShopGrid category={category} />
+        <ShopGrid category={category} initialProducts={productsData as any} />
       </div>
     </ShopTransition>
   );

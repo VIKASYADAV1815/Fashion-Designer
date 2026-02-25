@@ -1,5 +1,6 @@
 import ShopGrid from "./components/ShopGrid";
 import ShopTransition from "./components/ShopTransition";
+import productsData from "@/lib/products.json";
 
 export default function ShopPage() {
   return (
@@ -11,7 +12,7 @@ export default function ShopPage() {
              Curated pieces for the modern wardrobe.
            </p>
         </div>
-        <ShopGrid />
+        <ShopGrid initialProducts={productsData as any} />
       </div>
     </ShopTransition>
   );

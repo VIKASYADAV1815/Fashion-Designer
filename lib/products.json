@@ -43,13 +43,12 @@
     "price": 60000,
     "category": "Lehenga",
     "subCategory": "Bridal Lehenga",
-    "image": "/lehanga/l21.jpg",
+    "image": "/lehanga/l21.webp",
     "images": [
-      "/lehanga/l21.jpg",
+      "/lehanga/l21.webp",
       "/lehanga/l22.webp",
       "/lehanga/l23.webp",
       "/lehanga/l24.webp",
-      
       "/lehanga/l26.webp",
       "/lehanga/l27.webp"
     ],
@@ -69,25 +68,273 @@
     }
   },
   {
-    "id": "d1",
-    "slug": "silk-evening-dress",
-    "name": "Silk Evening Dress",
-    "price": 890,
-    "category": "Dress",
-    "image": "/images/4.jpg",
-    "images": ["/images/4.jpg", "/images/3.jpg"],
-    "description": "Fluid silk evening dress with bias cut and elegant drape.",
-    "details": ["100% Mulberry Silk", "Bias Cut", "Invisible Zipper", "Dry Clean"]
-  },
-  {
-    "id": "l2",
-    "slug": "floral-embroidered-lehenga",
-    "name": "Floral Embroidered Lehenga",
-    "price": 1560,
+    "id": "the-colorblock-muse",
+    "slug": "the-colorblock-muse",
+    "name": "The Colorblock Muse ",
+    "tagline": "Rich Multicolor Palette with Traditional Motifs",
+    "price": 18000,
     "category": "Lehenga",
-    "image": "/images/img11.png",
-    "images": ["/images/img11.png", "/images/img12.png"],
-    "description": "Florals in fine threadwork over a structured base.",
-    "details": ["Floral Embroidery", "Structured Waist", "Dupatta Included", "Dry Clean"]
+    "subCategory": "Festive Lehenga",
+    "image": "/lehanga/l41.webp",
+    "images": [
+      "/lehanga/l41.webp",
+      "/lehanga/l42.webp",
+      "/lehanga/l43.webp",
+      "/lehanga/l44.webp"
+      
+    ],
+        "video": "https://assets.mixkit.co/videos/preview/mixkit-fashion-model-in-a-red-dress-walking-on-a-rooftop-34441-large.mp4",
+
+    "description": "This striking lehenga set features a contemporary patchwork-inspired print with rich jewel tones of red, teal, mustard, and olive, creating a bold yet balanced colour palette. The flared skirt is designed with neat pleats that give beautiful volume and movement, while the coordinated cropped blouse highlights the same geometric and traditional motifs for a chic, modern-ethnic look. Crafted in a lightweight, comfortable fabric, this outfit blends heritage-inspired patterns with a fresh, fashion-forward silhouette. Perfect for festive parties, pre-wedding functions, destination weddings, and statement evening looks.",
+    "details": [
+      "Colour: Multicolor",
+      "Style No:  KC0010",
+      "Number of component: 2",
+      "Wash Care: Dry clean only",
+      "Country of Origin: India"
+    ],
+    "studio": {
+      "name": "Khushi Chauhan Designer Studio",
+      "address": "Shop no. 113,114,115 Swaraj Plaza, 72 Rajpur Road, Dehradun-248001",
+      "landmark": "Opp. Madhu Ban Hotal, Uttarakhand"
+    }
+  },
+{
+  "id": "gulrang-festive-lehenga-set",
+  "slug": "gulrang-festive-lehenga-set",
+  "name": "Gulrang Festive Lehenga Set",
+  "tagline": "Rich Multicolor Elegance with Traditional Charm",
+  "price": 28000,
+  "category": "Lehenga",
+  "subCategory": "Festive Lehenga",
+  "image": "/lehanga/l31.webp",
+  "images": [
+    "/lehanga/l31.webp",
+    "/lehanga/l32.webp",
+    "/lehanga/l33.webp",
+    "/lehanga/l34.webp",
+    "/lehanga/l36.webp",
+    "/lehanga/l37.webp"
+  ],
+  "video": "https://assets.mixkit.co/videos/preview/mixkit-fashion-model-in-a-red-dress-walking-on-a-rooftop-34441-large.mp4",
+  "description": "Rich multicolor palette featuring magenta, blue, and orange tones beautifully blended to create a vibrant festive look. Detailed embroidery with traditional motifs enhances its ethnic charm, while the flowy and graceful silhouette makes it ideal for weddings, festive occasions, and cultural events.",
+  "details": [
+    "Colour: Magenta, Blue Multicolor",
+    "Style No: KC003",
+    "Number of component: 3",
+    "Wash Care: Dry clean only",
+    "Country of Origin: India"
+  ],
+  "studio": {
+    "name": "Khushi Chauhan Designer Studio",
+    "address": "Shop no. 113,114,115 Swaraj Plaza, 72 Rajpur Road, Dehradun-248001",
+    "landmark": "Opp. Madhu Ban Hotal, Uttarakhand"
+  }
+},
+  {
+  "id": "rangrez-ombre-festive-lehenga-set",
+  "slug": "rangrez-ombre-festive-lehenga-set",
+  "name": "Rangrez Ombre Festive Lehenga Set",
+  "tagline": "Graceful Rose Pink to Olive Green Ombre Elegance",
+  "price": 35000,
+  "category": "Lehenga",
+  "subCategory": "Festive Lehenga",
+  "image": "/lehanga/l51.webp",
+  "images": [
+    "/lehanga/l51.webp",
+    "/lehanga/l52.webp",
+    "/lehanga/l53.webp",
+    "/lehanga/l54.webp",
+    "/lehanga/l55.webp"
+  ],
+  "video": "https://assets.mixkit.co/videos/preview/mixkit-fashion-model-in-a-red-dress-walking-on-a-rooftop-34441-large.mp4",
+
+  "description": "This stunning lehenga set features a graceful ombré-dyed skirt blending rich rose pink into olive green, creating a soft, flowy silhouette with beautiful movement. The lehenga is delicately embellished with scattered mirror and sequin butti work, while the hemline is highlighted with ornate embroidery for a luxurious finish. Paired with a heavily embroidered blouse and a contrasting dupatta with fine border detailing, this ensemble strikes the perfect balance between elegance and festive glamour. Ideal for weddings, festive functions, mehendi, sangeet, and evening celebrations, this outfit brings effortless charm with a modern ethnic twist.",
+
+  "details": [
+    "Category: Festive Lehenga",
+    "Colour: Rose Pink into Olive Green",
+    "Style No: KC008",
+    "Number of component: 3",
+    "Wash Care: Dry clean only",
+    "Country of Origin: India"
+  ],
+
+  "studio": {
+    "name": "Khushi Chauhan Designer Studio",
+    "address": "Shop no. 113,114,115 Swaraj Plaza, 72 Rajpur Road, Dehradun-248001",
+    "landmark": "Opp. Madhu Ban Hotal, Uttarakhand"
+  }
+},
+{
+  "id": "royal-zari-black-lehenga-set",
+  "slug": "royal-zari-black-lehenga-set",
+  "name": "Royal Zari Black Lehenga Set",
+  "tagline": "Regal Black with Intricate Gold Embroidery",
+  "price": 35000,
+  "category": "Lehenga",
+  "subCategory": "Festive Lehenga",
+  "image": "/lehanga/l61.webp",
+  "images": [
+    "/lehanga/l61.webp",
+    "/lehanga/l62.webp",
+    "/lehanga/l63.webp",
+    "/lehanga/l64.webp",
+    "/lehanga/l65.webp",
+    "/lehanga/l66.webp"
+  ],
+  "video": "https://assets.mixkit.co/videos/preview/mixkit-fashion-model-in-a-red-dress-walking-on-a-rooftop-34441-large.mp4",
+
+  "description": "Elevate your festive wardrobe with this regal black lehenga set, beautifully adorned with intricate gold embroidery across the skirt and blouse. The detailed floral and traditional motifs create a rich, handcrafted look that feels luxurious and timeless. Paired with a sheer black dupatta finished with an elegant border, this ensemble strikes the perfect balance of elegance and graceful flow. Perfect for weddings, festive celebrations, and evening occasions, this outfit brings royal charm with a refined ethnic touch.",
+
+  "details": [
+    "Category: Festive Lehenga",
+    "Colour: Zet Black",
+    "Style No: KC006",
+    "Number of component: 3",
+    "Wash Care: Dry clean only",
+    "Country of Origin: India"
+  ],
+
+  "studio": {
+    "name": "Khushi Chauhan Designer Studio",
+    "address": "Shop no. 113,114,115 Swaraj Plaza, 72 Rajpur Road, Dehradun-248001",
+    "landmark": "Opp. Madhu Ban Hotal, Uttarakhand"
+  }
+},
+ {
+  "id": "amber-glow-printed-lehenga-set",
+  "slug": "amber-glow-printed-lehenga-set",
+  "name": "Amber Glow Printed Lehenga Set",
+  "tagline": "Vibrant Yellow with Floral Sequin Elegance",
+  "price": 34000,
+  "category": "Lehenga",
+  "subCategory": "Festive Lehenga",
+  "image": "/lehanga/l71.webp",
+  "images": [
+    "/lehanga/l71.webp",
+    "/lehanga/l72.webp",
+    "/lehanga/l73.webp",
+    "/lehanga/l74.webp",
+    "/lehanga/l75.webp",
+    "/lehanga/l76.webp"
+  ],
+  "video": "https://assets.mixkit.co/videos/preview/mixkit-fashion-model-in-a-red-dress-walking-on-a-rooftop-34441-large.mp4",
+
+  "description": "Step into effortless elegance with this stunning yellow printed lehenga set, designed for festive days and special celebrations. The lehenga features intricate all-over floral prints enhanced with delicate sequin and thread detailing, creating a rich handcrafted look. Paired with a coordinated printed blouse, the set is beautifully finished with antique lace borders that add a timeless, regal touch. The lightweight organza dupatta flows gracefully, giving the outfit a soft, airy finish and elevating the overall silhouette. Perfect for haldi ceremonies, festive gatherings, daytime weddings, and traditional celebrations, this ensemble blends vibrant color with classic craftsmanship for a standout ethnic look.",
+
+  "details": [
+    "Category: Festive Lehenga",
+    "Colour: Yellow",
+    "Style No: KC004",
+    "Number of component: 3",
+    "Wash Care: Dry clean only",
+    "Country of Origin: India"
+  ],
+
+  "studio": {
+    "name": "Khushi Chauhan Designer Studio",
+    "address": "Shop no. 113,114,115 Swaraj Plaza, 72 Rajpur Road, Dehradun-248001",
+    "landmark": "Opp. Madhu Ban Hotal, Uttarakhand"
+  }
+},
+{
+  "id": "mid-night-bloom-lehenga-set",
+  "slug": "mid-night-bloom-lehenga-set",
+  "name": "Mid Night Bloom Lehenga Set",
+  "tagline": "Elegant Wine and Olive Green Festive Charm",
+  "price": 37000,
+  "category": "Lehenga",
+  "subCategory": "Festive Lehenga",
+  "image": "/lehanga/l81.webp",
+  "images": [
+    "/lehanga/l81.webp",
+    "/lehanga/l82.webp",
+    "/lehanga/l83.webp",
+    "/lehanga/l84.webp",
+    "/lehanga/l86.webp"
+  ],
+  "video": "https://assets.mixkit.co/videos/preview/mixkit-fashion-model-in-a-red-dress-walking-on-a-rooftop-34441-large.mp4",
+
+  "description": "Make a statement in this elegant wine and olive green printed lehenga set, designed to turn heads at festive occasions and wedding functions. The lehenga features intricate traditional prints highlighted with subtle sequin and thread detailing, creating a luxurious handcrafted look. The blouse comes with a stylish lace-up back design that adds a modern, flattering touch while keeping the ethnic charm intact. Paired with a flowy dupatta, this ensemble balances bold color with graceful movement, making it perfect for weddings, festive celebrations, and special occasions.",
+
+  "details": [
+    "Category: Festive Lehenga",
+    "Colour: Olive Green and Wine Dupatta",
+    "Style No: KC005",
+    "Number of component: 3",
+    "Wash Care: Dry clean only",
+    "Country of Origin: India"
+  ],
+
+  "studio": {
+    "name": "Khushi Chauhan Designer Studio",
+    "address": "Shop no. 113,114,115 Swaraj Plaza, 72 Rajpur Road, Dehradun-248001",
+    "landmark": "Opp. Madhu Ban Hotal, Uttarakhand"
+  }
+},
+  {
+    "id": "Shisha Noor Embroided Lehenga Set",
+    "slug": "shisha-noor-lehenga",
+    "name": "Shisha Noor Embroided Lehenga Set",
+    "tagline": "Intricate Threadwork with Shisha Detailing",
+    "price": 28000,
+    "category": "Lehenga",
+    "subCategory": "Festive Lehenga",
+    "image": "/lehanga/l91.webp",
+    "images": [
+      "/lehanga/l91.webp",
+      "/lehanga/l92.webp",
+      "/lehanga/l93.webp",
+      "/lehanga/l94.webp",
+      "/lehanga/l96.webp" 
+    ],
+    "video": "https://assets.mixkit.co/videos/preview/mixkit-fashion-model-in-a-red-dress-walking-on-a-rooftop-34441-large.mp4",
+
+    "description": "This elegant lehenga set features a richly embroidered lehenga skirt adorned with intricate multicolour threadwork and mirror (shisha) detailing on a soft net base. The matching blouse carries coordinated embroidery with antique lace finishing, adding a regal touch to the overall look. Paired with a lightweight organza dupatta, this outfit blends traditional craftsmanship with festive charm. Perfect for weddings, festive celebrations, sangeet nights, and special occasions, this lehenga offers a graceful silhouette with a statement ethnic appeal.",
+    "details": [
+      "Colour: Crimson Red",
+      "Style No: KC009",
+      "Number of component: 3",
+      "Wash Care: Dry clean only",
+      "Country of Origin: India"
+    ],
+    "studio": {
+      "name": "Khushi Chauhan Designer Studio",
+      "address": "Shop no. 113,114,115 Swaraj Plaza, 72 Rajpur Road, Dehradun-248001",
+      "landmark": "Opp. Madhu Ban Hotal, Uttarakhand"
+    }
+  },
+ 
+  {
+    "id": "The Mordern Virasat Lehenga Set",
+    "slug": "modern-virasat-lehenga",
+    "name": "The Mordern Virasat Lehenga Set",
+    "tagline": "Vibrant Red Patchwork with Gotta Patti",
+    "price": 28000,
+    "category": "Lehenga",
+    "subCategory": "Festive Lehenga",
+    "image": "/lehanga/l101.webp",
+    "images": [
+      "/lehanga/l101.webp",
+      "/lehanga/l102.webp",
+      "/lehanga/l103.webp",
+      "/lehanga/l104.webp"
+   
+    ],
+    "video": "https://assets.mixkit.co/videos/preview/mixkit-fashion-model-in-a-red-dress-walking-on-a-rooftop-34441-large.mp4",
+    "description": "This vibrant red lehenga set features beautiful patchwork-inspired prints with traditional motifs, highlighted by delicate gotta and sequin butti work scattered across the skirt. The lehenga showcases a rich mix of ethnic patterns and borders, giving it a handcrafted, heritage feel. Paired with a matching dupatta and a coordinated printed corset finished with contrast borders, this ensemble brings together classic Rajasthani-inspired aesthetics with festive elegance and modern touch .Lightweight yet striking, it’s perfect for weddings, festive celebrations, mehendi functions, and cultural events, offering a bold pop of colour with timeless ethnic charm.",
+    "details": [
+      "Colour: Multicolor",
+      "Style No: KC0010",
+      "Number of component: 2",
+      "Wash Care: Dry clean only",
+      "Country of Origin: India"
+    ],
+    "studio": {
+      "name": "Khushi Chauhan Designer Studio",
+      "address": "Shop no. 113,114,115 Swaraj Plaza, 72 Rajpur Road, Dehradun-248001",
+      "landmark": "Opp. Madhu Ban Hotal, Uttarakhand"
+    }
   }
 ]

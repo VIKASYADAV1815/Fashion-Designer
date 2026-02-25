@@ -36,7 +36,10 @@ export default function ShopCard({ product, index }: ShopCardProps) {
           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
           
           <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-             <button className="w-full bg-white text-black py-3 text-xs uppercase tracking-widest font-bold hover:bg-black hover:text-white transition-colors">
+             <button 
+              suppressHydrationWarning
+              className="w-full bg-white text-black py-3 text-xs uppercase tracking-widest font-bold hover:bg-black hover:text-white transition-colors"
+             >
                Quick View
              </button>
           </div>
