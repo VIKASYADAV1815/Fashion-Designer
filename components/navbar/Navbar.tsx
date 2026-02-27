@@ -161,7 +161,7 @@ export default function Navbar() {
                   {!link.dropdown ? (
                     <Link
                       href={link.href || "#"}
-                      className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white hover:text-gray-300 transition-colors relative group whitespace-nowrap"
+                      className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white hover:text-gray-300 transition-colors relative group whitespace-nowrap"
                     >
                       {link.name}
                       <span
@@ -175,7 +175,7 @@ export default function Navbar() {
                     <button
                       onClick={() => setActiveCategory(link.id)}
                       onFocus={() => setActiveCategory(link.id)}
-                      className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white hover:text-gray-300 transition-colors relative group whitespace-nowrap"
+                      className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white hover:text-gray-300 transition-colors relative group whitespace-nowrap"
                       aria-haspopup="menu"
                       aria-expanded={activeCategory === link.id}
                     >

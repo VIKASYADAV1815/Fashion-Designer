@@ -14,6 +14,9 @@ const categoryTitles: Record<string, string> = {
   drape: "Drape",
   "casual-fit": "Casual Fit",
   saree: "Saree",
+  "party-wear": "Party Wear",
+  "western-wear": "Western Wear",
+  "indo-western-wear": "Indo Western Wear",
 };
 
 export default async function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
