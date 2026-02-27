@@ -112,9 +112,8 @@
     "/lehanga/l31.webp",
     "/lehanga/l32.webp",
     "/lehanga/l33.webp",
-    "/lehanga/l34.webp",
-    "/lehanga/l36.webp",
-    "/lehanga/l37.webp"
+    "/lehanga/l34.webp"
+
   ],
   "video": "https://assets.mixkit.co/videos/preview/mixkit-fashion-model-in-a-red-dress-walking-on-a-rooftop-34441-large.mp4",
   "description": "Rich multicolor palette featuring magenta, blue, and orange tones beautifully blended to create a vibrant festive look. Detailed embroidery with traditional motifs enhances its ethnic charm, while the flowy and graceful silhouette makes it ideal for weddings, festive occasions, and cultural events.",
@@ -274,9 +273,10 @@
   }
 },
   {
-    "id": "Shisha Noor Embroided Lehenga Set",
-    "slug": "shisha-noor-lehenga",
-    "name": "Shisha Noor Embroided Lehenga Set",
+    
+  "id": "shisha-noor-lehenga",
+  "slug": "shisha-noor-lehenga",
+  "name": "Shisha Noor Embroidered Lehenga Set",
     "tagline": "Intricate Threadwork with Shisha Detailing",
     "price": 28000,
     "category": "Lehenga",
@@ -307,9 +307,9 @@
   },
  
   {
-    "id": "The Mordern Virasat Lehenga Set",
-    "slug": "modern-virasat-lehenga",
-    "name": "The Mordern Virasat Lehenga Set",
+    "id": "modern-virasat-lehenga",
+  "slug": "modern-virasat-lehenga",
+  "name": "Modern Virasat Lehenga Set",
     "tagline": "Vibrant Red Patchwork with Gotta Patti",
     "price": 28000,
     "category": "Lehenga",
