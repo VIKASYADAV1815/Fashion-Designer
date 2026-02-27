@@ -65,14 +65,14 @@ export default function PrivacyPolicyPage() {
                     When you create an account, place an order, or sign up for our newsletter, we collect personal information such as:
                   </p>
                   <ul className="mt-4 space-y-2 text-base md:text-lg text-zinc-600">
-                    <li>Name</li>
-                    <li>Email address</li>
-                    <li>Phone number</li>
-                    <li>Billing and shipping addresses</li>
-                    <li>Payment information (credit/debit card details, etc.)</li>
+                    <li>Name : Khushi Chauhan</li> 
+                    <li>Email address : khushichauhan2003@gmail.com</li>
+                    <li>Phone number : +91 9810088228</li>
+                    <li>Billing and shipping addresses : Dehradun, Uttarakhand, India</li>
+                    <li>Payment information (credit/debit card details, etc.) : 1234 5678 9012 3456</li>
                   </ul>
                 </div>
-                <div className="pt-6 border-t border-zinc-100">
+                {/* <div className="pt-6 border-t border-zinc-100">
                   <h3 className="text-sm md:text-base font-bold uppercase tracking-widest text-zinc-800">Non‑Personal Information</h3>
                   <p className="text-base md:text-lg leading-relaxed text-zinc-500 max-w-2xl">
                     We also collect non‑personal information such as:
@@ -84,7 +84,7 @@ export default function PrivacyPolicyPage() {
                     <li>Device type</li>
                     <li>Browsing activity on our site (pages visited, time spent, etc.)</li>
                   </ul>
-                </div>
+                </div> */}
               </div>
             </div>
 

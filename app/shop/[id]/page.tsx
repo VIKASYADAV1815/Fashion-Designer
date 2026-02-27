@@ -170,10 +170,10 @@ export default function ProductPage() {
       
       <div>
         <h4 className="text-[10px] uppercase tracking-[0.4em] font-bold text-[#D7B63F] mb-0.5">
-          Bespoke
+          Customizable
         </h4>
         <p className="text-[12px] font-light text-neutral-500 group-hover:text-neutral-300 transition-colors duration-500">
-          Tailored to your precision
+          Tailored to your precision, ensuring a unique fit and look.
         </p>
       </div>
     </div>

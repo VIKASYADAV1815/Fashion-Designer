@@ -61,7 +61,7 @@ export default function RefundPolicyPage() {
               </div>
               <div className="md:col-span-8 border-l border-zinc-200 pl-8">
                 <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">
-                  Cancellations will only be considered if the request is made within 2 days of placing the order. Requests may not be entertained if the order has already been communicated to sellers/merchants and shipping has been initiated, or the product is out for delivery. In such cases, you may choose to reject the product at the doorstep.
+                  Cancellations will only be considered if the request is made within 3 days of placing the order. Requests may not be entertained if the order has already been communicated to sellers/merchants and shipping has been initiated, or the product is out for delivery. In such cases, you may choose to reject the product at the doorstep.
                 </p>
               </div>
             </div>
