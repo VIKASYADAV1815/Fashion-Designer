@@ -342,12 +342,17 @@
     "slug": "blush-rose-sequin-saree",
     "name": "Blush Rose Sequin Saree",
     "tagline": "Subtle Glamour with a Modern Edge",
-    "price": 25000,
+    "price": 35000,
     "category": "Saree",
     "subCategory": "Party Wear",
-    "image": "/lehanga/l102.webp",
+    "image": "/saree/S1.webp",
     "images": [
-      "/lehanga/l102.webp"
+      "/saree/S1.webp",
+      "/saree/S2.webp",
+      "/saree/S3.webp",
+      "/saree/S4.webp",
+      "/saree/S5.webp",
+      "/saree/S6.webp"
     ],
     "video": "https://assets.mixkit.co/videos/preview/mixkit-fashion-model-in-a-red-dress-walking-on-a-rooftop-34441-large.mp4",
     "description": "This Blush Rose sequin saree is designed for women who love subtle glamour with a modern edge. The saree features all-over delicate sequin work that gives a soft shimmer and elegant fall. Paired with a contemporary draped blouse with a stylish cowl-style neckline, this outfit blends classic Indian drape with a chic, fashion-forward silhouette. Perfect for cocktail parties, receptions, engagement functions, and festive evenings.",
@@ -369,12 +374,18 @@
     "slug": "ivory-luxe-pearl-drape",
     "name": "Ivory Luxe Pearl Drape",
     "tagline": "Timeless Craftsmanship and Modern Sophistication",
-    "price": 32000,
+    "price": 38000,
     "category": "Drape",
     "subCategory": "Western Wear",
-    "image": "/lehanga/l102.webp",
+    "image": "/drape/d1.webp",
     "images": [
-      "/lehanga/l102.webp"
+      "/drape/d1.webp",
+      "/drape/d2.webp",
+      "/drape/d3.webp",
+      "/drape/d4.webp",
+      "/drape/d5.webp",
+      "/drape/d6.webp",
+      "/drape/d7.webp"
     ],
     "video": "https://assets.mixkit.co/videos/preview/mixkit-fashion-model-in-a-red-dress-walking-on-a-rooftop-34441-large.mp4",
     "description": "This elegant ivory drape set is a perfect blend of timeless craftsmanship and modern sophistication. Crafted in delicate net with intricate pearl, sequin, and floral thread embroidery, the saree features soft metallic drapes that add a contemporary edge. The finely detailed pallu and borders create a graceful, luxe appeal, making it an ideal choice for cocktail evenings, reception looks, and modern festive styling. Lightweight yet richly embellished, this piece offers effortless glamour with refined elegance.",
@@ -396,12 +407,21 @@
     "slug": "moonlight-pearl-drape",
     "name": "Moonlight Pearl Drape",
     "tagline": "Hand-Embellished Outer Cape with Fluid Drape Skirt",
-    "price": 38000,
+    "price": 35000,
     "category": "Drape",
     "subCategory": "Western Wear",
-    "image": "/lehanga/l102.webp",
+    "image": "/drape/d21.webp",
     "images": [
-      "/lehanga/l102.webp"
+      "/drape/d21.webp",
+      "/drape/d22.webp",
+     
+      "/drape/d24.webp",
+      "/drape/d25.webp",
+     
+      "/drape/d27.webp",
+      "/drape/d28.webp",
+      "/drape/d29.webp"
+
     ],
     "video": "https://assets.mixkit.co/videos/preview/mixkit-fashion-model-in-a-red-dress-walking-on-a-rooftop-34441-large.mp4",
     "description": "Elevate your festive wardrobe with this stunning ivory drape set featuring three statement pieces – an intricately hand-embellished outer cape, a chic crop top, and a fluid drape skirt. The sheer cape is adorned with pearl beading, sequin embroidery, and delicate tassel detailing that adds graceful movement with every step. The crop top offers a modern silhouette, while the draped skirt brings soft elegance to the ensemble. Perfect for cocktail nights, sangeet functions, and contemporary wedding celebrations, this outfit blends traditional craftsmanship with a modern, glamorous touch.",
@@ -423,12 +443,17 @@
     "slug": "gilded-nightfall-drape",
     "name": "Gilded Nightfall Drape",
     "tagline": "Statement Beadwork and Graceful Draping",
-    "price": 42000,
+    "price": 35000,
     "category": "Drape",
     "subCategory": "Western Wear",
-    "image": "/lehanga/l102.webp",
+    "image": "/drape/d31.webp",
     "images": [
-      "/lehanga/l102.webp"
+      "/drape/d31.webp",
+      "/drape/d32.webp",
+      "/drape/d33.webp",
+      "/drape/d34.webp",
+      "/drape/d35.webp"
+      
     ],
     "video": "https://assets.mixkit.co/videos/preview/mixkit-fashion-model-in-a-red-dress-walking-on-a-rooftop-34441-large.mp4",
     "description": "A modern Indo-western silhouette with statement beadwork and graceful draping for a bold, fashion-forward look. Crafted for those who seek to make a sophisticated impact at evening galas and high-fashion events.",
@@ -450,12 +475,17 @@
     "slug": "black-opulence-corset-cowl-drape",
     "name": "Black Opulence Corset Cowl Drape Set",
     "tagline": "Structured Corset with Fluid Cowl Drape",
-    "price": 45000,
+    "price": 26000,
     "category": "Drape",
     "subCategory": "Western Wear",
-    "image": "/lehanga/l102.webp",
+    "image": "/drape/d41.webp",
     "images": [
-      "/lehanga/l102.webp"
+      "/drape/d41.webp",
+      "/drape/d42.webp",
+      "/drape/d43.webp",
+      "/drape/d44.webp",
+      "/drape/d45.webp",
+      "/drape/d46.webp"
     ],
     "video": "https://assets.mixkit.co/videos/preview/mixkit-fashion-model-in-a-red-dress-walking-on-a-rooftop-34441-large.mp4",
     "description": "A striking black ensemble featuring a cut dana embellished structured corset, designed to sculpt the silhouette with a bold, contemporary edge. Paired with a fluid cowl drape that adds a soft, feminine contrast to the structured bodice. Perfect for high-profile parties and statement evening looks.",
@@ -477,12 +507,19 @@
     "slug": "lavender-aura-beaded-halter-drape",
     "name": "Lavender Aura Beaded Halter Drape",
     "tagline": "Silver Beaded Halter-Neck with Amethyst Purple Drape",
-    "price": 35000,
+    "price": 26000,
     "category": "Drape",
     "subCategory": "Western Wear",
-    "image": "/lehanga/l102.webp",
+    "image": "/drape/d51.webp",
     "images": [
-      "/lehanga/l102.webp"
+      "/drape/d51.webp",
+      "/drape/d52.webp",
+    
+      "/drape/d54.webp",
+      "/drape/d55.webp",
+        "/drape/d56.webp",
+          "/drape/d57.webp",
+            "/drape/d58.webp"
     ],
     "video": "https://assets.mixkit.co/videos/preview/mixkit-fashion-model-in-a-red-dress-walking-on-a-rooftop-34441-large.mp4",
     "description": "Elevate your festive and party look with this stunning modern drape saree set. The ensemble features a silver beaded halter-neck blouse paired with a rich amethyst purple drape and stylish cowl-style palla.",
@@ -504,12 +541,16 @@
     "slug": "maroon-majesty-drape",
     "name": "Maroon Majesty Drape",
     "tagline": "Golden Shimmer Fabric with Intricate Cut Dana Embellishment",
-    "price": 38000,
+    "price": 25000,
     "category": "Drape",
     "subCategory": "Western Wear",
-    "image": "/lehanga/l102.webp",
+    "image": "/drape/d61.webp",
     "images": [
-      "/lehanga/l102.webp"
+      "/drape/d61.webp",
+      "/drape/d62.webp",
+      "/drape/d63.webp",
+      "/drape/d64.webp",
+      "/drape/d65.webp"
     ],
     "video": "https://assets.mixkit.co/videos/preview/mixkit-fashion-model-in-a-red-dress-walking-on-a-rooftop-34441-large.mp4",
     "description": "This opulent Maroon drape saree is crafted in a luminous golden shimmer fabric that creates a rich, fluid fall. The statement palla is elevated with intricate golden cut dana embellishment, adding texture and a regal sparkle. Designed for modern festive dressing, this contemporary drape saree blends traditional grandeur with a bold, fashion-forward silhouette—perfect for cocktail, wedding festivities, and evening celebrations.",
@@ -531,12 +572,19 @@
     "slug": "peach-muse-corset-drape",
     "name": "Peach Muse Corset Drape",
     "tagline": "Sculpted Modern Corset with Fluid Palla",
-    "price": 36000,
+    "price": 32000,
     "category": "Drape",
     "subCategory": "Indo Western Wear",
-    "image": "/lehanga/l102.webp",
+    "image": "/drape/d71.webp",
     "images": [
-      "/lehanga/l102.webp"
+      "/drape/d71.webp",
+      "/drape/d72.webp",
+      "/drape/d73.webp",
+      "/drape/d74.webp",
+      "/drape/d75.webp",
+        "/drape/d76.webp",
+       
+        "/drape/d78.webp"
     ],
     "video": "https://assets.mixkit.co/videos/preview/mixkit-fashion-model-in-a-red-dress-walking-on-a-rooftop-34441-large.mp4",
     "description": "A refined fusion silhouette, this peach drape features a soft, fluid palla paired with a sculpted modern corset for a striking contemporary look. Delicate cut dana embellishment, elevating the ensemble with handcrafted detail. Designed to flatter with structured elegance and effortless drape, this statement set is perfect for cocktail evenings, sangeet nights, and festive celebrations where modern glamour meets timeless grace.",
@@ -558,12 +606,12 @@
     "slug": "black-silk-red-whisper-lehenga",
     "name": "Black Silk, Red Whisper lehenga",
     "tagline": "Rich Black Raw Silk with Bold Red Lace",
-    "price": 48000,
+    "price": 35000,
     "category": "Lehenga",
     "subCategory": "Indian Wear",
-    "image": "/lehanga/l102.webp",
+    "image": "/lehanga/black.jpeg",
     "images": [
-      "/lehanga/l102.webp"
+      "/lehanga/black.jpeg"
     ],
     "video": "https://assets.mixkit.co/videos/preview/mixkit-fashion-model-in-a-red-dress-walking-on-a-rooftop-34441-large.mp4",
     "description": "This striking ensemble features a rich black raw silk skirt highlighted with bold red lace detailing along the hemline. Paired with a structured corset-style blouse, the cups are accentuated with delicate red lace for a dramatic, sculpted look.",
@@ -579,5 +627,33 @@
       "address": "Shop no. 113,114,115 Swaraj Plaza, 72 Rajpur Road, Dehradun-248001",
       "landmark": "Opp. Madhu Ban Hotal, Uttarakhand"
     }
+  },
+    {
+    "id": "Gold rush corset lehenga",
+    "slug": "gold-rush-corset-lehenga",
+    "name": "Gold Rush Corset Lehenga",
+    "tagline": "gold rush corser lehenga",
+    "price": 45000,
+    "category": "Lehenga",
+    "subCategory": "Indian Wear",
+    "image": "/lehanga/corset.jpeg",
+    "images": [
+      "/lehanga/corset.jpeg"
+    ],
+    "video": "https://assets.mixkit.co/videos/preview/mixkit-fashion-model-in-a-red-dress-walking-on-a-rooftop-34441-large.mp4",
+    "description": "Gold rush corset lehenga This opulent lehenga set is crafted in a rich golden shimmer fabric, adorned with heavy cut-dana hand embroidery that catches the light with every movement. The corset-style blouse creates a sculpted, contemporary silhouette, while the matching dupatta in the same luxe fabric completes the look with seamless elegance.",
+    "details": [
+      "Colour: Gloden Wear",
+      "Style No: KC0020",
+      "Number of component: 3",
+      "Wash Care: Dry clean only",
+      "Country of Origin: India"
+    ],
+    "studio": {
+      "name": "Khushi Chauhan Designer Studio",
+      "address": "Shop no. 113,114,115 Swaraj Plaza, 72 Rajpur Road, Dehradun-248001",
+      "landmark": "Opp. Madhu Ban Hotal, Uttarakhand"
+    }
   }
+  
 ]
