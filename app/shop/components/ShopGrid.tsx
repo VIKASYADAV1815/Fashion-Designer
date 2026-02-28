@@ -34,7 +34,7 @@ export default function ShopGrid({ category, initialProducts }: ShopGridProps) {
 
   const filtered = useMemo(() => {
     const alias: Record<string, string> = {
-      "casual-fit": "drape",
+      "casual-fit": "casual fit",
       drape: "drape",
     };
     const target = category ? (alias[category.toLowerCase()] || category.toLowerCase()) : undefined;

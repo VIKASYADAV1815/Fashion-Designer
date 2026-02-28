@@ -12,29 +12,32 @@ gsap.registerPlugin(ScrollTrigger);
 
 const collections = [
   {
-    id: "best",
-    title: "Best Seller",
-    image: "/images/img16.png",
-    subtitle: "Our most-loved pieces",
+    id: "32-kali-bridal-lehenga",
+    title: "32-Kali Bridal Lehenga",
+    image: "/lehanga/l1.webp",
+    subtitle: "Red Magestic Twirl",
+    price: 68000
   },
   {
-    id: "new",
-    title: "New Product",
-    image: "/images/4.jpg",
-    subtitle: "Fresh arrivals",
+    id: "blush-rose-sequin-saree",
+    title: "Blush Rose Sequin Saree",
+    image: "/saree/S1.webp",
+    subtitle: "Subtle Glamour",
+    price: 35000
   },
   {
-    id: "sale",
-    title: "Sale Product",
-    image: "/images/img5.jpg",
-    subtitle: "Seasonal offers",
+    id: "ivory-luxe-pearl-drape",
+    title: "Ivory Luxe Pearl Drape",
+    image: "/drape/d1.webp",
+    subtitle: "Modern Sophistication",
+    price: 38000
   },
 ];
 
 export default function SignatureCollections() {
   const sectionRef = useRef<HTMLElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const { openCart } = useCart();
+  const { openCart, addItem } = useCart();
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -50,9 +53,9 @@ export default function SignatureCollections() {
           trigger: section,
           start: "top top",
           end: () => `+=${container.scrollWidth}`,
-          scrub: 1,
+          scrub: 0.5,
           pin: true,
-          anticipatePin: 1,
+          invalidateOnRefresh: true,
         },
       });
     }, sectionRef);
@@ -63,37 +66,43 @@ export default function SignatureCollections() {
   return (
     <section ref={sectionRef} className="relative h-screen overflow-hidden bg-white text-black">
       <div className="absolute top-12 left-12 z-10">
-        <h2 className="text-xs font-bold uppercase tracking-[0.2em] mb-2">Signature Collections</h2>
-        <p className="text-xs text-gray-500 uppercase tracking-wider">Scroll to explore</p>
+        <h2 className="text-xs font-bold uppercase tracking-[0.2em] mb-2 text-stone-900">Signature Collections</h2>
+        <p className="text-xs text-stone-400 uppercase tracking-wider">Scroll to explore</p>
       </div>
 
-      <div ref={containerRef} className="flex h-full w-fit">
+      <div ref={containerRef} className="flex h-full w-fit will-change-transform">
         {collections.map((collection, index) => (
           <div 
             key={collection.id} 
             className="relative h-full w-[92vw] md:w-[60vw] shrink-0 border-r border-gray-100 flex items-center justify-center p-6 md:p-20"
           >
             <div className="relative w-full h-[80%] overflow-hidden group">
-               <Image 
-                 src={collection.image} 
-                 alt={collection.title}
-                 fill
-                 sizes="(max-width:768px) 90vw, (max-width:1024px) 70vw, 60vw"
-                 className="object-cover transition-transform duration-1000 group-hover:scale-110"
-               />
+               <Link href={`/shop/${collection.id}`}>
+                 <Image 
+                   src={collection.image} 
+                   alt={collection.title}
+                   fill
+                   priority={index === 0}
+                   sizes="(max-width:768px) 90vw, (max-width:1024px) 70vw, 60vw"
+                   className="object-cover transition-transform duration-1000 group-hover:scale-110 will-change-transform"
+                 />
+               </Link>
                <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500" />
                
                <div className="absolute bottom-0 left-0 w-full p-8 md:p-12 text-white transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
                  <span className="text-xs font-bold uppercase tracking-widest mb-2 block">{collection.subtitle}</span>
                  <h3 className="text-4xl md:text-6xl font-light uppercase tracking-tighter mb-4">{collection.title}</h3>
                  <div className="flex items-center gap-4">
-                   <Link href={`/shop?query=${encodeURIComponent(String(collection.title).toLowerCase())}`} className="text-xs uppercase tracking-widest border-b border-white pb-1 hover:text-gray-200 transition-colors">
-                     Shop
+                   <Link href={`/shop/${collection.id}`} className="text-xs uppercase tracking-widest border-b border-white pb-1 hover:text-gray-200 transition-colors">
+                     View Details
                    </Link>
                    <button
                      type="button"
-                     aria-label="Open cart"
-                     onClick={() => openCart()}
+                     aria-label="Add to cart"
+                     onClick={() => {
+                        addItem({ id: collection.id, name: collection.title, price: collection.price, image: collection.image });
+                        openCart();
+                     }}
                      className="p-2 rounded-full bg-white/20 hover:bg-white text-white hover:text-black transition-colors"
                    >
                      <ShoppingBag size={18} />
@@ -103,12 +112,6 @@ export default function SignatureCollections() {
             </div>
           </div>
         ))}
-        {/* End Spacer */}
-        <div className="w-[20vw] h-full flex items-center justify-center bg-black text-white">
-            <Link href="/shop" className="text-xl uppercase tracking-widest hover:text-gray-400 transition-colors">
-                View All
-            </Link>
-        </div>
       </div>
     </section>
   );

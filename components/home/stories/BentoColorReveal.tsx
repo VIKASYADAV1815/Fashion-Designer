@@ -8,20 +8,19 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 
 const bentoProducts = [
-  { type: "video", name: "Heritage Lehenga", price: "₹84,500", src: "https://res.cloudinary.com/dzq7axes2/video/upload/v1770113143/video1_em8fnl.mp4", span: "md:col-span-4 md:row-span-2", mobileRatio: "aspect-[9/15]" },
-  { type: "image", name: "Evening Drape", price: "₹22,000", src: "/images/img1.jpg", span: "md:col-span-4 md:row-span-2", mobileRatio: "aspect-[9/15]" },
-  { type: "image", name: "Silk Saree", price: "₹18,500", src: "/images/img8.png", span: "md:col-span-4 md:row-span-1", mobileRatio: "aspect-square" },
-  { type: "video", name: "Bridal Couture", price: "Custom", src: "https://res.cloudinary.com/dzq7axes2/video/upload/v1770112837/video2_gnoyzr.mov", span: "md:col-span-4 md:row-span-2", mobileRatio: "aspect-[9/15]" },
-  { type: "image", name: "Floral Organza", price: "₹34,000", src: "/images/img21.png", span: "md:col-span-4 md:row-span-2", mobileRatio: "aspect-[9/15]" },
-  { type: "image", name: "Banarasi Work", price: "₹1,10,000", src: "/images/img13.png", span: "md:col-span-4 md:row-span-2", mobileRatio: "aspect-[9/15]" },
-  { type: "image", name: "Chic Casuals", price: "₹12,500", src: "/images/img7.png", span: "md:col-span-4 md:row-span-1", mobileRatio: "aspect-square" },
+  { id: "32-kali-bridal-lehenga", type: "image", name: "32-Kali Bridal Lehenga", price: "₹68,000", src: "/lehanga/l1.webp", span: "md:col-span-4 md:row-span-2", mobileRatio: "aspect-[9/15]" },
+  { id: "ivory-luxe-pearl-drape", type: "image", name: "Ivory Luxe Pearl Drape", price: "₹38,000", src: "/drape/d1.webp", span: "md:col-span-4 md:row-span-2", mobileRatio: "aspect-[9/15]" },
+  { id: "blush-rose-sequin-saree", type: "image", name: "Blush Rose Sequin Saree", price: "₹35,000", src: "/saree/S1.webp", span: "md:col-span-4 md:row-span-1", mobileRatio: "aspect-square" },
+  { id: "modern-virasat-lehenga", type: "image", name: "Modern Virasat Lehenga", price: "₹28,000", src: "/lehanga/l101.webp", span: "md:col-span-4 md:row-span-2", mobileRatio: "aspect-[9/15]" },
+  { id: "moonlight-pearl-drape", type: "image", name: "Moonlight Pearl Drape", price: "₹35,000", src: "/drape/d21.webp", span: "md:col-span-4 md:row-span-2", mobileRatio: "aspect-[9/15]" },
+  { id: "black-silk-red-whisper-lehenga", type: "image", name: "Black Silk, Red Whisper", price: "₹35,000", src: "/lehanga/black.jpeg", span: "md:col-span-4 md:row-span-2", mobileRatio: "aspect-[9/15]" },
+  { id: "gold-rush-corset-lehenga", type: "image", name: "Gold Rush Corset Lehenga", price: "₹45,000", src: "/lehanga/corset.jpeg", span: "md:col-span-4 md:row-span-1", mobileRatio: "aspect-square" },
 ];
 
 export default function BentoWithCompactSlider() {
-  const { openCart } = useCart();
-  const { addItem } = useCart();
+  const { openCart, addItem } = useCart();
   const [addedIndex, setAddedIndex] = useState<number | null>(null);
-  const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+
   return (
     <section className="bg-[#fcfaf8] text-stone-900 py-10 md:py-20 overflow-hidden">
       <div className="container mx-auto px-4 md:px-8">
@@ -43,20 +42,18 @@ export default function BentoWithCompactSlider() {
           {bentoProducts.map((p, i) => (
             <div key={i} className={`relative overflow-hidden bg-white rounded-lg shadow-sm border border-stone-100 group transition-all duration-500 hover:shadow-xl ${p.span} ${p.mobileRatio} md:aspect-auto`}>
               {/* Media Container */}
-              <div className="w-full h-full relative overflow-hidden">
+              <Link href={`/shop/${p.id}`} className="w-full h-full relative overflow-hidden block">
                 {p.type === "video" ? (
                   <video className="w-full h-full object-cover" autoPlay muted loop playsInline preload="auto">
                     <source src={p.src} type="video/mp4" />
                   </video>
                 ) : (
-                  <img src={p.src} alt={p.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                  <img src={p.src} alt={p.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 will-change-transform" />
                 )}
                 
                 {/* --- HIGHLIGHTED FIX: Gradient and Text visibility --- */}
-                {/* Made gradient visible by default on mobile (opacity-100) and hover on desktop */}
                 <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300" />
                 
-                {/* Ensured content doesn't "touch the bottom" by adding consistent padding and removing the translate-y on mobile */}
                 <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-transform duration-300">
                   <div className="flex justify-between items-end">
                     <div className="text-white">
@@ -66,8 +63,10 @@ export default function BentoWithCompactSlider() {
                     </div>
                     <button
                       type="button"
-                      onClick={() => {
-                        addItem({ id: slug(p.name), name: p.name, price: Number(String(p.price).replace(/[^0-9]/g,"")) || 0, image: p.type === "image" ? p.src : undefined });
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        addItem({ id: p.id, name: p.name, price: Number(String(p.price).replace(/[^0-9]/g,"")) || 0, image: p.type === "image" ? p.src : undefined });
                         setAddedIndex(i);
                         openCart();
                         setTimeout(() => setAddedIndex(null), 1200);
@@ -89,8 +88,7 @@ export default function BentoWithCompactSlider() {
                     </button>
                   </div>
                 </div>
-                {/* --- END FIX --- */}
-              </div>
+              </Link>
             </div>
           ))}
         </div>
