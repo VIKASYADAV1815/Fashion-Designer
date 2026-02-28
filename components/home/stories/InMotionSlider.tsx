@@ -1,10 +1,12 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useState } from "react";
 import { ShoppingBag, Check } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/components/cart/CartProvider";
 import Link from "next/link";
+
+import Image from "next/image";
 
 const sliderProducts = [
   { id: "gilded-nightfall-drape", name: "Gilded Nightfall Drape", price: "₹35,000", img: "/drape/d31.webp" },
@@ -18,107 +20,124 @@ const sliderProducts = [
 ];
 
 export default function InMotionSlider() {
-  const [width, setWidth] = useState(0);
-  const carousel = useRef<HTMLDivElement>(null);
   const { addItem, openCart } = useCart();
   const [addedIndex, setAddedIndex] = useState<number | null>(null);
 
-  useEffect(() => {
-    const calculateWidth = () => {
-      if (carousel.current) {
-        setWidth(carousel.current.scrollWidth - carousel.current.offsetWidth);
-      }
-    };
-
-    calculateWidth();
-    // Recalculate after a short delay to account for image loading
-    const timer = setTimeout(calculateWidth, 1000);
-    window.addEventListener("resize", calculateWidth);
-
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener("resize", calculateWidth);
-    };
-  }, []);
+  const handleAddToCart = (item: typeof sliderProducts[0], idx: number) => {
+    const numericPrice = Number(String(item.price).replace(/[^0-9]/g, "")) || 0;
+    addItem({ id: item.id, name: item.name, price: numericPrice, image: item.img });
+    setAddedIndex(idx);
+    openCart();
+    setTimeout(() => setAddedIndex(null), 1500);
+  };
 
   return (
-    <div className="mt-16 border-t border-stone-200 pt-10 overflow-hidden select-none">
+    <section className="py-10 bg-white overflow-hidden">
       {/* Header Section */}
-      <div className="flex items-center justify-between mb-8 px-6">
-        <h3 className="text-xs uppercase tracking-[0.4em] font-bold text-stone-500">
-          Featured / <span className="text-stone-300">Products</span>
-        </h3>
-        <div className="flex gap-2">
-          <span className="w-8 h-px bg-stone-300 self-center" />
-          <p className="text-[10px] uppercase tracking-widest text-stone-400">
-            Swipe to Explore
-          </p>
+      <div className="flex items-end justify-between mb-10 px-6 md:px-12">
+        <div className="space-y-1">
+          <h3 className="text-[10px] uppercase tracking-[0.3em] font-medium text-stone-400">
+            Curated Collection
+          </h3>
+          <h2 className="text-2xl font-serif text-stone-800 italic">Featured Pieces</h2>
+        </div>
+        <div className="hidden md:flex items-center gap-4">
+          <span className="text-[10px] uppercase tracking-widest text-stone-400">Scroll to explore</span>
+          <div className="w-12 h-[1px] bg-stone-200" />
         </div>
       </div>
 
-      {/* Slider Container */}
-      <div 
-        ref={carousel} 
-        className="px-6 overflow-hidden"
-      >
-        <motion.div
-          drag="x"
-          dragConstraints={{ right: 0, left: -width }}
-          dragElastic={0.2}
-          whileTap={{ cursor: "grabbing" }}
-          className="flex gap-8 cursor-grab will-change-transform w-fit"
+      {/* Main Slider Container */}
+      <div className="relative w-full overflow-hidden">
+        <div 
+          className="flex overflow-x-auto overflow-y-hidden snap-x snap-mandatory scrollbar-hide px-6 md:px-12 gap-6 pb-8 overscroll-x-contain"
+          style={{ 
+            scrollbarWidth: 'none', 
+            msOverflowStyle: 'none',
+            WebkitOverflowScrolling: 'touch'
+          }}
         >
           {sliderProducts.map((item, idx) => (
             <div 
-              key={idx} 
-              className="min-w-[280px] md:min-w-[340px] group"
+              key={item.id}
+              className="min-w-[75vw] md:min-w-[320px] lg:min-w-[380px] snap-start group will-change-transform"
             >
               {/* Image Container */}
-              <div className="relative aspect-[3/4] overflow-hidden mb-4 rounded-md bg-stone-100">
-                <Link href={`/shop/${item.id}`} className="block w-full h-full">
-                  <img
+              <div className="relative aspect-[4/5] overflow-hidden bg-stone-50 mb-4 transition-all duration-500 ease-out will-change-transform">
+                <Link href={`/shop/${item.id}`} className="cursor-pointer block relative w-full h-full">
+                  <Image
                     src={item.img}
                     alt={item.name}
-                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 will-change-transform"
-                    draggable="false"
+                    fill
+                    className="object-cover transition-transform duration-1000 group-hover:scale-105 will-change-transform"
+                    sizes="(max-width: 768px) 75vw, (max-width: 1024px) 320px, 380px"
+                    priority={idx < 2}
                   />
                 </Link>
-                
-                {/* Badge */}
-                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 text-[9px] uppercase tracking-widest font-bold shadow-sm">
-                  Quick Ship
+
+                {/* Aesthetic Overlay Badge */}
+                <div className="absolute top-0 left-0 p-4 pointer-events-none">
+                   <span className="text-[9px] tracking-[0.2em] uppercase bg-white/80 backdrop-blur-md px-2 py-1 text-stone-600">
+                     New Arrival
+                   </span>
                 </div>
 
-                {/* Fixed Cart Icon Logic */}
-                <div className="absolute bottom-6 right-6 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-out">
+                {/* Add to Cart Button - Refined UI */}
+                <div className="absolute bottom-4 right-4 z-10">
                   <button
-                    className="bg-stone-900 text-white p-4 rounded-full shadow-xl border border-white/20 hover:bg-stone-800 active:scale-95 transition-all relative"
-                    onClick={() => {
-                      addItem({ id: item.id, name: item.name, price: Number(String(item.price).replace(/[^0-9]/g,"")) || 0, image: item.img });
-                      setAddedIndex(idx);
-                      openCart();
-                      setTimeout(() => setAddedIndex(null), 1200);
-                    }}
+                    onClick={() => handleAddToCart(item, idx)}
+                    className="h-12 w-12 flex items-center justify-center bg-white/90 backdrop-blur-sm text-stone-900 rounded-full shadow-sm hover:bg-stone-900 hover:text-white transition-all duration-300 active:scale-90"
                     aria-label="Add to cart"
                   >
-                    {addedIndex === idx ? <Check size={20} /> : <ShoppingBag size={20} />}
+                    <AnimatePresence mode="wait">
+                      {addedIndex === idx ? (
+                        <motion.div
+                          key="check"
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          exit={{ scale: 0 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <Check size={18} strokeWidth={1.5} />
+                        </motion.div>
+                      ) : (
+                        <motion.div
+                          key="bag"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <ShoppingBag size={18} strokeWidth={1.5} />
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </button>
                 </div>
               </div>
 
-              {/* Text Info */}
-              <Link href={`/shop/${item.id}`} className="space-y-1 block">
-                <h4 className="text-md font-serif text-stone-800 group-hover:text-stone-500 transition-colors">
-                  {item.name}
-                </h4>
-                <p className="text-xs text-stone-400 tracking-wider">{item.price}</p>
-              </Link>
+              {/* Product Info */}
+              <div className="space-y-1">
+                <Link href={`/shop/${item.id}`}>
+                  <h4 className="text-sm tracking-wide text-stone-800 group-hover:text-stone-500 transition-colors duration-300">
+                    {item.name}
+                  </h4>
+                </Link>
+                <p className="text-xs text-stone-500 font-light">{item.price}</p>
+              </div>
             </div>
           ))}
-          {/* Extra padding at the end */}
-          <div className="min-w-5" />
-        </motion.div>
+          
+          {/* Spacer for the end of the scroll */}
+          <div className="min-w-[24px] md:min-w-[48px]" />
+        </div>
       </div>
-    </div>
+
+      <style jsx global>{`
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
+    </section>
   );
 }

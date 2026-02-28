@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowRight, ShoppingBag, Check } from "lucide-react";
-import InMotionSlider from "./InMotionSlider";
+// import InMotionSlider from "./InMotionSlider";
 import Link from "next/link";
 import { useCart } from "@/components/cart/CartProvider";
 import { motion } from "framer-motion";
@@ -94,7 +94,7 @@ export default function BentoWithCompactSlider() {
         </div>
 
         {/* INMOTION COMPACT SLIDER */}
-        <InMotionSlider />
+        {/* <InMotionSlider /> */}
       </div>
 
       <style jsx>{`
