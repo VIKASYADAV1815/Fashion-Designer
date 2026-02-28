@@ -21,7 +21,7 @@ const collections = [
   {
     id: "blush-rose-sequin-saree",
     title: "Blush Rose Sequin Saree",
-    image: "/saree/S1.webp",
+    image: "/saree/s1.webp",
     subtitle: "Subtle Glamour",
     price: 35000
   },

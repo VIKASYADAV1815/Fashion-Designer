@@ -10,7 +10,7 @@ import { useState } from "react";
 const bentoProducts = [
   { id: "32-kali-bridal-lehenga", type: "image", name: "32-Kali Bridal Lehenga", price: "₹68,000", src: "/lehanga/l1.webp", span: "md:col-span-4 md:row-span-2", mobileRatio: "aspect-[9/15]" },
   { id: "ivory-luxe-pearl-drape", type: "image", name: "Ivory Luxe Pearl Drape", price: "₹38,000", src: "/drape/d1.webp", span: "md:col-span-4 md:row-span-2", mobileRatio: "aspect-[9/15]" },
-  { id: "blush-rose-sequin-saree", type: "image", name: "Blush Rose Sequin Saree", price: "₹35,000", src: "/saree/S1.webp", span: "md:col-span-4 md:row-span-1", mobileRatio: "aspect-square" },
+  { id: "blush-rose-sequin-saree", type: "image", name: "Blush Rose Sequin Saree", price: "₹35,000", src: "/saree/s1.webp", span: "md:col-span-4 md:row-span-1", mobileRatio: "aspect-square" },
   { id: "modern-virasat-lehenga", type: "image", name: "Modern Virasat Lehenga", price: "₹28,000", src: "/lehanga/l101.webp", span: "md:col-span-4 md:row-span-2", mobileRatio: "aspect-[9/15]" },
   { id: "moonlight-pearl-drape", type: "image", name: "Moonlight Pearl Drape", price: "₹35,000", src: "/drape/d21.webp", span: "md:col-span-4 md:row-span-2", mobileRatio: "aspect-[9/15]" },
   { id: "black-silk-red-whisper-lehenga", type: "image", name: "Black Silk, Red Whisper", price: "₹35,000", src: "/lehanga/black.jpeg", span: "md:col-span-4 md:row-span-2", mobileRatio: "aspect-[9/15]" },
