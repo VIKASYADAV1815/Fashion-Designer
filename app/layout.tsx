@@ -19,8 +19,8 @@ const playfairDisplay = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Luxury Fashion",
-  description: "High-end luxury fashion website",
+  title: "Khusi Chauhan Designer Studio | High-end Luxury Fashion",
+  description: "Discover the epitome of high-end luxury fashion at Khusi Chauhan Designer Studio. Explore our exclusive collection of meticulously crafted garments, blending timeless elegance with contemporary design. Experience unparalleled craftsmanship and sophistication in every piece, tailored to elevate your style and make a statement. Shop now for a truly luxurious fashion experience.",
 };
 
 export default function RootLayout({
