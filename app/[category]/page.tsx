@@ -3,8 +3,6 @@ import ShopTransition from "@/app/shop/components/ShopTransition";
 import React from "react";
 import productsData from "@/lib/products.json";
 
-export const dynamic = "force-dynamic";
-
 const categoryTitles: Record<string, string> = {
   women: "Womenswear",
   men: "Menswear",
@@ -18,6 +16,12 @@ const categoryTitles: Record<string, string> = {
   "western-wear": "Western Wear",
   "indo-western-wear": "Indo Western Wear",
 };
+
+export async function generateStaticParams() {
+  return Object.keys(categoryTitles).map((category) => ({
+    category,
+  }));
+}
 
 export default async function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
   const { category } = await params;

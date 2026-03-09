@@ -3,6 +3,7 @@
 import { ArrowRight, ShoppingBag, Check } from "lucide-react";
 // import InMotionSlider from "./InMotionSlider";
 import Link from "next/link";
+import Image from "next/image";
 import { useCart } from "@/components/cart/CartProvider";
 import { motion } from "framer-motion";
 import { useState } from "react";
@@ -12,7 +13,7 @@ const bentoProducts = [
   { id: "ivory-luxe-pearl-drape", type: "image", name: "Ivory Luxe Pearl Drape", price: "₹38,000", src: "/drape/d1.webp", span: "md:col-span-4 md:row-span-2", mobileRatio: "aspect-[9/15]" },
   { id: "blush-rose-sequin-saree", type: "image", name: "Blush Rose Sequin Saree", price: "₹35,000", src: "/saree/s1.webp", span: "md:col-span-4 md:row-span-1", mobileRatio: "aspect-square" },
   { id: "modern-virasat-lehenga", type: "image", name: "Modern Virasat Lehenga", price: "₹28,000", src: "/lehanga/l101.webp", span: "md:col-span-4 md:row-span-2", mobileRatio: "aspect-[9/15]" },
-  { id: "moonlight-pearl-drape", type: "image", name: "Moonlight Pearl Drape", price: "₹35,000", src: "/drape/d21.webp", span: "md:col-span-4 md:row-span-2", mobileRatio: "aspect-[9/15]" },
+  { id: "moonlight-pearl-drape", type: "image", name: "Moonlight Pearl Drape", price: "₹35,000", src: "/drape/d21.jpg", span: "md:col-span-4 md:row-span-2", mobileRatio: "aspect-[9/15]" },
   { id: "black-silk-red-whisper-lehenga", type: "image", name: "Black Silk, Red Whisper", price: "₹35,000", src: "/lehanga/black.jpeg", span: "md:col-span-4 md:row-span-2", mobileRatio: "aspect-[9/15]" },
   { id: "gold-rush-corset-lehenga", type: "image", name: "Gold Rush Corset Lehenga", price: "₹45,000", src: "/lehanga/corset.jpeg", span: "md:col-span-4 md:row-span-1", mobileRatio: "aspect-square" },
 ];
@@ -48,7 +49,14 @@ export default function BentoWithCompactSlider() {
                     <source src={p.src} type="video/mp4" />
                   </video>
                 ) : (
-                  <img src={p.src} alt={p.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 will-change-transform" />
+                  <Image
+                    src={p.src}
+                    alt={p.name}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-110 will-change-transform"
+                    priority={i < 2}
+                  />
                 )}
                 
                 {/* --- HIGHLIGHTED FIX: Gradient and Text visibility --- */}
