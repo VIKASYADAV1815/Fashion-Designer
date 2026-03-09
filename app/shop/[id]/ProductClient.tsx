@@ -67,7 +67,7 @@ export default function ProductClient() {
           
           {/* LEFT: MEDIA SECTION WITH SEPARATED VIDEO OVERLAY */}
           <div className="lg:w-[45%] lg:h-screen lg:sticky lg:top-0 bg-[#F6F6F6] flex items-center justify-center p-6 md:p-12">
-            <div className="relative w-full max-w-[480px] aspect-[4/5] bg-white shadow-sm overflow-hidden group">
+            <div className="relative w-full max-w-120 aspect-4/5 bg-white shadow-sm overflow-hidden group">
               
               <div key={activeImage} className={`absolute inset-0 transition-opacity duration-500 ${showVideo ? 'opacity-0' : 'opacity-100'}`}>
                 <Image

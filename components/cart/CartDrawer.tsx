@@ -4,6 +4,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useCart } from "./CartProvider";
 import { X, ShoppingBag } from "lucide-react";
 
+import Link from "next/link";
+
 export default function CartDrawer({
   open,
   onClose,
@@ -161,14 +163,18 @@ export default function CartDrawer({
                   </div>
                 </div>
 
-                <button className="relative w-full group/checkout overflow-hidden">
+                <Link
+                  href="/checkout"
+                  onClick={onClose}
+                  className="relative w-full group/checkout overflow-hidden block"
+                >
                   <div className="absolute inset-0 bg-white translate-y-full group-hover/checkout:translate-y-0 transition-transform duration-700 ease-[0.16,1,0.3,1]" />
                   <div className="relative border border-white/10 py-4.5 flex items-center justify-center gap-3 transition-colors duration-500 group-hover/checkout:text-black">
                     <span className="text-[9px] uppercase tracking-[0.6em] font-black">
                       Finalize Order
                     </span>
                   </div>
-                </button>
+                </Link>
 
                 <div className="flex items-center justify-center gap-4 mt-6 opacity-30">
                   <div className="h-px flex-1 bg-gradient-to-r from-transparent to-white" />
