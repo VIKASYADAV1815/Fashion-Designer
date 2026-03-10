@@ -1,54 +1,18 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useCart } from "@/components/cart/CartProvider";
 import Link from "next/link";
 import Image from "next/image";
-import { ChevronLeft, Lock, Truck } from "lucide-react";
+import { ChevronLeft, Lock, Truck, ChevronDown } from "lucide-react";
+import { State, City } from "country-state-city";
 
-const indianStates = [
-  "Andaman and Nicobar Islands",
-  "Andhra Pradesh",
-  "Arunachal Pradesh",
-  "Assam",
-  "Bihar",
-  "Chandigarh",
-  "Chhattisgarh",
-  "Dadra and Nagar Haveli",
-  "Daman and Diu",
-  "Delhi",
-  "Goa",
-  "Gujarat",
-  "Haryana",
-  "Himachal Pradesh",
-  "Jammu and Kashmir",
-  "Jharkhand",
-  "Karnataka",
-  "Kerala",
-  "Ladakh",
-  "Lakshadweep",
-  "Madhya Pradesh",
-  "Maharashtra",
-  "Manipur",
-  "Meghalaya",
-  "Mizoram",
-  "Nagaland",
-  "Odisha",
-  "Puducherry",
-  "Punjab",
-  "Rajasthan",
-  "Sikkim",
-  "Tamil Nadu",
-  "Telangana",
-  "Tripura",
-  "Uttar Pradesh",
-  "Uttarakhand",
-  "West Bengal",
-];
+import { useRouter } from "next/navigation";
 
 export default function CheckoutPage() {
   const { items } = useCart();
   const cartTotal = items.reduce((sum, i) => sum + i.price * i.qty, 0);
+  const router = useRouter();
   const [formData, setFormData] = useState({
     email: "",
     firstName: "",
@@ -61,15 +25,132 @@ export default function CheckoutPage() {
     phone: "",
   });
 
+  const [availableCities, setAvailableCities] = useState<any[]>([]);
+  const states = React.useMemo(() => State.getStatesOfCountry("IN"), []);
+
+  useEffect(() => {
+    if (formData.state) {
+      const stateObj = states.find((s) => s.name === formData.state);
+      if (stateObj) {
+        const cities = City.getCitiesOfState("IN", stateObj.isoCode);
+        setAvailableCities(cities);
+      }
+    } else {
+      setAvailableCities([]);
+    }
+  }, [formData.state, states]);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    
+    if (name === "state") {
+      setFormData((prev) => ({ ...prev, [name]: value, city: "" }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Order Finalized:", { formData, items, total: cartTotal });
-    alert("Thank you for your order! This is a demo checkout.");
+    setIsProcessing(true);
+
+    try {
+      // 1. Create order on backend
+      const visitorToken = localStorage.getItem("visitor_token") || "";
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/orders/checkout`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-visitor-token": visitorToken,
+        },
+        body: JSON.stringify({
+          userInfo: {
+            name: `${formData.firstName} ${formData.lastName}`,
+            phone: formData.phone,
+            email: formData.email,
+            address: `${formData.address}${formData.apartment ? ", " + formData.apartment : ""}`,
+            city: formData.city,
+            state: formData.state,
+            postalCode: formData.pincode,
+            country: "India",
+          },
+          items: items.map((item) => ({
+            name: item.name,
+            price: item.price,
+            quantity: item.qty,
+            image: item.image,
+          })),
+        }),
+      });
+
+      // Update visitor token if returned
+      const newToken = response.headers.get("x-visitor-token");
+      if (newToken) {
+        localStorage.setItem("visitor_token", newToken);
+      }
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Checkout failed");
+      }
+
+      const { razorpayOrder } = data;
+
+      // 2. Open Razorpay
+      const options = {
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+        amount: razorpayOrder.amount,
+        currency: razorpayOrder.currency,
+        name: "Khushi Chauhan Designer Studio",
+        description: "Order Payment",
+        order_id: razorpayOrder.id,
+        handler: async (response: any) => {
+          try {
+            // 3. Verify payment on backend
+            const verifyRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/orders/verify`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "x-visitor-token": localStorage.getItem("visitor_token") || "",
+              },
+              body: JSON.stringify({
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+              }),
+            });
+
+            const verifyData = await verifyRes.json();
+
+            if (verifyRes.ok) {
+              router.push(`/order-success?orderId=${verifyData.order._id}`);
+            } else {
+              throw new Error(verifyData.message || "Payment verification failed");
+            }
+          } catch (err: any) {
+            alert("Payment verification error: " + err.message);
+          }
+        },
+        prefill: {
+          name: `${formData.firstName} ${formData.lastName}`,
+          email: formData.email,
+          contact: formData.phone,
+        },
+        theme: {
+          color: "#1A1A1A",
+        },
+      };
+
+      const rzp = new (window as any).Razorpay(options);
+      rzp.open();
+    } catch (err: any) {
+      alert("Error: " + err.message);
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   if (items.length === 0) {
@@ -88,7 +169,7 @@ export default function CheckoutPage() {
 
   return (
     <div className="min-h-screen bg-[#FCFCFC] text-stone-800">
-      <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 min-h-screen">
+      <div className="max-w-350 mx-auto grid grid-cols-1 lg:grid-cols-2 min-h-screen">
         
         {/* Left Column - Form */}
         <div className="p-6 md:p-12 lg:p-20 lg:border-r border-stone-200">
@@ -183,34 +264,46 @@ export default function CheckoutPage() {
                 />
 
                 <div className="grid grid-cols-2 gap-6">
-                  <input
-                    type="text"
-                    name="city"
-                    required
-                    placeholder="City"
-                    value={formData.city}
-                    onChange={handleChange}
-                    className="w-full bg-transparent border-b border-stone-300 py-3 text-sm focus:border-stone-900 focus:outline-none transition-colors placeholder:text-stone-400"
-                  />
-                  <div className="relative">
+                  <div className="relative group">
                     <select
                       name="state"
                       required
                       value={formData.state}
                       onChange={handleChange}
-                      className="w-full bg-transparent border-b border-stone-300 py-3 text-sm focus:border-stone-900 focus:outline-none transition-colors text-stone-800 appearance-none"
+                      className="w-full bg-transparent border-b border-stone-300 py-3 text-sm focus:border-stone-900 focus:outline-none transition-all duration-300 text-stone-800 appearance-none cursor-pointer"
                     >
-                      <option value="" disabled className="text-stone-400">State</option>
-                      {indianStates.map((state) => (
-                        <option key={state} value={state}>
-                          {state}
+                      <option value="" disabled>State</option>
+                      {states.map((state) => (
+                        <option key={state.isoCode} value={state.name}>
+                          {state.name}
                         </option>
                       ))}
                     </select>
-                    <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-stone-400">
-                      <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M1 1L5 5L9 1" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
+                    <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-stone-400 group-hover:text-stone-900 transition-colors">
+                      <ChevronDown size={14} />
+                    </div>
+                  </div>
+
+                  <div className="relative group">
+                    <select
+                      name="city"
+                      required
+                      value={formData.city}
+                      onChange={handleChange}
+                      disabled={!formData.state}
+                      className="w-full bg-transparent border-b border-stone-300 py-3 text-sm focus:border-stone-900 focus:outline-none transition-all duration-300 text-stone-800 appearance-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      <option value="" disabled>
+                        {!formData.state ? "Select State First" : "City"}
+                      </option>
+                      {availableCities.map((city) => (
+                        <option key={city.name} value={city.name}>
+                          {city.name}
+                        </option>
+                      ))}
+                    </select>
+                    <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-stone-400 group-hover:text-stone-900 transition-colors">
+                      <ChevronDown size={14} />
                     </div>
                   </div>
                 </div>
@@ -240,9 +333,10 @@ export default function CheckoutPage() {
               <div className="pt-8">
                 <button
                   type="submit"
-                  className="w-full bg-stone-900 text-white py-5 text-xs uppercase tracking-[0.25em] hover:bg-stone-800 transition-all duration-300"
+                  disabled={isProcessing}
+                  className="w-full bg-stone-900 text-white py-5 text-xs uppercase tracking-[0.25em] hover:bg-stone-800 transition-all duration-300 disabled:opacity-50"
                 >
-                  Complete Order
+                  {isProcessing ? "Processing..." : "Complete Order"}
                 </button>
               </div>
             </form>
@@ -257,7 +351,7 @@ export default function CheckoutPage() {
             <div className="space-y-6">
               {items.map((item) => (
                 <div key={item.id} className="flex gap-6 items-start group">
-                  <div className="relative w-20 h-24 bg-stone-200 overflow-hidden flex-shrink-0">
+                  <div className="relative w-20 h-24 bg-stone-200 overflow-hidden shrink-0">
                     <Image
                       src={item.image || "/placeholder.jpg"}
                       alt={item.name}

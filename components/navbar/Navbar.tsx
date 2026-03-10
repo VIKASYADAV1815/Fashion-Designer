@@ -11,18 +11,20 @@ import CartDrawer from "@/components/cart/CartDrawer";
 import { useCart } from "@/components/cart/CartProvider";
 import { usePathname } from "next/navigation";
 
+import UserDropdown from "./UserDropdown";
+
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const { scrollY } = useScroll();
-  const { items, open, openCart, closeCart } = useCart();
+  const { items, openCart, closeCart, open } = useCart();
   const [hidden, setHidden] = useState(false);
   const lastY = useRef(0);
   const pathname = usePathname();
+
   useEffect(() => {
-    console.log("[nav] route changed:", pathname);
     const t = setTimeout(() => {
       setActiveCategory(null);
       setIsMobileMenuOpen(false);
@@ -201,13 +203,8 @@ export default function Navbar() {
               >
                 <Search size={20} strokeWidth={1.5} />
               </button>
-              <Link
-                href="/account"
-                className="hover:text-gray-300 transition-colors"
-                aria-label="Account"
-              >
-                <User size={20} strokeWidth={1.5} />
-              </Link>
+
+              <UserDropdown />
               <button
                 className="hover:text-gray-300 transition-colors relative"
                 aria-label="Cart"

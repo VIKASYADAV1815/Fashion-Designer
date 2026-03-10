@@ -1,6 +1,7 @@
 "use client";
 
-import React, { createContext, useContext, useMemo, useState } from "react";
+import React, { createContext, useContext, useMemo, useState, useEffect, useCallback } from "react";
+import { useToast } from "@/components/ui/Toast";
 
 type CartItem = {
   id: string;
@@ -28,9 +29,67 @@ export function useCart() {
   return ctx;
 }
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 export default function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [open, setOpen] = useState(false);
+  const { showToast } = useToast();
+
+  const fetchCart = useCallback(async () => {
+    const visitorToken = localStorage.getItem("visitor_token");
+    if (!visitorToken) return;
+
+    try {
+      const response = await fetch(`${API_URL}/cart`, {
+        headers: { "x-visitor-token": visitorToken },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        if (data.cart && data.cart.items) {
+          setItems(data.cart.items.map((i: any) => ({ ...i, id: i._id, qty: i.quantity })));
+        }
+      }
+    } catch (error) {
+      console.error("Failed to fetch cart:", error);
+    }
+  }, []);
+
+  const syncCart = useCallback(async (cartItems: CartItem[]) => {
+    const visitorToken = localStorage.getItem("visitor_token");
+    if (!visitorToken) return;
+
+    try {
+      await fetch(`${API_URL}/cart`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-visitor-token": visitorToken,
+        },
+        body: JSON.stringify({ 
+          items: cartItems.map(i => ({ 
+            name: i.name, 
+            price: i.price, 
+            quantity: i.qty, 
+            image: i.image 
+          })) 
+        }),
+      });
+    } catch (error) {
+      console.error("Failed to sync cart:", error);
+      showToast("Failed to sync cart with server", "error");
+    }
+  }, [showToast]);
+
+  useEffect(() => {
+    fetchCart();
+  }, [fetchCart]);
+
+  useEffect(() => {
+    if (items.length > 0) {
+      syncCart(items);
+    }
+  }, [items, syncCart]);
 
   const addItem = (item: Omit<CartItem, "qty">) => {
     setItems((prev) => {
@@ -40,16 +99,30 @@ export default function CartProvider({ children }: { children: React.ReactNode }
       }
       return [...prev, { ...item, qty: 1 }];
     });
+    showToast(`${item.name} added to cart`, "success");
   };
-  const removeItem = (id: string) => setItems((prev) => prev.filter((p) => p.id !== id));
-  const clear = () => setItems([]);
+
+  const removeItem = (id: string) => {
+    setItems((prev) => prev.filter((p) => p.id !== id));
+  };
+
+  const clear = () => {
+    setItems([]);
+    const visitorToken = localStorage.getItem("visitor_token");
+    if (visitorToken) {
+      fetch(`${API_URL}/cart`, { 
+        method: "DELETE", 
+        headers: { "x-visitor-token": visitorToken } 
+      });
+    }
+  };
 
   const openCart = () => setOpen(true);
   const closeCart = () => setOpen(false);
 
   const value = useMemo(
     () => ({ items, addItem, removeItem, clear, open, openCart, closeCart }),
-    [items, open]
+    [items, open, addItem, removeItem, clear, openCart, closeCart]
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
