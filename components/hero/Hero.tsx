@@ -45,13 +45,22 @@ export default function Hero() {
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="auto"
         className="absolute inset-0 h-full w-full object-cover"
-        src="https://res.cloudinary.com/dzq7axes2/video/upload/v1770274822/hero-vid_xqzyui.mp4"
+        src="https://www.pexels.com/download/video/35352427/"
       />
 
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-linear-to-t from-black/30 via-black/40 to-black/30" />
+      {/* Optimized Overlay with Darkening and Vignette Effect */}
+      <div className="absolute inset-0 z-[1]">
+        {/* Darkening Overlay */}
+        <div className="absolute inset-0 bg-black/50" />
+        
+        {/* Radial Vignette Effect */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.4)_70%,rgba(0,0,0,0.8)_100%)]" />
+        
+        {/* Subtle Linear Gradient for Text Readability */}
+        <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-black/40" />
+      </div>
 
       {/* Content */}
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 pt-24 md:pt-32 text-center">
