@@ -9,9 +9,9 @@ import Link from "next/link";
 import Image from "next/image";
 
 const sliderProducts = [
-  { id: "gilded-nightfall-drape", name: "Gilded Nightfall Drape", price: "₹35,000", img: "/drape/d31.webp" },
-  { id: "black-opulence-corset-cowl-drape", name: "Black Opulence Corset", price: "₹26,000", img: "/drape/d41.webp" },
-  { id: "lavender-aura-beaded-halter-drape", name: "Lavender Aura Beaded", price: "₹26,000", img: "/drape/d51.webp" },
+  { id: "gilded-nightfall-drape", name: "Gilded Nightfall Drape", price: "₹35,000", img: "/drape/d31.jpg" },
+  { id: "black-opulence-corset-cowl-drape", name: "Black Opulence Corset", price: "₹26,000", img: "/drape/d41.jpg" },
+  { id: "lavender-aura-beaded-halter-drape", name: "Lavender Aura Beaded", price: "₹26,000", img: "/drape/d51.jpg" },
   { id: "maroon-majesty-drape", name: "Maroon Majesty Drape", price: "₹25,000", img: "/drape/d61.webp" },
   { id: "peach-muse-corset-drape", name: "Peach Muse Corset Drape", price: "₹32,000", img: "/drape/d71.webp" },
   { id: "shisha-noor-lehenga", name: "Shisha Noor Lehenga", price: "₹28,000", img: "/lehanga/l91.webp" },

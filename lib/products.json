@@ -11,7 +11,7 @@
     "images": [
       "/lehanga/l1.webp",
       "/lehanga/l2.webp",
-      "/lehanga/l3.webp",
+      "/lehanga/l3.jpg",
       "/lehanga/l4.webp",
       "/lehanga/l5.webp",
       "/lehanga/l6.webp",
@@ -48,9 +48,9 @@
       "/lehanga/l21.webp",
       "/lehanga/l22.webp",
       "/lehanga/l23.webp",
-      "/lehanga/l24.webp",
+      "/lehanga/l24.jpg",
       "/lehanga/l26.webp",
-      "/lehanga/l27.webp"
+      "/lehanga/l27.jpg"
     ],
     "video": "https://assets.mixkit.co/videos/preview/mixkit-fashion-model-in-a-red-dress-walking-on-a-rooftop-34441-large.mp4",
     "description": "Classic plain red lehenga with elegant fall\nHand-embroidered buti work on blouse\nPremium handwork lace border on dupatta\nLightweight yet rich bridal look\nIdeal for wedding pheras, bridal entry & traditional ceremonies",
@@ -111,8 +111,8 @@
   "images": [
     "/lehanga/l31.webp",
     "/lehanga/l32.webp",
-    "/lehanga/l33.webp",
-    "/lehanga/l34.webp"
+    "/lehanga/l33.jpg",
+    "/lehanga/l34.jpg"
 
   ],
   "video": "https://assets.mixkit.co/videos/preview/mixkit-fashion-model-in-a-red-dress-walking-on-a-rooftop-34441-large.mp4",
@@ -380,12 +380,12 @@
     "image": "/drape/d1.webp",
     "images": [
       "/drape/d1.webp",
-      "/drape/d2.webp",
-      "/drape/d3.webp",
-      "/drape/d4.webp",
-      "/drape/d5.webp",
-      "/drape/d6.webp",
-      "/drape/d7.webp"
+      "/drape/d2.jpg",
+      "/drape/d3.jpg",
+      "/drape/d4.jpg",
+      "/drape/d5.jpg",
+      "/drape/d6.jpg",
+      "/drape/d7.jpg"
     ],
     "video": "https://assets.mixkit.co/videos/preview/mixkit-fashion-model-in-a-red-dress-walking-on-a-rooftop-34441-large.mp4",
     "description": "This elegant ivory drape set is a perfect blend of timeless craftsmanship and modern sophistication. Crafted in delicate net with intricate pearl, sequin, and floral thread embroidery, the saree features soft metallic drapes that add a contemporary edge. The finely detailed pallu and borders create a graceful, luxe appeal, making it an ideal choice for cocktail evenings, reception looks, and modern festive styling. Lightweight yet richly embellished, this piece offers effortless glamour with refined elegance.",
@@ -410,17 +410,17 @@
     "price": 35000,
     "category": "Drape",
     "subCategory": "Western Wear",
-    "image": "/drape/d21.webp",
+    "image": "/drape/d21.jpg",
     "images": [
-      "/drape/d21.webp",
-      "/drape/d22.webp",
+      "/drape/d21.jpg",
+      "/drape/d22.jpg",
      
-      "/drape/d24.webp",
-      "/drape/d25.webp",
+      "/drape/d24.jpg",
+      "/drape/d25.jpg",
      
-      "/drape/d27.webp",
-      "/drape/d28.webp",
-      "/drape/d29.webp"
+      "/drape/d27.jpg",
+      "/drape/d28.jpg",
+      "/drape/d29.jpg"
 
     ],
     "video": "https://assets.mixkit.co/videos/preview/mixkit-fashion-model-in-a-red-dress-walking-on-a-rooftop-34441-large.mp4",
@@ -446,13 +446,13 @@
     "price": 35000,
     "category": "Drape",
     "subCategory": "Western Wear",
-    "image": "/drape/d31.webp",
+    "image": "/drape/d31.jpg",
     "images": [
-      "/drape/d31.webp",
-      "/drape/d32.webp",
-      "/drape/d33.webp",
-      "/drape/d34.webp",
-      "/drape/d35.webp"
+      "/drape/d31.jpg",
+      "/drape/d32.jpg",
+      "/drape/d33.jpg",
+      "/drape/d34.jpg",
+      "/drape/d35.jpg"
       
     ],
     "video": "https://assets.mixkit.co/videos/preview/mixkit-fashion-model-in-a-red-dress-walking-on-a-rooftop-34441-large.mp4",
@@ -478,14 +478,14 @@
     "price": 26000,
     "category": "Drape",
     "subCategory": "Western Wear",
-    "image": "/drape/d41.webp",
+    "image": "/drape/d41.jpg",
     "images": [
-      "/drape/d41.webp",
-      "/drape/d42.webp",
-      "/drape/d43.webp",
-      "/drape/d44.webp",
-      "/drape/d45.webp",
-      "/drape/d46.webp"
+      "/drape/d41.jpg",
+      "/drape/d42.jpg",
+      "/drape/d43.jpg",
+      "/drape/d44.jpg",
+      "/drape/d45.jpg",
+      "/drape/d46.jpg"
     ],
     "video": "https://assets.mixkit.co/videos/preview/mixkit-fashion-model-in-a-red-dress-walking-on-a-rooftop-34441-large.mp4",
     "description": "A striking black ensemble featuring a cut dana embellished structured corset, designed to sculpt the silhouette with a bold, contemporary edge. Paired with a fluid cowl drape that adds a soft, feminine contrast to the structured bodice. Perfect for high-profile parties and statement evening looks.",
@@ -510,16 +510,16 @@
     "price": 26000,
     "category": "Drape",
     "subCategory": "Western Wear",
-    "image": "/drape/d51.webp",
+    "image": "/drape/d51.jpg",
     "images": [
-      "/drape/d51.webp",
-      "/drape/d52.webp",
+      "/drape/d51.jpg",
+      "/drape/d52.jpg",
     
-      "/drape/d54.webp",
-      "/drape/d55.webp",
-        "/drape/d56.webp",
-          "/drape/d57.webp",
-            "/drape/d58.webp"
+      "/drape/d54.jpg",
+      "/drape/d55.jpg",
+        "/drape/d56.jpg",
+          "/drape/d57.jpg",
+            "/drape/d58.jpg"
     ],
     "video": "https://assets.mixkit.co/videos/preview/mixkit-fashion-model-in-a-red-dress-walking-on-a-rooftop-34441-large.mp4",
     "description": "Elevate your festive and party look with this stunning modern drape saree set. The ensemble features a silver beaded halter-neck blouse paired with a rich amethyst purple drape and stylish cowl-style palla.",
@@ -580,9 +580,9 @@
       "/drape/d71.webp",
       "/drape/d72.webp",
       "/drape/d73.webp",
-      "/drape/d74.webp",
+      "/drape/d74.jpg",
       "/drape/d75.webp",
-        "/drape/d76.webp",
+        "/drape/d76.jpg",
        
         "/drape/d78.webp"
     ],

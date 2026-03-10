@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { 
   ChevronRight, 
   Minus, 
@@ -19,6 +19,7 @@ import {
 import { useCart } from "@/components/cart/CartProvider";
 import Lightbox from "@/components/lightbox/Lightbox";
 import ShopTransition from "../components/ShopTransition";
+import productsData from "@/lib/products.json";
 
 interface Product {
   id: string;
@@ -38,7 +39,10 @@ interface Product {
   };
 }
 
-export default function ProductClient({ product }: { product: Product }) {
+const products = productsData as Product[];
+
+export default function ProductClient() {
+  const params = useParams();
   const router = useRouter();
   const [activeImage, setActiveImage] = useState(0);
   const [showVideo, setShowVideo] = useState(false);
@@ -46,6 +50,13 @@ export default function ProductClient({ product }: { product: Product }) {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const { addItem, openCart } = useCart();
+
+  const id = params?.id as string;
+  const product = useMemo(() => 
+    products.find((p) => p.id === id || p.name.toLowerCase().replace(/[^a-z0-9]+/g, "-") === id), 
+  [id]);
+
+  if (!product) return null;
 
   const descriptionPoints = product.description.split('\n').filter(p => p.trim() !== '');
 
@@ -56,7 +67,7 @@ export default function ProductClient({ product }: { product: Product }) {
           
           {/* LEFT: MEDIA SECTION WITH SEPARATED VIDEO OVERLAY */}
           <div className="lg:w-[45%] lg:h-screen lg:sticky lg:top-0 bg-[#F6F6F6] flex items-center justify-center p-6 md:p-12">
-            <div className="relative w-full max-w-120ect-4/5 bg-white shadow-sm overflow-hidden group">
+            <div className="relative w-full max-w-120 aspect-4/5 bg-white shadow-sm overflow-hidden group">
               
               <div key={activeImage} className={`absolute inset-0 transition-opacity duration-500 ${showVideo ? 'opacity-0' : 'opacity-100'}`}>
                 <Image
@@ -144,10 +155,10 @@ export default function ProductClient({ product }: { product: Product }) {
            <div className="group relative overflow-hidden bg-[#121212] p-6 text-white transition-all duration-500 hover:shadow-2xl hover:shadow-black/50 cursor-default max-w-md border border-neutral-800/50 hover:border-[#D7B63F]/30">
   
   {/* Subtle Gradient Glow Backdrop */}
-  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-[#D7B63F]/5 via-transparent to-transparent" />
+  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#D7B63F]/5 via-transparent to-transparent" />
 
   {/* Animated "Sweep" Effect */}
-  <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-[1.5s] ease-in-out bg-linear-to-r from-transparent via-white/3 to-transparent" />
+  <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-[1.5s] ease-in-out bg-gradient-to-r from-transparent via-white/[0.03] to-transparent" />
 
   <div className="relative z-10 flex items-center justify-between gap-6">
     <div className="flex items-center gap-4">
@@ -173,7 +184,7 @@ export default function ProductClient({ product }: { product: Product }) {
     >
       <span className="relative z-10">Inquire</span>
       {/* Button Fill Animation */}
-      <div className="absolute inset-0 z-0 translate-y-full group-hover/btn:translate-y-0 bg-[#D7B63F] transition-transform duration-300 ease-out" />
+      <div className="absolute inset-0 -z-0 translate-y-full group-hover/btn:translate-y-0 bg-[#D7B63F] transition-transform duration-300 ease-out" />
       {/* Secondary text color change for contrast when filled */}
       <span className="absolute inset-0 z-20 flex items-center justify-center opacity-0 group-hover/btn:opacity-100 text-black transition-opacity duration-300">
         Inquire
@@ -181,14 +192,12 @@ export default function ProductClient({ product }: { product: Product }) {
     </button>
   </div>
 </div>
-
-            {/* DESCRIPTION */}
             <div className="max-w-2xl space-y-4">
               {descriptionPoints.length > 1 ? (
                 <ul className="space-y-3">
                   {descriptionPoints.map((point, i) => (
                     <li key={i} className="flex items-start gap-3 group/item">
-                      <div className="mt-2.5 w-1.5 h-px bg-neutral-300 transition-all duration-300 group-hover/item:w-3 group-hover/item:bg-black" />
+                      <div className="mt-2.5 w-1.5 h-[1px] bg-neutral-300 transition-all duration-300 group-hover/item:w-3 group-hover/item:bg-black" />
                       <span className="text-[16px] md:text-[18px] text-neutral-600 font-light leading-relaxed tracking-tight">
                         {point}
                       </span>
