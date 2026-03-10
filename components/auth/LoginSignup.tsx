@@ -1,16 +1,93 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowLeft, Check, ChevronRight, Eye, EyeOff } from "lucide-react";
+import { useToast } from "@/components/ui/Toast";
+
 import { cn } from "@/lib/utils";
-import { Check, ArrowLeft, Eye, EyeOff, ChevronRight } from "lucide-react";
+
+import OtpForm from "./OtpForm";
 
 type Mode = "login" | "signup";
 
 export default function LoginSignup() {
   const [mode, setMode] = useState<Mode>("login");
+  const [formData, setFormData] = useState({ name: "", email: "", password: "" });
+  const [isLoading, setIsLoading] = useState(false);
+  const [showOtpForm, setShowOtpForm] = useState(false);
+  const router = useRouter();
+  const { showToast } = useToast();
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      if (mode === "signup") {
+        // This now only sends the OTP
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/send-otp`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: formData.email, name: formData.name }),
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || "Failed to send OTP");
+
+        showToast("OTP sent to your email!", "info");
+        setShowOtpForm(true);
+      } else {
+        // Login
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        });
+
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || "An error occurred");
+
+        localStorage.setItem("user", JSON.stringify(data.user));
+        showToast("Login successful!", "success");
+        router.push("/");
+      }
+    } catch (err: any) {
+      showToast(err.message, "error");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleOtpVerification = async (otp: string) => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/signup`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ...formData, otp }),
+        }
+      );
+
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message || "Failed to verify OTP");
+
+      setShowOtpForm(false);
+      setMode("login");
+      showToast("Account created! Please sign in.", "success");
+    } catch (err: any) {
+      showToast(err.message, "error");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <main className="min-h-screen w-full bg-[#FAF9F6] flex items-start justify-center p-4 md:p-8 pt-32 md:pt-36 font-sans selection:bg-[#C5A059]/20">
@@ -38,8 +115,9 @@ export default function LoginSignup() {
               {(["login", "signup"] as const).map((m) => (
                 <button 
                   key={m}
-                  onClick={() => setMode(m)}
-                  className="group relative pb-1"
+                  onClick={() => {
+                    setMode(m);
+                  }}className="group relative pb-1"
                 >
                   <span className={cn(
                     "text-[9px] uppercase tracking-[0.2em] transition-all duration-500",
@@ -96,62 +174,69 @@ export default function LoginSignup() {
         {/* RIGHT PANEL: Form */}
         <div className="flex-1 bg-white p-8 md:p-16 lg:p-24 flex flex-col justify-center">
           <AnimatePresence mode="wait">
-            <motion.div
-              key={mode}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.4 }}
-              className="w-full max-w-[320px] mx-auto"
-            >
-              <div className="mb-10 text-center md:text-left">
-                <h2 className="text-3xl font-serif text-stone-900 tracking-tight">
-                  {mode === "login" ? "Sign In" : "Create Account"}
-                </h2>
-                <p className="text-[10px] uppercase tracking-widest text-stone-400 mt-3">
-                  {mode === "login" ? "Welcome back to your account" : "Join our designer community"}
-                </p>
-              </div>
+            {showOtpForm ? (
+              <OtpForm email={formData.email} onVerify={handleOtpVerification} isLoading={isLoading} />
+            ) : (
+              <motion.div
+                key={mode}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.4 }}
+                className="w-full max-w-[320px] mx-auto"
+              >
+                <div className="mb-10 text-center md:text-left">
+                  <h2 className="text-3xl font-serif text-stone-900 tracking-tight">
+                    {mode === "login" ? "Sign In" : "Create Account"}
+                  </h2>
+                  <p className="text-[10px] uppercase tracking-widest text-stone-400 mt-3">
+                    {mode === "login" ? "Welcome back to your account" : "Join our designer community"}
+                  </p>
+                </div>
 
-              <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
-                {mode === "signup" && (
-                  <LuxeInput id="name" label="Full Name" type="text" />
-                )}
-                <LuxeInput id="email" label="Email" type="email" />
-                <LuxeInput id="password" label="Password" type="password" />
-                
-                <div className="flex items-center justify-between pt-1">
-                  <label className="flex items-center gap-2 cursor-pointer group">
-                    <input type="checkbox" className="sr-only peer" />
-                    <div className="h-3 w-3 border border-stone-200 rounded-sm peer-checked:bg-stone-900 peer-checked:border-stone-900 transition-all flex items-center justify-center">
-                      <Check className="w-2 h-2 text-white stroke-3" />
-                    </div>
-                    <span className="text-[9px] uppercase tracking-[0.2em] font-bold text-stone-400 group-hover:text-stone-800">Remember Me</span>
-                  </label>
-                  {mode === "login" && (
-                    <button className="text-[9px] uppercase tracking-widest text-[#C5A059] hover:text-stone-900 font-bold">
-                      Forgot Password?
-                    </button>
+                <form className="space-y-5" onSubmit={handleSubmit}>
+                  {mode === "signup" && (
+                    <LuxeInput id="name" label="Full Name" type="text" value={formData.name} onChange={handleInputChange} />
                   )}
-                </div>
+                  <LuxeInput id="email" label="Email" type="email" value={formData.email} onChange={handleInputChange} />
+                  <LuxeInput id="password" label="Password" type="password" value={formData.password} onChange={handleInputChange} />
+                  
+                  <div className="flex items-center justify-between pt-1">
+                    <label className="flex items-center gap-2 cursor-pointer group">
+                      <input type="checkbox" className="sr-only peer" />
+                      <div className="h-3 w-3 border border-stone-200 rounded-sm peer-checked:bg-stone-900 peer-checked:border-stone-900 transition-all flex items-center justify-center">
+                        <Check className="w-2 h-2 text-white stroke-3" />
+                      </div>
+                      <span className="text-[9px] uppercase tracking-[0.2em] font-bold text-stone-400 group-hover:text-stone-800">Remember Me</span>
+                    </label>
+                    {mode === "login" && (
+                      <button type="button" className="text-[9px] uppercase tracking-widest text-[#C5A059] hover:text-stone-900 font-bold">
+                        Forgot Password?
+                      </button>
+                    )}
+                  </div>
 
-                <div className="pt-6">
-                  <button className="group relative w-full overflow-hidden rounded-lg bg-stone-900 px-6 py-4 text-white transition-all duration-500">
-                    <span className="relative z-10 flex items-center justify-center gap-3 text-[10px] font-bold uppercase tracking-[0.5em]">
-                      {mode === "login" ? "Sign In" : "Register"}
-                      <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    </span>
-                    <div className="absolute inset-0 bg-[#C5A059] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                  </button>
-                </div>
-              </form>
+                  <div className="pt-6">
+                    <button 
+                      disabled={isLoading}
+                      className="group relative w-full overflow-hidden rounded-lg bg-stone-900 px-6 py-4 text-white transition-all duration-500 disabled:opacity-50"
+                    >
+                      <span className="relative z-10 flex items-center justify-center gap-3 text-[10px] font-bold uppercase tracking-[0.5em]">
+                        {isLoading ? "Processing..." : (mode === "login" ? "Sign In" : "Register")}
+                        <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      </span>
+                      <div className="absolute inset-0 bg-[#C5A059] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                    </button>
+                  </div>
+                </form>
 
-              <div className="mt-12 text-center">
-                <p className="text-[7px] text-stone-300 uppercase tracking-[0.4em]">
-                  Secure Checkout & Data Protection
-                </p>
-              </div>
-            </motion.div>
+                <div className="mt-12 text-center">
+                  <p className="text-[7px] text-stone-300 uppercase tracking-[0.4em]">
+                    Secure Checkout & Data Protection
+                  </p>
+                </div>
+              </motion.div>
+            )}
           </AnimatePresence>
         </div>
       </div>
@@ -159,9 +244,8 @@ export default function LoginSignup() {
   );
 }
 
-function LuxeInput({ label, type, id }: { label: string; type: string; id: string }) {
+function LuxeInput({ label, type, id, value, onChange }: { label: string; type: string; id: string; value: string; onChange: (e: React.ChangeEvent<HTMLInputElement>) => void }) {
   const [focused, setFocused] = useState(false);
-  const [value, setValue] = useState("");
   const [reveal, setReveal] = useState(false);
   const isPassword = type === "password";
 
@@ -180,7 +264,7 @@ function LuxeInput({ label, type, id }: { label: string; type: string; id: strin
         id={id}
         type={isPassword && reveal ? "text" : type}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={onChange}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
         autoComplete={type === "email" ? "email" : "current-password"}
@@ -200,5 +284,4 @@ function LuxeInput({ label, type, id }: { label: string; type: string; id: strin
         </button>
       )}
     </div>
-  );
-}
+  )}

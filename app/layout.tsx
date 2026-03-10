@@ -23,6 +23,10 @@ export const metadata: Metadata = {
   description: "Discover the epitome of high-end luxury fashion at Khusi Chauhan Designer Studio. Explore our exclusive collection of meticulously crafted garments, blending timeless elegance with contemporary design. Experience unparalleled craftsmanship and sophistication in every piece, tailored to elevate your style and make a statement. Shop now for a truly luxurious fashion experience.",
 };
 
+import Script from "next/script";
+
+import { ToastProvider } from "@/components/ui/Toast";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -34,12 +38,18 @@ export default function RootLayout({
         className={`${josefinSans.variable} ${playfairDisplay.variable} antialiased bg-black text-primary font-sans`}
         suppressHydrationWarning={true}
       >
-        <CartProvider>
-          <SmoothScroll />
-          <Navbar />
-          {children}
-          <Footer />
-        </CartProvider>
+        <ToastProvider>
+          <Script
+            src="https://checkout.razorpay.com/v1/checkout.js"
+            strategy="beforeInteractive"
+          />
+          <CartProvider>
+            <SmoothScroll />
+            <Navbar />
+            {children}
+            <Footer />
+          </CartProvider>
+        </ToastProvider>
       </body>
     </html>
   );

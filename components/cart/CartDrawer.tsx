@@ -6,6 +6,9 @@ import { X, ShoppingBag } from "lucide-react";
 
 import Link from "next/link";
 
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+
 export default function CartDrawer({
   open,
   onClose,
@@ -15,6 +18,25 @@ export default function CartDrawer({
 }) {
   const { items, removeItem, clear } = useCart();
   const total = items.reduce((sum, i) => sum + i.price * i.qty, 0);
+  const [user, setUser] = useState(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, [open]);
+
+  const handleFinalizeOrder = () => {
+    if (!user) {
+      router.push("/account");
+      onClose();
+    } else {
+      router.push("/checkout");
+      onClose();
+    }
+  };
 
   return (
     <AnimatePresence>
@@ -32,9 +54,9 @@ export default function CartDrawer({
 
           {/* Drawer */}
           <motion.aside
-            className="fixed right-0 top-0 h-[100dvh] w-full sm:w-[420px]
+            className="fixed right-0 top-0 h-dvh w-full sm:w-105
             bg-black/98 backdrop-blur-3xl text-white
-            z-[60] border-l border-white/5
+            z-60 border-l border-white/5
             flex flex-col overflow-hidden
             shadow-[0_0_80px_rgba(0,0,0,1)]"
             initial={{ x: "100%" }}
@@ -103,7 +125,7 @@ export default function CartDrawer({
                       key={item.id}
                       className="flex items-center gap-5 py-6 group first:pt-2"
                     >
-                      <div className="relative w-16 h-20 overflow-hidden bg-neutral-900 flex-shrink-0 ring-1 ring-white/5">
+                      <div className="relative w-16 h-20 overflow-hidden bg-neutral-900 shrink-0 ring-1 ring-white/5">
                         {item.image ? (
                           <img
                             src={item.image}
@@ -133,7 +155,7 @@ export default function CartDrawer({
                           </button>
                         </div>
 
-                        <div className="flex items-center justify-between text-[9px] font-medium uppercase tracking-[0.1em]">
+                        <div className="flex items-center justify-between text-[9px] font-medium uppercase tracking-widest">
                           <span className="text-gray-600">
                             Qty: {item.qty}
                           </span>
@@ -163,9 +185,8 @@ export default function CartDrawer({
                   </div>
                 </div>
 
-                <Link
-                  href="/checkout"
-                  onClick={onClose}
+                <button
+                  onClick={handleFinalizeOrder}
                   className="relative w-full group/checkout overflow-hidden block"
                 >
                   <div className="absolute inset-0 bg-white translate-y-full group-hover/checkout:translate-y-0 transition-transform duration-700 ease-[0.16,1,0.3,1]" />
@@ -174,14 +195,14 @@ export default function CartDrawer({
                       Finalize Order
                     </span>
                   </div>
-                </Link>
+                </button>
 
                 <div className="flex items-center justify-center gap-4 mt-6 opacity-30">
-                  <div className="h-px flex-1 bg-gradient-to-r from-transparent to-white" />
+                  <div className="h-px flex-1 bg-linear-to-r from-transparent to-white" />
                   <p className="text-[7px] uppercase tracking-[0.3em] font-medium whitespace-nowrap">
                     Khushi Chauhan Atelier
                   </p>
-                  <div className="h-px flex-1 bg-gradient-to-l from-transparent to-white" />
+                  <div className="h-px flex-1 bg-linear-to-l from-transparent to-white" />
                 </div>
               </div>
             )}
