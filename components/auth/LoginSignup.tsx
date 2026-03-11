@@ -32,11 +32,19 @@ export default function LoginSignup() {
 
     try {
       if (mode === "signup") {
+        const trimmedName = formData.name.trim();
+        const trimmedEmail = formData.email.trim();
+        if (!trimmedName) {
+          throw new Error("Please enter your full name to continue.");
+        }
+        if (!trimmedEmail) {
+          throw new Error("Please enter your email to continue.");
+        }
         // This now only sends the OTP
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/send-otp`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email: formData.email, name: formData.name }),
+          body: JSON.stringify({ email: trimmedEmail, name: trimmedName }),
         });
         const data = await response.json();
         if (!response.ok) throw new Error(data.message || "Failed to send OTP");
@@ -175,7 +183,12 @@ export default function LoginSignup() {
         <div className="flex-1 bg-white p-8 md:p-16 lg:p-24 flex flex-col justify-center">
           <AnimatePresence mode="wait">
             {showOtpForm ? (
-              <OtpForm email={formData.email} onVerify={handleOtpVerification} isLoading={isLoading} />
+              <OtpForm
+                email={formData.email}
+                name={formData.name}
+                onVerify={handleOtpVerification}
+                isLoading={isLoading}
+              />
             ) : (
               <motion.div
                 key={mode}

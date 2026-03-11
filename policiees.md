@@ -66,7 +66,7 @@ Access: You can request access to the personal information we hold about you.
 Correction: You can request corrections to any inaccurate or incomplete personal information.
 Deletion: You can request the deletion of your personal information, subject to certain limitations.
 Opt-out of Marketing Communications: If you no longer wish to receive promotional emails from us, you can unsubscribe at any time by clicking the “unsubscribe” link in any of our marketing emails or by contacting us directly.
-To exercise any of these rights, please contact us at support@khushichauhan.com.
+To exercise any of these rights, please contact us at khushichauhan1991@icloud.com.
 
 8. Children’s Privacy
 Our website is not intended for use by individuals under the age of 18, and we do not knowingly collect personal information from children. If we become aware that we have collected personal information from a child under 18, we will take steps to remove that information as quickly as possible.
@@ -156,15 +156,15 @@ International Shipping: We offer international shipping to select countries. If 
 Customs & Duties: For international orders, please note that customs duties, taxes, and import fees may be charged by your country’s customs authorities upon delivery. These charges are the responsibility of the recipient. We recommend checking with your local customs office for more details.
 
 6. Incorrect or Missing Information
-Please ensure that your shipping address is accurate and complete. We are not responsible for delays, misdeliveries, or non-deliveries due to incorrect address information. If you notice any errors in your shipping information after placing an order, please contact us immediately at support@khushichauhan.com to correct it before your order is shipped.
+Please ensure that your shipping address is accurate and complete. We are not responsible for delays, misdeliveries, or non-deliveries due to incorrect address information. If you notice any errors in your shipping information after placing an order, please contact us immediately at khushichauhan1991@icloud.com to correct it before your order is shipped.
 
 7. Delayed or Lost Shipments
-While we strive to ensure timely delivery, we cannot guarantee delivery dates, as delays can occasionally occur due to circumstances beyond our control (e.g., weather, customs, or carrier delays). If your order is delayed or lost, please contact us at support@khushichauhan.com, and we will work with the carrier to resolve the issue.
+While we strive to ensure timely delivery, we cannot guarantee delivery dates, as delays can occasionally occur due to circumstances beyond our control (e.g., weather, customs, or carrier delays). If your order is delayed or lost, please contact us at khushichauhan1991@icloud.com, and we will work with the carrier to resolve the issue.
 
 Carrier Delays: We are not responsible for delays caused by the shipping carrier.
 Lost Shipments: In the unlikely event that your package is lost during transit, please contact us immediately so we can assist in filing a claim with the carrier.
 8. Damaged or Incorrect Items
-If you receive a damaged or incorrect item, please notify us immediately at support@khushichauhan.com with photos of the damage or incorrect item. We will work with you to resolve the issue by offering a replacement or a full refund, depending on the circumstances.
+If you receive a damaged or incorrect item, please notify us immediately at khushichauhan1991@icloud.com with photos of the damage or incorrect item. We will work with you to resolve the issue by offering a replacement or a full refund, depending on the circumstances.
 
 
 

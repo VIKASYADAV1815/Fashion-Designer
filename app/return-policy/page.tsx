@@ -43,12 +43,12 @@ export default function ReturnPolicyPage() {
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
               <div className="md:col-span-4 text-zinc-400">
                 <h2 className="text-xs md:text-sm uppercase tracking-[0.4em] font-bold md:sticky md:top-24">
-                  7‑Day Window
+                  2‑Day Window
                 </h2>
               </div>
               <div className="md:col-span-8 border-l border-zinc-200 pl-8">
                 <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">
-                  We offer refund or exchange within the first 7 days from the date of your purchase. If 7 days have passed since your purchase, you will not be offered a return, exchange, or refund of any kind.
+                  We offer refund or exchange within the first 2 days from the date of your purchase. If 2 days have passed since your purchase, you will not be offered a return, exchange, or refund of any kind.
                 </p>
               </div>
             </div>

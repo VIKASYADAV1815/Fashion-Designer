@@ -23,7 +23,7 @@ const faqs = [
   },
   {
     q: "How do I contact support?",
-    a: "Email support@khushichauhan.com for order, shipping, sizing, or returns assistance. For privacy matters, email privacy@khushichauhan.studio.",
+    a: "Email khushichauhan1991@icloud.com for order, shipping, sizing, returns, or privacy assistance.",
   },
 ];
 

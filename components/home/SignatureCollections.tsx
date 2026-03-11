@@ -77,7 +77,7 @@ export default function SignatureCollections() {
             className="relative h-full w-[92vw] md:w-[60vw] shrink-0 border-r border-gray-100 flex items-center justify-center p-6 md:p-20"
           >
             <div className="relative w-full h-[80%] overflow-hidden group">
-               <Link href={`/shop/${collection.id}`}>
+               <Link href={`/shop/${collection.id}`} className="block relative w-full h-full">
                  <Image 
                    src={collection.image} 
                    alt={collection.title}

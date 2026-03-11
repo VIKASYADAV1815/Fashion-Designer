@@ -41,7 +41,7 @@ export default function ContactPage() {
 
               {/* Info Bar */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <StudioDetail label="Email" value="support@khushichauhan.com" color="#E29578" />
+                <StudioDetail label="Email" value="khushichauhan1991@icloud.com" color="#E29578" />
                 <StudioDetail label="Connect" value="+91 98765 43210" color="#E29578" />
                 <StudioDetail label="Presence" value="Dehradun, UK" color="#E29578" />
               </div>
