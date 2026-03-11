@@ -5,6 +5,7 @@ import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/footer/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
 import CartProvider from "@/components/cart/CartProvider";
+import RouteTracker from "@/components/RouteTracker";
 
 const josefinSans = Josefin_Sans({
   variable: "--font-josefin",
@@ -19,8 +20,14 @@ const playfairDisplay = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Khusi Chauhan Designer Studio | High-end Luxury Fashion",
-  description: "Discover the epitome of high-end luxury fashion at Khusi Chauhan Designer Studio. Explore our exclusive collection of meticulously crafted garments, blending timeless elegance with contemporary design. Experience unparalleled craftsmanship and sophistication in every piece, tailored to elevate your style and make a statement. Shop now for a truly luxurious fashion experience.",
+  title: "Khushi Chauhan Designer Studio | High-end Luxury Fashion",
+  description:
+    "Discover the epitome of high-end luxury fashion at Khushi Chauhan Designer Studio. Explore our exclusive collection of meticulously crafted garments, blending timeless elegance with contemporary design. Experience unparalleled craftsmanship and sophistication in every piece, tailored to elevate your style and make a statement. Shop now for a truly luxurious fashion experience.",
+  icons: {
+    icon: [{ url: "/images/logo.png" }],
+    shortcut: [{ url: "/images/logo.png" }],
+    apple: [{ url: "/images/logo.png" }],
+  },
 };
 
 import Script from "next/script";
@@ -44,6 +51,7 @@ export default function RootLayout({
             strategy="beforeInteractive"
           />
           <CartProvider>
+            <RouteTracker />
             <SmoothScroll />
             <Navbar />
             {children}
