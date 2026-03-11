@@ -11,10 +11,16 @@ export default function UserDropdown() {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
+    const syncUserFromStorage = () => {
+      try {
+        const storedUser = localStorage.getItem("user");
+        setUser(storedUser ? JSON.parse(storedUser) : null);
+      } catch {
+        setUser(null);
+      }
+    };
+
+    syncUserFromStorage();
 
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -22,15 +28,25 @@ export default function UserDropdown() {
       }
     };
 
+    const handleUserUpdated = () => {
+      syncUserFromStorage();
+    };
+
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    window.addEventListener("kc_user_updated", handleUserUpdated as EventListener);
+    window.addEventListener("storage", handleUserUpdated as EventListener);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      window.removeEventListener("kc_user_updated", handleUserUpdated as EventListener);
+      window.removeEventListener("storage", handleUserUpdated as EventListener);
+    };
   }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("user");
     setUser(null);
     setIsOpen(false);
-    window.location.reload();
+    window.dispatchEvent(new Event("kc_user_updated"));
   };
 
   return (

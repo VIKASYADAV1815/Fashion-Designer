@@ -93,18 +93,18 @@ export default function Navbar() {
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
 
-            <Link href="/" aria-label="Khusi Desinger" className="flex flex-1 justify-center">
+            <Link href="/" aria-label="Khushi Designer" className="flex flex-1 justify-center">
               <div className="relative w-64 h-20">
                 <Image
                   src="/images/logo.png"
-                  alt="Khusi Desinger logo"
+                  alt="Khushi Designer Studio logo"
                   fill
                   priority
                   className="object-contain"
                   sizes="256px"
                 />
               </div>
-              <span className="sr-only">Khusi Desinger</span>
+              <span className="sr-only">Khushi Designer Studio</span>
             </Link>
 
             <div className="flex items-center gap-2">
@@ -135,18 +135,18 @@ export default function Navbar() {
           <div className="hidden lg:flex h-28 items-center py-3">
             {/* Left: logo */}
             <div className="flex items-center justify-center w-72 pl-4">
-              <Link href="/" aria-label="Khusi Desinger" className="flex items-center">
+              <Link href="/" aria-label="Khushi Designer" className="flex items-center">
                 <div className="relative w-80 h-24 px-3 py-2">
                   <Image
                     src="/images/logo.png"
-                    alt="Khusi Desinger logo"
+                    alt="Khushi Designer Studio logo"
                     fill
                     priority
                     className="object-contain"
                     sizes="320px"
                   />
                 </div>
-                <span className="sr-only">Khusi Desinger</span>
+                <span className="sr-only">Khushi Designer Studio</span>
               </Link>
             </div>
 

@@ -63,8 +63,18 @@ export default function LoginSignup() {
         if (!response.ok) throw new Error(data.message || "An error occurred");
 
         localStorage.setItem("user", JSON.stringify(data.user));
+        window.dispatchEvent(new Event("kc_user_updated"));
         showToast("Login successful!", "success");
-        router.push("/");
+        const nextFromSession =
+          typeof window !== "undefined"
+            ? window.sessionStorage.getItem("kc_last_path")
+            : null;
+        const nextFromQuery =
+          typeof window !== "undefined"
+            ? new URLSearchParams(window.location.search).get("next")
+            : null;
+        const next = nextFromQuery || nextFromSession || "/";
+        router.push(next);
       }
     } catch (err: any) {
       showToast(err.message, "error");
@@ -111,38 +121,46 @@ export default function LoginSignup() {
 
           {/* TOP NAVIGATION & MODE TOGGLE */}
           <div className="relative z-10 flex justify-between items-center">
-            <Link 
-              href="/" 
-              className="group inline-flex items-center gap-2 text-[8px] uppercase tracking-[0.4em] text-stone-500 hover:text-[#C5A059] transition-colors"
-            >
-              <ArrowLeft className="w-3 h-3 group-hover:-translate-x-1 transition-transform" />
-              <span>Back to Store</span>
-            </Link>
+  {/* Back Link - Slightly reduced size/spacing */}
+  <Link 
+    href="/" 
+    className="group inline-flex items-center gap-1.5 text-[7px] md:text-[8px] uppercase tracking-[0.3em] text-stone-500 hover:text-[#C5A059] transition-colors"
+  >
+    <ArrowLeft className="w-2.5 h-2.5 group-hover:-translate-x-1 transition-transform" />
+    <span>Back to Store</span>
+  </Link>
 
-            <div className="flex gap-6">
-              {(["login", "signup"] as const).map((m) => (
-                <button 
-                  key={m}
-                  onClick={() => {
-                    setMode(m);
-                  }}className="group relative pb-1"
-                >
-                  <span className={cn(
-                    "text-[9px] uppercase tracking-[0.2em] transition-all duration-500",
-                    mode === m ? "text-[#C5A059] font-bold" : "text-stone-600 group-hover:text-stone-400"
-                  )}>
-                    {m === "login" ? "Sign In" : "Sign Up"}
-                  </span>
-                  {mode === m && (
-                    <motion.div 
-                      layoutId="activeTab" 
-                      className="absolute bottom-0 left-0 w-full h-px bg-[#C5A059]" 
-                    />
-                  )}
-                </button>
-              ))}
-            </div>
-          </div>
+  {/* Compact Toggle Container */}
+  <div className="flex p-1 bg-white/5 border border-white/10 rounded-xl">
+    {(["login", "signup"] as const).map((m) => {
+      const isActive = mode === m;
+      return (
+        <button 
+          key={m}
+          onClick={() => setMode(m)}
+          className="group relative px-3 py-1.5 rounded-lg transition-colors min-w-[65px]"
+        >
+          {/* Framer Motion Sliding Pill */}
+          {isActive && (
+            <motion.div 
+              layoutId="activeTabPill" 
+              className="absolute inset-0 bg-white/10 rounded-lg" 
+              transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+            />
+          )}
+
+          {/* Text Label */}
+          <span className={cn(
+            "relative z-10 text-[9px] md:text-[10px] uppercase tracking-[0.2em] transition-colors duration-300",
+            isActive ? "text-[#C5A059] font-black" : "text-stone-500 group-hover:text-stone-300 font-bold"
+          )}>
+            {m === "login" ? "Sign In" : "Sign Up"}
+          </span>
+        </button>
+      );
+    })}
+  </div>
+</div>
 
           {/* CENTERED LOGO & DESCRIPTION */}
           <div className="flex-1 flex flex-col items-center justify-center relative z-10 text-center">

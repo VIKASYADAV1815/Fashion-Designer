@@ -7,7 +7,7 @@ import { X, ShoppingBag } from "lucide-react";
 import Link from "next/link";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function CartDrawer({
   open,
@@ -20,6 +20,7 @@ export default function CartDrawer({
   const total = items.reduce((sum, i) => sum + i.price * i.qty, 0);
   const [user, setUser] = useState(null);
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -30,7 +31,10 @@ export default function CartDrawer({
 
   const handleFinalizeOrder = () => {
     if (!user) {
-      router.push("/account");
+      const qs =
+        typeof window !== "undefined" ? window.location.search : "";
+      const from = qs ? `${pathname}${qs}` : pathname;
+      router.push(`/account?next=${encodeURIComponent(from)}`);
       onClose();
     } else {
       router.push("/checkout");
