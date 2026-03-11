@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { 
   ChevronRight, 
@@ -23,6 +24,7 @@ import productsData from "@/lib/products.json";
 
 interface Product {
   id: string;
+  slug?: string;
   name: string;
   price: number;
   category: string;
@@ -52,11 +54,21 @@ export default function ProductClient() {
   const { addItem, openCart } = useCart();
 
   const id = params?.id as string;
-  const product = useMemo(() => 
-    products.find((p) => p.id === id || p.name.toLowerCase().replace(/[^a-z0-9]+/g, "-") === id), 
-  [id]);
+  const product = useMemo(() => {
+    if (!id) return null;
+    const cleanId = id.endsWith(".html") ? id.slice(0, -5) : id;
+    return products.find((p) => 
+      p.id === cleanId || 
+      p.slug === cleanId || 
+      p.name.toLowerCase().replace(/[^a-z0-9]+/g, "-") === cleanId
+    );
+  }, [id]);
 
-  if (!product) return null;
+  if (!product) return (
+    <div className="pt-32 text-center text-neutral-500">
+      Product not found. <Link href="/shop" className="underline">Back to shop</Link>
+    </div>
+  );
 
   const descriptionPoints = product.description.split('\n').filter(p => p.trim() !== '');
 

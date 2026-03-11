@@ -91,7 +91,7 @@ export default function CartProvider({ children }: { children: React.ReactNode }
     }
   }, [items, syncCart]);
 
-  const addItem = (item: Omit<CartItem, "qty">) => {
+  const addItem = useCallback((item: Omit<CartItem, "qty">) => {
     setItems((prev) => {
       const existing = prev.find((p) => p.id === item.id);
       if (existing) {
@@ -99,14 +99,15 @@ export default function CartProvider({ children }: { children: React.ReactNode }
       }
       return [...prev, { ...item, qty: 1 }];
     });
-    showToast(`${item.name} added to cart`, "success");
-  };
+    showToast(`Added to cart`, "success", item.name, item.image);
+    setOpen(true);
+  }, [showToast]);
 
-  const removeItem = (id: string) => {
+  const removeItem = useCallback((id: string) => {
     setItems((prev) => prev.filter((p) => p.id !== id));
-  };
+  }, []);
 
-  const clear = () => {
+  const clear = useCallback(() => {
     setItems([]);
     const visitorToken = localStorage.getItem("visitor_token");
     if (visitorToken) {
@@ -115,15 +116,17 @@ export default function CartProvider({ children }: { children: React.ReactNode }
         headers: { "x-visitor-token": visitorToken } 
       });
     }
-  };
+  }, []);
 
-  const openCart = () => setOpen(true);
-  const closeCart = () => setOpen(false);
+  const contextValue = useMemo(() => ({ 
+    items, 
+    addItem, 
+    removeItem, 
+    clear, 
+    open, 
+    openCart: () => setOpen(true), 
+    closeCart: () => setOpen(false) 
+  }), [items, addItem, removeItem, clear, open]);
 
-  const value = useMemo(
-    () => ({ items, addItem, removeItem, clear, open, openCart, closeCart }),
-    [items, open, addItem, removeItem, clear, openCart, closeCart]
-  );
-
-  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
+  return <CartContext.Provider value={contextValue}>{children}</CartContext.Provider>;
 }

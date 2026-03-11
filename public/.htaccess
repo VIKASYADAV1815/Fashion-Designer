@@ -1,0 +1,25 @@
+# Standard .htaccess for Next.js Static Export on Apache/LiteSpeed
+
+RewriteEngine On
+
+# Ensure HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Handle Trailing Slash
+# If trailingSlash is true in next.config.ts, Next.js generates /path/index.html
+# Most servers handle this automatically, but let's be explicit if needed.
+
+# Redirect .html to clean URLs
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /.*\.html\ HTTP/
+RewriteRule ^(.*)\.html$ /$1 [R=301,L]
+
+# Serve path.html if requested /path
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.*)$ $1.html [L]
+
+# Handle directories (important if trailingSlash: true)
+# If a directory exists, Apache serves index.html by default via DirectoryIndex.
+DirectoryIndex index.html
