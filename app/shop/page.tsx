@@ -2,7 +2,22 @@ import ShopGrid from "./components/ShopGrid";
 import ShopTransition from "./components/ShopTransition";
 import productsData from "@/lib/products.json";
 
-export default function ShopPage() {
+type Product = {
+  id: string;
+  slug?: string;
+  name: string;
+  price: number;
+  category: string;
+  image: string;
+};
+
+export default function ShopPage({
+  searchParams,
+}: {
+  searchParams?: { category?: string; query?: string };
+}) {
+  const category = searchParams?.category;
+  const query = searchParams?.query;
   return (
     <ShopTransition>
       <div className="pt-24 min-h-screen bg-white text-black">
@@ -12,7 +27,7 @@ export default function ShopPage() {
              Curated pieces for the modern wardrobe.
            </p>
         </div>
-        <ShopGrid initialProducts={productsData as any} />
+        <ShopGrid category={category} initialQuery={query} initialProducts={productsData as Product[]} />
       </div>
     </ShopTransition>
   );

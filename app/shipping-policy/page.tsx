@@ -138,7 +138,7 @@ export default function ShippingPolicyPage() {
               </div>
               <div className="md:col-span-8 border-l border-zinc-200 pl-8 space-y-4">
                 <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">
-                  Please ensure that your shipping address is accurate and complete. We are not responsible for delays, misdeliveries, or non‑deliveries due to incorrect address information. If you notice an error after placing an order, contact us immediately at <a className="underline font-semibold" href="mailto:support@khushichauhan.com">support@khushichauhan.com</a> before your order is shipped.
+                  Please ensure that your shipping address is accurate and complete. We are not responsible for delays, misdeliveries, or non‑deliveries due to incorrect address information. If you notice an error after placing an order, contact us immediately at <a className="underline font-semibold" href="mailto:khushichauhan1991@icloud.com">khushichauhan1991@icloud.com</a> before your order is shipped.
                 </p>
               </div>
             </div>
@@ -151,7 +151,7 @@ export default function ShippingPolicyPage() {
               </div>
               <div className="md:col-span-8 border-l border-zinc-200 pl-8 space-y-4">
                 <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">
-                  While we strive to ensure timely delivery, we cannot guarantee delivery dates, as delays can occasionally occur due to circumstances beyond our control (e.g., weather, customs, or carrier delays). If your order is delayed or lost, contact us at <a className="underline font-semibold" href="mailto:support@khushichauhan.com">support@khushichauhan.com</a>, and we will work with the carrier to resolve the issue.
+                  While we strive to ensure timely delivery, we cannot guarantee delivery dates, as delays can occasionally occur due to circumstances beyond our control (e.g., weather, customs, or carrier delays). If your order is delayed or lost, contact us at <a className="underline font-semibold" href="mailto:khushichauhan1991@icloud.com">khushichauhan1991@icloud.com</a>, and we will work with the carrier to resolve the issue.
                 </p>
                 <p className="text-base md:text-lg text-zinc-600">Carrier Delays: We are not responsible for delays caused by the shipping carrier.</p>
                 <p className="text-base md:text-lg text-zinc-600">Lost Shipments: In the unlikely event that your package is lost during transit, contact us immediately so we can assist in filing a claim with the carrier.</p>
@@ -166,7 +166,7 @@ export default function ShippingPolicyPage() {
               </div>
               <div className="md:col-span-8 border-l border-zinc-200 pl-8">
                 <p className="text-base md:text-lg leading-relaxed max-w-2xl text-zinc-600">
-                  If you receive a damaged or incorrect item, notify us immediately at <a className="underline font-semibold" href="mailto:support@khushichauhan.com">support@khushichauhan.com</a> with photos of the damage or incorrect item. We will offer a replacement or a full refund, depending on the circumstances.
+                  If you receive a damaged or incorrect item, notify us immediately at <a className="underline font-semibold" href="mailto:khushichauhan1991@icloud.com">khushichauhan1991@icloud.com</a> with photos of the damage or incorrect item. We will offer a replacement or a full refund, depending on the circumstances.
                 </p>
               </div>
             </div>

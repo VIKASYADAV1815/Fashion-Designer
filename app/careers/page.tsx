@@ -65,8 +65,8 @@
           </div>
           <div className="mt-10 text-sm text-gray-500">
             For collaborations and internships, send your portfolio to{" "}
-            <a href="mailto:careers@khushichauhan.studio" className="underline font-semibold">
-              careers@khushichauhan.studio
+            <a href="mailto:khushichauhan1991@icloud.com" className="underline font-semibold">
+              khushichauhan1991@icloud.com
             </a>{" "}
             and we’ll reach out.
           </div>

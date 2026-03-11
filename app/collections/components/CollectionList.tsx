@@ -5,22 +5,32 @@ import Image from "next/image";
 
 const collections = [
   {
-    id: "ethereal-silence",
-    title: "Ethereal Silence",
-    description: "A study in minimal silhouettes and luminous textures.",
-    image: "/images/4.jpg",
+    id: "lehenga",
+    title: "Lehenga",
+    description: "Bridal heirlooms and festive silhouettes — handcrafted, structured, unforgettable.",
+    image: "/lehanga/l1.webp",
+    href: "/shop?category=Lehenga",
   },
   {
-    id: "floral-organza",
-    title: "Floral Organza",
-    description: "Pastel florals and airy organza crafted for daylight elegance.",
-    image: "/images/img21.png",
+    id: "saree",
+    title: "Saree",
+    description: "Timeless drapes with modern finishing — sequins, shimmer, and graceful fall.",
+    image: "/saree/s1.webp",
+    href: "/shop?category=Saree",
   },
   {
-    id: "chic-casuals",
-    title: "Chic Casuals",
-    description: "Effortless drape casual fits for everyday movement.",
-    image: "/images/img7.png",
+    id: "drape-saree",
+    title: "Drape Saree",
+    description: "Contemporary couture drapes designed for cocktail nights and celebrations.",
+    image: "/drape/d1.webp",
+    href: "/shop?category=Drape",
+  },
+  {
+    id: "dress",
+    title: "Dress",
+    description: "Statement pieces with a couture edge — sleek, sculpted, and elevated.",
+    image: "/lehanga/corset.jpeg",
+    href: "/shop?query=dress",
   },
 ];
 
@@ -45,7 +55,7 @@ export default function CollectionList() {
                  <h2 className="text-5xl md:text-7xl font-light uppercase tracking-tighter mb-6">{collection.title}</h2>
                  <p className="text-base md:text-lg italic font-serif text-gray-600 mb-8">{collection.description}</p>
                  <div className="flex flex-wrap items-center gap-6">
-                   <Link href={`/shop?query=${encodeURIComponent(collection.title.toLowerCase())}`} className="text-[11px] uppercase tracking-[0.3em] border border-black px-5 py-3 hover:bg-black hover:text-white transition-colors">
+                  <Link href={collection.href} className="text-[11px] uppercase tracking-[0.3em] border border-black px-5 py-3 hover:bg-black hover:text-white transition-colors">
                      Shop This Collection
                    </Link>
                    <Link href="/collections" className="text-[11px] uppercase tracking-[0.3em] border border-black/30 px-5 py-3 hover:bg-black hover:text-white transition-colors">

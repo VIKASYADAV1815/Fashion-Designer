@@ -66,7 +66,7 @@ export default function PrivacyPolicyPage() {
                   </p>
                   <ul className="mt-4 space-y-2 text-base md:text-lg text-zinc-600">
                     <li>Name : Khushi Chauhan</li> 
-                    <li>Email address : khushichauhan2003@gmail.com</li>
+                    <li>Email address : khushichauhan1991@icloud.com</li>
                     <li>Phone number : +91 9810088228</li>
                     <li>Billing and shipping addresses : Dehradun, Uttarakhand, India</li>
                     <li>Payment information (credit/debit card details, etc.) : 1234 5678 9012 3456</li>
@@ -189,7 +189,7 @@ export default function PrivacyPolicyPage() {
                   <li>Opt‑out of Marketing Communications: If you no longer wish to receive promotional emails from us, you can unsubscribe at any time by clicking the &quot;unsubscribe&quot; link in any of our marketing emails or by contacting us directly.</li>
                 </ul>
                 <p className="text-base md:text-lg text-zinc-600">
-                  To exercise any of these rights, please contact us at <a className="underline font-semibold" href="mailto:support@khushichauhan.com">support@khushichauhan.com</a>.
+                  To exercise any of these rights, please contact us at <a className="underline font-semibold" href="mailto:khushichauhan1991@icloud.com">khushichauhan1991@icloud.com</a>.
                 </p>
               </div>
             </div>

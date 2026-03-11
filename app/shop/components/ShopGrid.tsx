@@ -17,15 +17,16 @@ type Product = {
 
 type ShopGridProps = {
   category?: string;
+  initialQuery?: string;
   initialProducts?: Product[];
 };
 
 // --- Data ---
 const staticProducts = productsData as Product[];
 
-export default function ShopGrid({ category, initialProducts }: ShopGridProps) {
+ export default function ShopGrid({ category, initialQuery, initialProducts }: ShopGridProps) {
   const products = initialProducts || staticProducts;
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState((initialQuery || "").toString());
   const [minPrice, setMinPrice] = useState<number | "">(0);
   const [maxPrice, setMaxPrice] = useState<number | "">("");
   const [columns, setColumns] = useState<2 | 3 | 4>(3);
