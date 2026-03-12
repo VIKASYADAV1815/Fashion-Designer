@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { Search, Maximize2, Minimize2 } from "lucide-react";
 import ShopCard from "./ShopCard";
+import EmptyCategory from "./EmptyCategory";
 import productsData from "@/lib/products.json";
 
 // --- Types ---
@@ -319,26 +320,32 @@ const staticProducts = productsData as Product[];
             </>
           )}
 
-        {/* Grid */}
-        <div
-          className={`grid gap-x-6 md:gap-x-12 gap-y-12 md:gap-y-24 transition-all duration-700
-            ${
-              columns === 2
-                ? "grid-cols-2 md:grid-cols-2"
-                : columns === 3
-                ? "grid-cols-2 md:grid-cols-2 lg:grid-cols-3"
-                : "grid-cols-2 md:grid-cols-2 lg:grid-cols-4"
-            }`}
-        >
-            {filtered.map((product, index) => {
-              const displayProduct = category ? { ...product, category: "" } : product;
-              return (
-                <div key={product.id} className={size === "compact" ? "px-4" : "px-0"}>
-                <ShopCard product={displayProduct} index={index} />
-                </div>
-              );
-            })}
-        </div>
+        {/* Grid or Empty State */}
+        {filtered.length > 0 ? (
+          <div
+            className={`grid gap-x-6 md:gap-x-12 gap-y-12 md:gap-y-24 transition-all duration-700
+              ${
+                columns === 2
+                  ? "grid-cols-2 md:grid-cols-2"
+                  : columns === 3
+                  ? "grid-cols-2 md:grid-cols-2 lg:grid-cols-3"
+                  : "grid-cols-2 md:grid-cols-2 lg:grid-cols-4"
+              }`}
+          >
+              {filtered.map((product, index) => {
+                const displayProduct = category ? { ...product, category: "" } : product;
+                return (
+                  <div key={product.id} className={size === "compact" ? "px-4" : "px-0"}>
+                  <ShopCard product={displayProduct} index={index} />
+                  </div>
+                );
+              })}
+          </div>
+        ) : (
+          <div className="w-full flex items-center justify-center py-20 bg-white rounded-2xl border border-neutral-100 shadow-sm">
+             <EmptyCategory category={category || query || "This Category"} />
+          </div>
+        )}
 
       </div>
     </section>
