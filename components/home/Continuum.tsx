@@ -104,7 +104,7 @@ export default function AboutSection() {
                   className="px-8 bg-[#1A1A1A] text-white py-4 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-stone-800 transition-all active:scale-[0.97]"
                   onClick={() => router.push("/shop")}
                 >
-                  Explore Lookbook
+                  Explore Collections
                 </AnimatedButton>
               </div>
             </div>

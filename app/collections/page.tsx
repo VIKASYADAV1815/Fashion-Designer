@@ -19,12 +19,11 @@ export default function CollectionsPage() {
               <div className="mt-8 flex flex-wrap gap-4">
                 <Link href="/shop" className="text-[11px] uppercase tracking-[0.3em] border border-black px-5 py-3 hover:bg-black hover:text-white transition-colors">Shop</Link>
                 <Link href="/about" className="text-[11px] uppercase tracking-[0.3em] border border-black/30 px-5 py-3 hover:bg-black hover:text-white transition-colors">About</Link>
-                <Link href="/collections" className="text-[11px] uppercase tracking-[0.3em] border border-black/30 px-5 py-3 hover:bg-black hover:text-white transition-colors">Lookbook</Link>
               </div>
             </div>
             <div className="lg:col-span-7 grid grid-cols-2 gap-6">
               <div className="relative aspect-4/5 overflow-hidden bg-neutral-100">
-                <Image src="/images/img7.png" alt="Studio Visual 1" fill sizes="(max-width:1024px) 90vw, 35vw" className="object-cover" />
+                <Image src="/lehanga/l65.webp" alt="Studio Visual 1" fill sizes="(max-width:1024px) 90vw, 35vw" className="object-cover" />
               </div>
               <div className="relative aspect-4/5 overflow-hidden bg-neutral-100">
                 <Image src="/images/4.jpg" alt="Studio Visual 2" fill sizes="(max-width:1024px) 90vw, 35vw" className="object-cover" />

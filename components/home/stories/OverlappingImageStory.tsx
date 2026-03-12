@@ -12,21 +12,24 @@ gsap.registerPlugin(ScrollTrigger);
 const frames = [
   {
     id: 1,
-    title: "NEW & NOW",
-    description: "Fresh arrivals in women's couture — fluid drapes, precise cuts, and confident silhouettes crafted for the season.",
-    image: "/images/0.jpg",
+    title: "ROYAL LEHENGAS",
+    description: "Bridal heirlooms and festive silhouettes crafted in rich silks and georgettes. Hand-embroidered zardozi and gota patti work for the modern bride.",
+    image: "/lehanga/l1.webp",
+    link: "/shop?category=Lehenga",
   },
   {
     id: 2,
-    title: "MID COLLECTION",
-    description: "Editorial mid-season selections: timeless dresses, lehengas, and sarees curated for refined occasions.",
-    image: "/images/img17.png",
+    title: "COUTURE DRAPES",
+    description: "Contemporary pre-draped sarees and fusion gowns. A blend of fluid fabrics, structured corsets, and intricate cut-dana embellishments.",
+    image: "/drape/d51.jpg",
+    link: "/shop?category=Drape",
   },
   {
-    id: 3,
-    title: "SUMMER SESSION DEALS",
-    description: "Warm-weather essentials with subtle luxury. Lightweight silks and airy wraps — effortless and poised.",
-    image: "/images/img2.jpg",
+    id: "saree",
+    title: "TIMELESS SAREES",
+    description: "Elegant six yards of grace featuring delicate sequin work and modern drapes. Perfect for cocktail evenings and festive celebrations.",
+    image: "/saree/s1.webp",
+    link: "/shop?category=Saree",
   },
 ];
 
@@ -95,10 +98,10 @@ export default function OverlappingImageStory() {
                 <AnimatedButton 
                   variant="outline"
                   onClick={() => {
-                    try { router.push("/collections"); } catch (e) { console.error("navigate /collections failed", e); }
+                    try { router.push(f.link || "/collections"); } catch (e) { console.error("navigation failed", e); }
                   }}
                 >
-                  Explore More
+                  Explore Collection
                 </AnimatedButton>
               </div>
             </div>
