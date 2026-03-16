@@ -2,6 +2,7 @@
 "use client";
 import React from 'react';
 
+// Floating contact buttons for WhatsApp and Phone call
 const FloatingContactButtons = () => {
   const phoneNumber = "8755278888";
   const whatsappUrl = `https://wa.me/${phoneNumber}`;
