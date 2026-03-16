@@ -20,8 +20,10 @@
     ],
     "paths": {
       "@/*": ["./*"]
-    }
+    },
+    "typeRoots": ["./node_modules/@types"]
   },
+  "compileOnSave": false,
   "include": [
     "next-env.d.ts",
     "**/*.ts",

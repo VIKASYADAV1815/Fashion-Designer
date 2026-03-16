@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import React, { useState, useEffect, useMemo, Suspense } from "react";
 import { Search, Maximize2, Minimize2 } from "lucide-react";
 import ShopCard from "./ShopCard";
 import EmptyCategory from "./EmptyCategory";
