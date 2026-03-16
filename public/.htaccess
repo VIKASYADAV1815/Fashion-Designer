@@ -1,25 +1,54 @@
-# Standard .htaccess for Next.js Static Export on Apache/LiteSpeed
+# Robust .htaccess for Next.js Static Export on Apache/LiteSpeed (cPanel)
 
-RewriteEngine On
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
 
-# Ensure HTTPS
-RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+  # 1. Force HTTPS
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-# Handle Trailing Slash
-# If trailingSlash is true in next.config.ts, Next.js generates /path/index.html
-# Most servers handle this automatically, but let's be explicit if needed.
+  # 2. Handle Trailing Slash (Since trailingSlash: true is set in next.config.ts)
+  # This ensures files like /path/index.html are served when /path/ is requested
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteCond %{REQUEST_FILENAME}/index.html -f
+  RewriteRule ^(.*)$ $1/index.html [L]
 
-# Redirect .html to clean URLs
-RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /.*\.html\ HTTP/
-RewriteRule ^(.*)\.html$ /$1 [R=301,L]
+  # 3. Handle physical files if they exist (images, videos, fonts, etc.)
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteRule .? - [L]
 
-# Serve path.html if requested /path
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME}.html -f
-RewriteRule ^(.*)$ $1.html [L]
+  # 4. Handle Next.js RSC Data (.txt files) and other generated assets
+  # This ensures files like __next.contact.__PAGE__.txt are served correctly
+  # even if requested with a query string like ?_rsc=...
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.*)\.txt$ $1.txt [L,QSA]
 
-# Handle directories (important if trailingSlash: true)
-# If a directory exists, Apache serves index.html by default via DirectoryIndex.
+  # 5. Fallback for client-side routing (Single Page Application behavior)
+  # If a directory exists but no file exists, serve index.html
+  # This is crucial for Next.js static routing on Apache
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.*)/?$ $1/index.html [L]
+
+</IfModule>
+
+# Correct MIME types for videos and modern formats
+<IfModule mod_mime.c>
+  AddType video/mp4 .mp4
+  AddType video/webm .webm
+  AddType image/webp .webp
+  AddType image/avif .avif
+</IfModule>
+
+# Cache control for static assets to improve performance
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 month"
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType application/json "access plus 0 seconds"
+</IfModule>
+
+# Ensure index.html is the default directory index
 DirectoryIndex index.html

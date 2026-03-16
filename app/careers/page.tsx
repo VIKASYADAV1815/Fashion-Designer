@@ -43,10 +43,10 @@
            </div>
            <div className="md:col-span-8">
              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="relative aspect-4/5 rounded-sm overflow-hidden">
+              <div className="relative aspect-[4/5] rounded-sm overflow-hidden">
                 <Image src="/images/img16.png" alt="Collection Visual" fill className="object-cover" sizes="(max-width: 768px) 90vw, (max-width: 1200px) 45vw, 33vw" />
               </div>
-              <div className="relative aspect-4/5 rounded-sm overflow-hidden">
+              <div className="relative aspect-[4/5] rounded-sm overflow-hidden">
                 <Image src="/images/2.jpg" alt="Atelier" fill className="object-cover" sizes="(max-width: 768px) 90vw, (max-width: 1200px) 45vw, 33vw" />
               </div>
              </div>

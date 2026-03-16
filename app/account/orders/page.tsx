@@ -171,7 +171,7 @@ export default function OrdersPage() {
                   <div className="bg-white border border-stone-100 p-8 md:p-10 rounded-sm shadow-[0_4px_30px_rgba(0,0,0,0.02)] group-hover:shadow-[0_40px_80px_rgba(0,0,0,0.06)] transition-all duration-700">
                     
                     {/* Floating Item Image Preview */}
-                    <div className="relative aspect-4/5 bg-stone-100 mb-8 overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-1000">
+                    <div className="relative aspect-[4/5] bg-stone-100 mb-8 overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-1000">
                        <motion.img 
                          whileHover={{ scale: 1.1 }}
                          transition={{ duration: 1.5 }}

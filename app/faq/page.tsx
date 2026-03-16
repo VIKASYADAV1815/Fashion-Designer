@@ -118,7 +118,7 @@ export default function FAQPage() {
         {/* Visual mosaic */}
         <div className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-6">
           {["/images/img7.png","/images/4.jpg","/images/img16.png"].map((src, i) => (
-            <div key={i} className="relative aspect-4/5 overflow-hidden rounded-sm">
+            <div key={i} className="relative aspect-[4/5] overflow-hidden rounded-sm">
               <Image src={src} alt={`FAQ Visual ${i+1}`} fill sizes="(max-width: 1024px) 90vw, 30vw" className="object-cover" />
             </div>
           ))}

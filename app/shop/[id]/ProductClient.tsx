@@ -78,8 +78,8 @@ export default function ProductClient() {
         <div className="flex flex-col lg:flex-row min-h-screen">
           
           {/* LEFT: MEDIA SECTION WITH SEPARATED VIDEO OVERLAY */}
-          <div className="lg:w-[45%] lg:h-screen lg:sticky lg:top-0 bg-[#F6F6F6] flex items-center justify-center p-6 md:p-12">
-            <div className="relative w-full max-w-120 aspect-4/5 bg-white shadow-sm overflow-hidden group">
+          <div className="lg:w-[45%] lg:h-screen lg:sticky lg:top-0 bg-[#F6F6F6] flex items-center justify-center p-4 md:p-12 min-h-[50vh] lg:min-h-0">
+            <div className="relative w-full max-w-lg aspect-[4/5] bg-white shadow-sm overflow-hidden group">
               
               <div key={activeImage} className={`absolute inset-0 transition-opacity duration-500 ${showVideo ? 'opacity-0' : 'opacity-100'}`}>
                 <Image
@@ -90,24 +90,26 @@ export default function ProductClient() {
                   className="object-cover"
                 />
               </div>
-              <button
-                aria-label="Open image"
-                onClick={() => { setLightboxOpen(true); setLightboxIndex(activeImage); }}
-                className="absolute inset-0 z-20"
-              />
+              {!showVideo && (
+                  <button
+                    aria-label="Open image"
+                    onClick={() => { setLightboxOpen(true); setLightboxIndex(activeImage); }}
+                    className="absolute inset-0 z-20"
+                  />
+                )}
 
-              {/* Unique Video Layer - Picture-in-Picture Style */}
-              {product.video && (
-                <div className={`absolute inset-0 z-10 bg-black transition-transform duration-700 ease-in-out ${showVideo ? 'translate-y-0' : 'translate-y-full'}`}>
-                   <video src={product.video} autoPlay loop muted playsInline className="w-full h-full object-cover" />
-                   <button 
-                    onClick={() => setShowVideo(false)}
-                    className="absolute top-6 right-6 text-white text-[10px] uppercase tracking-widest bg-white/10 backdrop-blur-md px-3 py-1 border border-white/20"
-                   >
-                    Close [x]
-                   </button>
-                </div>
-              )}
+                {/* Unique Video Layer - Picture-in-Picture Style */}
+                {product.video && (
+                  <div className={`absolute inset-0 z-30 bg-black transition-transform duration-700 ease-in-out ${showVideo ? 'translate-y-0' : 'translate-y-full'}`}>
+                    <video src={product.video} autoPlay loop muted playsInline className="w-full h-full object-cover" />
+                    <button
+                      onClick={() => setShowVideo(false)}
+                      className="absolute top-6 right-6 text-white text-[10px] uppercase tracking-widest bg-white/10 backdrop-blur-md px-3 py-1 border border-white/20 z-40"
+                    >
+                      Close [x]
+                    </button>
+                  </div>
+                )}
               
               {/* GLASS THUMBNAILS + UNIQUE VIDEO TRIGGER */}
               <div className="absolute bottom-4 left-4 right-4 z-20">
@@ -127,10 +129,14 @@ export default function ProductClient() {
                   {product.video && (
                     <button 
                       onClick={() => setShowVideo(true)}
-                      className={`relative w-16 h-14 overflow-hidden border transition-all flex flex-col items-center justify-center gap-1 ${showVideo ? 'border-white bg-white/20' : 'border-white/20 bg-black/40'}`}
+                      className={`relative w-16 h-14 overflow-hidden border transition-all flex flex-col items-center justify-center gap-1 ${showVideo ? 'border-white bg-white/20' : 'border-white/20'}`}
                     >
-                      <Play size={14} className="text-white fill-white" />
-                      <span className="text-[7px] text-white uppercase tracking-tighter font-bold">In Motion</span>
+                      <Image src={product.images[0]} alt="Video thumbnail" fill className="object-cover opacity-40" />
+                      <div className="absolute inset-0 bg-black/40" />
+                      <div className="relative z-10 flex flex-col items-center justify-center gap-1">
+                        <Play size={14} className="text-white fill-white" />
+                        <span className="text-[7px] text-white uppercase tracking-tighter font-bold">In Motion</span>
+                      </div>
                     </button>
                   )}
                 </div>

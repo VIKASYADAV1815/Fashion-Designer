@@ -31,10 +31,10 @@ export default function Craftsmanship() {
         </div>
 
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="relative aspect-4/5verflow-hidden">
+          <div className="relative aspect-[4/5] bg-neutral-900 overflow-hidden">
             <Image src="/images/img16.png" alt="Best Seller" fill className="object-cover" sizes="(max-width: 768px) 90vw, (max-width: 1200px) 30vw, 25vw" />
           </div>
-          <div className="relative aspect-4/5 overflow-hidden">
+          <div className="relative aspect-[4/5] bg-neutral-900 overflow-hidden">
             <Image src="/images/img21.png" alt="Floral Organza" fill className="object-cover" sizes="(max-width: 768px) 90vw, (max-width: 1200px) 30vw, 25vw" />
           </div>
           <div className="relative aspect-4/5 overflow-hidden">
