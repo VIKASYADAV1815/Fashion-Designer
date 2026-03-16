@@ -41,7 +41,7 @@ export default function CollectionList() {
          <div className="space-y-32">
            {collections.map((collection, index) => (
              <div key={collection.id} className={`flex flex-col md:flex-row gap-12 items-center ${index % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
-               <div className="w-full md:w-1/2 aspect-4/5 relative overflow-hidden group">
+               <div className="w-full md:w-1/2 aspect-[4/5] relative overflow-hidden group">
                  <Image 
                    src={collection.image}
                    alt={collection.title}
