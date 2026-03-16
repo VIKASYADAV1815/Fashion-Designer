@@ -6,6 +6,7 @@ import Footer from "@/components/footer/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
 import CartProvider from "@/components/cart/CartProvider";
 import RouteTracker from "@/components/RouteTracker";
+import FloatingContactButtons from "@/components/ui/FloatingContactButtons";
 
 const josefinSans = Josefin_Sans({
   variable: "--font-josefin",
@@ -56,6 +57,7 @@ export default function RootLayout({
             <Navbar />
             {children}
             <Footer />
+            <FloatingContactButtons />
           </CartProvider>
         </ToastProvider>
       </body>
