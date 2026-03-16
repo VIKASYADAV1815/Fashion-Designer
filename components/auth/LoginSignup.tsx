@@ -111,7 +111,7 @@ export default function LoginSignup() {
     <main className="min-h-screen w-full bg-[#FAF9F6] flex items-center justify-center p-4 md:p-8 pt-24 md:pt-28 font-sans selection:bg-[#C5A059]/20">
       
       {/* Main Card */}
-      <div className="w-full max-w-250 flex flex-col md:flex-row min-h-[550px] bg-white rounded-2xl shadow-[0_40px_100px_-20px_rgba(0,0,0,0.06)] border border-stone-100 overflow-hidden">
+      <div className="w-full max-w-250 flex flex-col md:flex-row min-h-137.5 bg-white rounded-2xl shadow-[0_40px_100px_-20px_rgba(0,0,0,0.06)] border border-stone-100 overflow-hidden">
         
         {/* LEFT PANEL */}
         <div className="w-full md:w-[45%] bg-stone-900 p-8 md:p-12 flex flex-col relative overflow-hidden order-2 md:order-1">
@@ -178,7 +178,7 @@ export default function LoginSignup() {
               />
             </AnimatePresence>
           ) : (
-            <div className="w-full max-w-[380px] mx-auto">
+            <div className="w-full max-w-95 mx-auto">
               {/* MODE TOGGLE - CENTERED & MORE VISIBLE */}
               <div className="flex justify-center mb-8">
                 <div className="flex p-1 bg-stone-50 border border-stone-100 rounded-xl shadow-sm">
@@ -188,7 +188,7 @@ export default function LoginSignup() {
                       <button 
                         key={m}
                         onClick={() => setMode(m)}
-                        className="group relative px-6 py-2 rounded-lg transition-colors min-w-[90px]"
+                        className="group relative px-6 py-2 rounded-lg transition-colors min-w-22.5"
                       >
                         {/* Framer Motion Sliding Pill */}
                         {isActive && (
@@ -244,11 +244,6 @@ export default function LoginSignup() {
                         </div>
                         <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-stone-500 group-hover:text-stone-800">Remember Me</span>
                       </label>
-                      {mode === "login" && (
-                        <button type="button" className="text-[10px] uppercase tracking-widest text-[#C5A059] hover:text-stone-900 font-bold transition-colors">
-                          Forgot Password?
-                        </button>
-                      )}
                     </div>
 
                     <div className="pt-4">
