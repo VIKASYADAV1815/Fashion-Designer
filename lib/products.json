@@ -17,7 +17,7 @@
       "/lehanga/l6.webp",
       "/lehanga/l7.webp"
     ],
-    "video": "https://assets.mixkit.co/videos/preview/mixkit-fashion-model-in-a-red-dress-walking-on-a-rooftop-34441-large.mp4",
+    "video": "/videos/32.mp4",
     "description": "32-kali bridal lehenga crafted in rich silk and georgette with full flare, highlighted with gotta patti detailing on each panel and finished with a heavy gotta & lace border at the hem. \n\nLehenga includes soft lining and double can-can for enhanced volume and graceful fall. \n\nBlouse made in matching fabric featuring intricate hand embroidery (zari, sequins) on neckline, sleeves, and back with tailored finishing. \n\nDupatta in organza adorned with gotta patti border on all four sides, elegant lace edging. \n\nOverall ensemble offers a traditional bridal look with coordinated gotta and lace work across lehenga and dupatta for a rich, cohesive finish.",
     "details": [
       "Colour: Space Cherry",
@@ -289,7 +289,7 @@
       "/lehanga/l94.webp",
       "/lehanga/l96.webp" 
     ],
-    "video": "https://assets.mixkit.co/videos/preview/mixkit-fashion-model-in-a-red-dress-walking-on-a-rooftop-34441-large.mp4",
+    "video": "/videos/noor.mp4",
 
     "description": "This elegant lehenga set features a richly embroidered lehenga skirt adorned with intricate multicolour threadwork and mirror (shisha) detailing on a soft net base. The matching blouse carries coordinated embroidery with antique lace finishing, adding a regal touch to the overall look. Paired with a lightweight organza dupatta, this outfit blends traditional craftsmanship with festive charm. Perfect for weddings, festive celebrations, sangeet nights, and special occasions, this lehenga offers a graceful silhouette with a statement ethnic appeal.",
     "details": [
@@ -387,7 +387,7 @@
       "/drape/d6.jpg",
       "/drape/d7.jpg"
     ],
-    "video": "https://assets.mixkit.co/videos/preview/mixkit-fashion-model-in-a-red-dress-walking-on-a-rooftop-34441-large.mp4",
+    "video": "/videos/ivory.mp4",
     "description": "This elegant ivory drape set is a perfect blend of timeless craftsmanship and modern sophistication. Crafted in delicate net with intricate pearl, sequin, and floral thread embroidery, the saree features soft metallic drapes that add a contemporary edge. The finely detailed pallu and borders create a graceful, luxe appeal, making it an ideal choice for cocktail evenings, reception looks, and modern festive styling. Lightweight yet richly embellished, this piece offers effortless glamour with refined elegance.",
     "details": [
       "Colour: Ivory",
@@ -423,7 +423,7 @@
       "/drape/d29.jpg"
 
     ],
-    "video": "https://assets.mixkit.co/videos/preview/mixkit-fashion-model-in-a-red-dress-walking-on-a-rooftop-34441-large.mp4",
+    "video": "/videos/moonlight.mp4",
     "description": "Elevate your festive wardrobe with this stunning ivory drape set featuring three statement pieces – an intricately hand-embellished outer cape, a chic crop top, and a fluid drape skirt. The sheer cape is adorned with pearl beading, sequin embroidery, and delicate tassel detailing that adds graceful movement with every step. The crop top offers a modern silhouette, while the draped skirt brings soft elegance to the ensemble. Perfect for cocktail nights, sangeet functions, and contemporary wedding celebrations, this outfit blends traditional craftsmanship with a modern, glamorous touch.",
     "details": [
       "Colour: Ivory",
@@ -521,7 +521,7 @@
           "/drape/d57.jpg",
             "/drape/d58.jpg"
     ],
-    "video": "https://assets.mixkit.co/videos/preview/mixkit-fashion-model-in-a-red-dress-walking-on-a-rooftop-34441-large.mp4",
+    "video": "/videos/lavender.mp4",
     "description": "Elevate your festive and party look with this stunning modern drape saree set. The ensemble features a silver beaded halter-neck blouse paired with a rich amethyst purple drape and stylish cowl-style palla.",
     "details": [
       "Colour: Soft Lavender",
@@ -586,7 +586,7 @@
        
         "/drape/d78.webp"
     ],
-    "video": "https://assets.mixkit.co/videos/preview/mixkit-fashion-model-in-a-red-dress-walking-on-a-rooftop-34441-large.mp4",
+    "video": "/videos/peach.mp4",
     "description": "A refined fusion silhouette, this peach drape features a soft, fluid palla paired with a sculpted modern corset for a striking contemporary look. Delicate cut dana embellishment, elevating the ensemble with handcrafted detail. Designed to flatter with structured elegance and effortless drape, this statement set is perfect for cocktail evenings, sangeet nights, and festive celebrations where modern glamour meets timeless grace.",
     "details": [
       "Colour: Peach",
@@ -654,6 +654,32 @@
       "address": "Shop no. 113,114,115 Swaraj Plaza, 72 Rajpur Road, Dehradun-248001",
       "landmark": "Opp. Madhu Ban Hotal, Uttarakhand"
     }
+  },
+  {
+    "id": "test-rs-1-dress",
+    "slug": "test-rs-1-dress",
+    "name": "TEST Checkout Dress (₹1)",
+    "tagline": "Test product for email verification",
+    "price": 1,
+    "category": "Dress",
+    "subCategory": "Test",
+    "image": "/lehanga/corset.jpeg",
+    "images": [
+      "/lehanga/corset.jpeg"
+    ],
+    "video": "",
+    "description": "This is a test product for verifying the email notification system. Please do not purchase this unless instructed.",
+    "details": [
+      "Colour: Test",
+      "Style No: TEST001",
+      "Number of component: 1",
+      "Wash Care: Dry clean only",
+      "Country of Origin: India"
+    ],
+    "studio": {
+      "name": "Khushi Chauhan Designer Studio",
+      "address": "Shop no. 113,114,115 Swaraj Plaza, 72 Rajpur Road, Dehradun-248001",
+      "landmark": "Opp. Madhu Ban Hotal, Uttarakhand"
+    }
   }
-  
 ]

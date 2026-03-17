@@ -29,6 +29,18 @@ export default function CheckoutPage() {
   const states = React.useMemo(() => State.getStatesOfCountry("IN"), []);
 
   useEffect(() => {
+    // Pre-fill form if user is logged in
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
+    if (user.email) {
+      const [firstName = "", ...lastNameParts] = (user.name || "").split(" ");
+      setFormData((prev) => ({
+        ...prev,
+        email: user.email || prev.email,
+        firstName: firstName || prev.firstName,
+        lastName: lastNameParts.join(" ") || prev.lastName,
+      }));
+    }
+
     if (formData.state) {
       const stateObj = states.find((s) => s.name === formData.state);
       if (stateObj) {
@@ -59,6 +71,7 @@ export default function CheckoutPage() {
     try {
       // 1. Create order on backend
       const visitorToken = localStorage.getItem("visitor_token") || "";
+      const user = JSON.parse(localStorage.getItem("user") || "{}");
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/orders/checkout`, {
         method: "POST",
         headers: {
@@ -67,6 +80,7 @@ export default function CheckoutPage() {
         },
         body: JSON.stringify({
           userInfo: {
+            id: user.id || user._id, // User ID for tracking
             name: `${formData.firstName} ${formData.lastName}`,
             phone: formData.phone,
             email: formData.email,

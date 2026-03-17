@@ -9,7 +9,8 @@ import MegaMenu from "./MegaMenu";
 import { cn } from "@/lib/utils";
 import CartDrawer from "@/components/cart/CartDrawer";
 import { useCart } from "@/components/cart/CartProvider";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import productsData from "@/lib/products.json";
 
 import UserDropdown from "./UserDropdown";
 
@@ -18,17 +19,34 @@ export default function Navbar() {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [suggestions, setSuggestions] = useState<any[]>([]);
   const { scrollY } = useScroll();
   const { items, openCart, closeCart, open } = useCart();
   const [hidden, setHidden] = useState(false);
   const lastY = useRef(0);
   const pathname = usePathname();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (searchQuery.trim().length > 0) {
+      const filtered = (productsData as any[]).filter(p => 
+        p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (p.subCategory && p.subCategory.toLowerCase().includes(searchQuery.toLowerCase()))
+      ).slice(0, 5);
+      setSuggestions(filtered);
+    } else {
+      setSuggestions([]);
+    }
+  }, [searchQuery]);
 
   useEffect(() => {
     const t = setTimeout(() => {
       setActiveCategory(null);
       setIsMobileMenuOpen(false);
       setSearchOpen(false);
+      setSearchQuery("");
     }, 0);
     return () => clearTimeout(t);
   }, [pathname]);
@@ -304,19 +322,66 @@ export default function Navbar() {
           >
             <div className="container mx-auto px-6 pt-24 md:pt-28">
               <div className="flex items-center gap-4">
-                <input 
-                  type="text" 
-                  placeholder="Search products, collections..."
-                  autoFocus
-                  aria-label="Search products and collections"
-                  className="flex-1 bg-black text-white border border-white/20 px-6 py-4 uppercase tracking-[0.25em] text-xs"
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      const q = (e.target as HTMLInputElement).value;
-                      window.location.href = `/${encodeURIComponent(q.toLowerCase().replace(/[^a-z0-9]+/g,"-"))}`;
-                    }
-                  }}
-                />
+                <div className="flex-1 relative">
+                  <input 
+                    type="text" 
+                    placeholder="Search products, collections..."
+                    autoFocus
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    aria-label="Search products and collections"
+                    className="w-full bg-black text-white border border-white/20 px-6 py-4 uppercase tracking-[0.25em] text-xs focus:border-white/50 outline-none"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && searchQuery.trim().length > 0) {
+                        router.push(`/shop?query=${encodeURIComponent(searchQuery)}`);
+                        setSearchOpen(false);
+                      }
+                    }}
+                  />
+                  
+                  {/* Suggestions List */}
+                  <AnimatePresence>
+                    {suggestions.length > 0 && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        className="absolute left-0 right-0 mt-2 bg-black border border-white/10 z-50 max-h-96 overflow-y-auto"
+                      >
+                        {suggestions.map((product) => (
+                          <Link
+                            key={product.id}
+                            href={`/shop/${product.id}`}
+                            className="flex items-center gap-4 p-4 hover:bg-white/5 transition-colors border-b border-white/5 last:border-none"
+                            onClick={() => setSearchOpen(false)}
+                          >
+                            <div className="relative w-12 h-16 flex-shrink-0">
+                              <Image 
+                                src={product.image} 
+                                alt={product.name} 
+                                fill 
+                                className="object-cover"
+                              />
+                            </div>
+                            <div className="flex flex-col gap-1">
+                              <span className="text-[10px] uppercase tracking-widest text-white font-medium">{product.name}</span>
+                              <span className="text-[8px] uppercase tracking-[0.2em] text-gray-500">{product.category}</span>
+                            </div>
+                          </Link>
+                        ))}
+                        <button
+                          onClick={() => {
+                            router.push(`/shop?query=${encodeURIComponent(searchQuery)}`);
+                            setSearchOpen(false);
+                          }}
+                          className="w-full p-4 text-center text-[9px] uppercase tracking-[0.3em] text-white/60 hover:text-white hover:bg-white/5 transition-all"
+                        >
+                          View all results for "{searchQuery}"
+                        </button>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
                 <button
                   className="text-white hover:text-gray-300 transition-colors"
                   aria-label="Close search"
@@ -325,12 +390,20 @@ export default function Navbar() {
                   <X size={20} />
                 </button>
               </div>
-              <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-6">
-                {["New Arrivals","Women","Lehenga","Dress","Saree","Drape Casual Fit"].map((s) => (
-                  <Link key={s} href={`/${encodeURIComponent(s.toLowerCase().replace(/[^a-z0-9]+/g,"-"))}`} className="block border border-white/10 p-4 hover:border-white/40 transition-colors">
-                    <span className="text-xs uppercase tracking-[0.25em] text-white">{s}</span>
-                  </Link>
-                ))}
+              <div className="mt-8">
+                <span className="text-[10px] uppercase tracking-[0.3em] text-gray-500 block mb-4">Quick Links</span>
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                  {["Lehenga","Dress","Saree","Drape","Casual Fit","New Arrivals"].map((s) => (
+                    <Link 
+                      key={s} 
+                      href={s === "New Arrivals" ? "/shop" : `/shop?category=${encodeURIComponent(s.toLowerCase())}`} 
+                      className="block border border-white/10 p-4 hover:border-white/40 transition-all text-center group"
+                      onClick={() => setSearchOpen(false)}
+                    >
+                      <span className="text-[9px] uppercase tracking-[0.25em] text-white/80 group-hover:text-white transition-colors">{s}</span>
+                    </Link>
+                  ))}
+                </div>
               </div>
             </div>
           </motion.div>

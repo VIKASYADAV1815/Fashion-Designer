@@ -5,8 +5,8 @@ import React from 'react';
 // Floating contact buttons for WhatsApp and Phone call
 const FloatingContactButtons = () => {
   const phoneNumber = "8755278888";
-  const whatsappUrl = `https://wa.me/${phoneNumber}`;
-  const telUrl = `tel:${phoneNumber}`;
+  const whatsappUrl = `https://wa.me/91${phoneNumber}`;
+  const telUrl = `tel:+91${phoneNumber}`;
 
   return (
     <div className="fixed bottom-6 right-6 flex flex-col items-center space-y-4 z-[9999]">
