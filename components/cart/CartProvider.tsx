@@ -16,6 +16,7 @@ type CartContextType = {
   addItem: (item: Omit<CartItem, "qty">) => void;
   removeItem: (id: string) => void;
   clear: () => void;
+  updateQty: (id: string, delta: number) => void;
   open: boolean;
   openCart: () => void;
   closeCart: () => void;
@@ -107,6 +108,18 @@ export default function CartProvider({ children }: { children: React.ReactNode }
     setItems((prev) => prev.filter((p) => p.id !== id));
   }, []);
 
+  const updateQty = useCallback((id: string, delta: number) => {
+    setItems((prev) => {
+      return prev.map((item) => {
+        if (item.id === id) {
+          const newQty = Math.max(1, item.qty + delta);
+          return { ...item, qty: newQty };
+        }
+        return item;
+      });
+    });
+  }, []);
+
   const clear = useCallback(() => {
     setItems([]);
     const visitorToken = localStorage.getItem("visitor_token");
@@ -123,10 +136,11 @@ export default function CartProvider({ children }: { children: React.ReactNode }
     addItem, 
     removeItem, 
     clear, 
+    updateQty,
     open, 
     openCart: () => setOpen(true), 
     closeCart: () => setOpen(false) 
-  }), [items, addItem, removeItem, clear, open]);
+  }), [items, addItem, removeItem, clear, updateQty, open]);
 
   return <CartContext.Provider value={contextValue}>{children}</CartContext.Provider>;
 }
