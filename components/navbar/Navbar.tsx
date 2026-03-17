@@ -126,13 +126,7 @@ export default function Navbar() {
             </Link>
 
             <div className="flex items-center gap-2">
-              <Link
-                href="/account"
-                className="text-white hover:text-gray-300 transition-colors"
-                aria-label="Account"
-              >
-                <User size={22} strokeWidth={1.5} />
-              </Link>
+              <UserDropdown />
 
               <button
                 className="text-white hover:text-gray-300 transition-colors relative"
