@@ -12,13 +12,14 @@ import { cn } from "@/lib/utils";
 
 import OtpForm from "./OtpForm";
 
-type Mode = "login" | "signup";
+type Mode = "login" | "signup" | "forgot_password" | "reset_password";
 
 export default function LoginSignup() {
   const [mode, setMode] = useState<Mode>("login");
-  const [formData, setFormData] = useState({ name: "", email: "", password: "" });
+  const [formData, setFormData] = useState({ name: "", email: "", password: "", newPassword: "" });
   const [isLoading, setIsLoading] = useState(false);
   const [showOtpForm, setShowOtpForm] = useState(false);
+  const [otp, setOtp] = useState("");
   const router = useRouter();
   const { showToast } = useToast();
 
@@ -76,6 +77,46 @@ export default function LoginSignup() {
         const next = nextFromQuery || nextFromSession || "/";
         router.push(next);
       }
+    } catch (err: any) {
+      showToast(err.message, "error");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleForgotPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/forgot-password`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: formData.email }),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message || "Failed to send OTP");
+      showToast("OTP sent to your email!", "info");
+      setMode("reset_password");
+    } catch (err: any) {
+      showToast(err.message, "error");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleResetPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/reset-password`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData, otp }),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message || "Failed to reset password");
+      showToast("Password reset successfully! Please sign in.", "success");
+      setMode("login");
     } catch (err: any) {
       showToast(err.message, "error");
     } finally {
@@ -168,7 +209,27 @@ export default function LoginSignup() {
 
         {/* RIGHT PANEL: Form */}
         <div className="flex-1 bg-white p-6 md:p-12 lg:p-16 flex flex-col justify-center order-1 md:order-2">
-          {showOtpForm ? (
+          {mode === "forgot_password" ? (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="w-full max-w-95 mx-auto">
+              <h3 className="text-2xl font-bold text-stone-800 mb-2">Forgot Password?</h3>
+              <p className="text-stone-500 mb-8">Enter your email to receive a reset code.</p>
+              <form onSubmit={handleForgotPassword} className="space-y-6">
+                <LuxeInput label="Email" type="email" id="email" value={formData.email} onChange={handleInputChange} />
+                <button type="submit" disabled={isLoading} className="w-full bg-stone-900 text-white py-4 rounded-lg">{isLoading ? "Sending..." : "Send OTP"}</button>
+              </form>
+              <button onClick={() => setMode("login")} className="mt-4 text-stone-500">Back to Login</button>
+            </motion.div>
+          ) : mode === "reset_password" ? (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="w-full max-w-95 mx-auto">
+              <h3 className="text-2xl font-bold text-stone-800 mb-2">Reset Password</h3>
+              <p className="text-stone-500 mb-8">Enter the OTP and your new password.</p>
+              <form onSubmit={handleResetPassword} className="space-y-6">
+                <LuxeInput label="OTP" type="text" id="otp" value={otp} onChange={(e) => setOtp(e.target.value)} />
+                <LuxeInput label="New Password" type="password" id="newPassword" value={formData.newPassword} onChange={handleInputChange} />
+                <button type="submit" disabled={isLoading} className="w-full bg-stone-900 text-white py-4 rounded-lg">{isLoading ? "Resetting..." : "Reset Password"}</button>
+              </form>
+            </motion.div>
+          ) : showOtpForm ? (
             <AnimatePresence mode="wait">
               <OtpForm
                 email={formData.email}
@@ -244,6 +305,15 @@ export default function LoginSignup() {
                         </div>
                         <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-stone-500 group-hover:text-stone-800">Remember Me</span>
                       </label>
+                      {mode === "login" && (
+                        <button 
+                          type="button"
+                          onClick={() => setMode("forgot_password")}
+                          className="text-[#C5A059] font-bold hover:underline uppercase tracking-wider text-[11px]"
+                        >
+                          Forgot Password?
+                        </button>
+                      )}
                     </div>
 
                     <div className="pt-4">
@@ -320,6 +390,9 @@ function LuxeInput({ label, type, id, value, onChange }: { label: string; type: 
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
         autoComplete={type === "email" ? "email" : "current-password"}
+        autoCapitalize="none"
+        autoCorrect="off"
+        spellCheck="false"
         className={cn(
           "w-full rounded-lg border bg-stone-50/30 px-4 pt-6 pb-2.5 text-[14px] text-stone-900 outline-none transition-all duration-300 font-medium",
           "border-stone-200 hover:border-stone-300 focus:border-[#C5A059] focus:bg-white focus:ring-4 focus:ring-[#C5A059]/10 shadow-sm"
