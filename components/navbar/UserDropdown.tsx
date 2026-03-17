@@ -57,14 +57,14 @@ export default function UserDropdown() {
       >
         {user ? (
           <>
-            <div className="w-8 h-8 rounded-full bg-stone-700 flex items-center justify-center text-sm font-bold ring-2 ring-white/10">
+            <div className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-stone-700 flex items-center justify-center text-sm font-bold ring-2 ring-white/10 shrink-0">
               {user.name.charAt(0).toUpperCase()}
             </div>
             <span className="hidden md:inline text-xs font-medium tracking-wider">{user.name.split(' ')[0]}</span>
             <ChevronDown size={16} className={`transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
           </>
         ) : (
-          <User size={20} />
+          <User size={22} strokeWidth={1.5} />
         )}
       </button>
 
