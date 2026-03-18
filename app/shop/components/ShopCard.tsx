@@ -10,6 +10,7 @@ interface Product {
   price: number;
   image: string;
   category: string;
+  isOutOfStock?: boolean;
 }
 
 interface ShopCardProps {
@@ -23,7 +24,7 @@ function slugify(s: string) {
 
 export default function ShopCard({ product, index }: ShopCardProps) {
   return (
-    <div className="group cursor-pointer">
+    <div className={cn("group cursor-pointer", product.isOutOfStock && "opacity-80")}>
       <Link href={`/shop/${product.slug || slugify(product.name)}`} className="block">
         <div className="relative aspect-3/4 overflow-hidden mb-6 bg-gray-100">
           <Image
@@ -32,16 +33,34 @@ export default function ShopCard({ product, index }: ShopCardProps) {
             fill
             sizes="(max-width:768px) 100vw, (max-width:1024px) 50vw, 33vw"
             priority={index < 4}
-            className="object-cover transition-transform duration-700 ease-out group-hover:scale-110 will-change-transform"
+            className={cn(
+              "object-cover transition-transform duration-700 ease-out will-change-transform",
+              !product.isOutOfStock && "group-hover:scale-110"
+            )}
           />
-          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
+          
+          {product.isOutOfStock ? (
+            <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px] flex items-center justify-center">
+              <span className="text-white text-xs font-bold uppercase tracking-[0.3em] border border-white/30 px-6 py-3 bg-black/20">
+                Out of Stock
+              </span>
+            </div>
+          ) : (
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
+          )}
           
           <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
              <button 
               suppressHydrationWarning
-              className="w-full bg-white text-black py-3 text-xs uppercase tracking-widest font-bold hover:bg-black hover:text-white transition-colors"
+              disabled={product.isOutOfStock}
+              className={cn(
+                "w-full py-3 text-xs uppercase tracking-widest font-bold transition-all duration-300",
+                product.isOutOfStock 
+                  ? "bg-gray-200 text-gray-500 cursor-not-allowed" 
+                  : "bg-white text-black hover:bg-black hover:text-white"
+              )}
              >
-               Quick View
+               {product.isOutOfStock ? "Unavailable" : "Quick View"}
              </button>
           </div>
         </div>
@@ -57,3 +76,5 @@ export default function ShopCard({ product, index }: ShopCardProps) {
     </div>
   );
 }
+
+import { cn } from "@/lib/utils";

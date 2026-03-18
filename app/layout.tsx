@@ -34,6 +34,7 @@ export const metadata: Metadata = {
 import Script from "next/script";
 
 import { ToastProvider } from "@/components/ui/Toast";
+import ConditionalLayout from "@/components/ConditionalLayout";
 
 export default function RootLayout({
   children,
@@ -43,7 +44,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${josefinSans.variable} ${playfairDisplay.variable} antialiased bg-black text-primary font-sans`}
+        className={`${josefinSans.variable} ${playfairDisplay.variable} antialiased bg-black text-primary font-sans overflow-x-hidden`}
         suppressHydrationWarning={true}
       >
         <ToastProvider>
@@ -54,10 +55,9 @@ export default function RootLayout({
           <CartProvider>
             <RouteTracker />
             <SmoothScroll />
-            <Navbar />
-            {children}
-            <Footer />
-            <FloatingContactButtons />
+            <ConditionalLayout>
+              {children}
+            </ConditionalLayout>
           </CartProvider>
         </ToastProvider>
       </body>
