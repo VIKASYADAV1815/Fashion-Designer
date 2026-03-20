@@ -37,7 +37,7 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#FDFBF7] p-6 relative overflow-hidden font-josefin">
       {/* Decorative Elements */}
-      <div className="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none bg-[radial-gradient(#C5A059_1px,transparent_1px)] [background-size:24px_24px]" />
+      <div className="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none bg-[radial-gradient(#C5A059_1px,transparent_1px)] bg-size-[24px_24px]" />
       
       <motion.div 
         initial={{ opacity: 0, scale: 0.8 }}
