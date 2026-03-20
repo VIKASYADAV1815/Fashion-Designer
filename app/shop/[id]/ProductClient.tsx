@@ -21,6 +21,7 @@ import {
 import { useCart } from "@/components/cart/CartProvider";
 import Lightbox from "@/components/lightbox/Lightbox";
 import ShopTransition from "../components/ShopTransition";
+import products from "@/lib/products.json";
 
 interface Product {
   id: string;
@@ -57,37 +58,28 @@ export default function ProductClient() {
   const id = params?.id as string;
 
   useEffect(() => {
-    const fetchProduct = async () => {
+    const loadProduct = () => {
       if (!id) return;
       setIsLoading(true);
       try {
         const cleanId = id.endsWith(".html") ? id.slice(0, -5) : id;
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`, { cache: 'no-store' });
-        if (res.ok) {
-          const data = await res.json();
-          const found = data.find((p: any) => 
-            p.id === cleanId || 
-            p.slug === cleanId || 
-            p.name.toLowerCase().replace(/[^a-z0-9]+/g, "-") === cleanId
-          );
-          
-          if (found) {
-            const backendUrl = process.env.NEXT_PUBLIC_API_URL?.replace("/api", "");
-            const formatted = {
-              ...found,
-              images: found.images?.map((img: string) => img.startsWith("http") ? img : `${backendUrl}${img}`)
-            };
-            setProduct(formatted);
-          }
+        const found = (products as any[]).find((p: any) => 
+          p.id === cleanId || 
+          p.slug === cleanId || 
+          p.name.toLowerCase().replace(/[^a-z0-9]+/g, "-") === cleanId
+        );
+        
+        if (found) {
+          setProduct(found);
         }
       } catch (error) {
-        console.error("Error fetching product:", error);
+        console.error("Error loading product:", error);
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchProduct();
+    loadProduct();
   }, [id]);
 
   if (isLoading) return (
