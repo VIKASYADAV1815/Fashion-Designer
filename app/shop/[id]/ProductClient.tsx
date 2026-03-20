@@ -319,7 +319,7 @@ export default function ProductClient() {
             <div className="flex flex-wrap gap-8 border-t border-neutral-100 pt-8">
               <Badge icon={<Truck size={16} />} label="Worldwide" />
               <Badge icon={<ShieldCheck size={16} />} label="Authentic" />
-              <Badge icon={<RefreshCw size={16} />} label="14-Day Return" />
+              <Badge icon={<RefreshCw size={16} />} label="2-Day Return" />
             </div>
 
             {product.studio && (
