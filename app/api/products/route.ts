@@ -5,6 +5,11 @@ import path from "path";
 
 const productsFilePath = path.resolve(process.cwd(), 'lib', 'products.json');
 
+// Required for Next.js static export builds (`output: 'export'`).
+// Without this, Next fails the build for this route.
+export const dynamic = "force-static";
+export const revalidate = 0;
+
 export async function GET() {
   try {
     // The robust way to read the file for GET requests
