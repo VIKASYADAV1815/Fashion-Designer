@@ -76,10 +76,11 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4.5 pl-14 pr-5 text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-[#C5A059] focus:ring-4 focus:ring-[#C5A059]/5 transition-all focus:bg-white font-medium"
-                placeholder="admin@kcds.com"
+                placeholder="admin@gmail.com"
                 required
               />
             </div>
+            <p className="text-xs text-slate-400 mt-1">💡 Use: admin@gmail.com</p>
           </div>
 
           <div className="space-y-3">
@@ -102,6 +103,7 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
             </div>
+            <p className="text-xs text-slate-400 mt-1">💡 Use: 123456</p>
           </div>
 
           {error && (
