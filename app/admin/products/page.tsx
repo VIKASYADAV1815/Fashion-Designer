@@ -4,8 +4,59 @@ import { useState, useEffect } from "react";
 import { Plus, Search, Edit, Trash2, X, Upload, Image as ImageIcon, Check, Loader2, AlertCircle, ToggleLeft, ToggleRight, RefreshCcw } from "lucide-react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import productsData from "@/lib/products.json";
+
+const DEFAULT_STUDIO = {
+  name: "Khushi Chauhan Designer Studio",
+  address: "Shop no. 113, 114, 115 Swaraj Plaza, 72 Rajpur Road, Dehradun-248001",
+  landmark: "Opp. Madhu Ban Hotel, Uttarakhand",
+};
 
 export default function ProductsPage() {
+  const EMPTY_DETAILS_FIELDS = {
+    colour: "",
+    styleNo: "",
+    numberOfComponents: "",
+    washCare: "",
+    countryOfOrigin: "",
+    fabric: "",
+    work: "",
+    includes: "",
+  };
+
+  const parseDetailsToFields = (details?: string[]) => {
+    const get = (label: string) => {
+      if (!details?.length) return "";
+      const found = details.find((d) => d.startsWith(`${label}:`));
+      if (!found) return "";
+      return found.slice(label.length + 1).trim(); // after colon
+    };
+
+    return {
+      colour: get("Colour"),
+      styleNo: get("Style No"),
+      numberOfComponents: get("Number of component"),
+      washCare: get("Wash Care"),
+      countryOfOrigin: get("Country of Origin"),
+      fabric: get("Fabric"),
+      work: get("Work"),
+      includes: get("Includes"),
+    };
+  };
+
+  const buildDetailsFromFields = (fields: typeof EMPTY_DETAILS_FIELDS) => {
+    return [
+      `Colour: ${fields.colour ?? ""}`.trimEnd(),
+      `Style No: ${fields.styleNo ?? ""}`.trimEnd(),
+      `Number of component: ${fields.numberOfComponents ?? ""}`.trimEnd(),
+      `Wash Care: ${fields.washCare ?? ""}`.trimEnd(),
+      `Country of Origin: ${fields.countryOfOrigin ?? ""}`.trimEnd(),
+      `Fabric: ${fields.fabric ?? ""}`.trimEnd(),
+      `Work: ${fields.work ?? ""}`.trimEnd(),
+      `Includes: ${fields.includes ?? ""}`.trimEnd(),
+    ];
+  };
+
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -16,12 +67,15 @@ export default function ProductsPage() {
   const [categoryFilter, setCategoryFilter] = useState("All Categories");
   const [statusFilter, setStatusFilter] = useState("All Status");
 
+  const defaultStudio = (productsData as any[])[0]?.studio ?? DEFAULT_STUDIO;
+
   const [newProduct, setNewProduct] = useState({
     name: "",
     category: "Lehenga",
     price: "",
     description: "",
-    isOutOfStock: false
+    isOutOfStock: false,
+    details: { ...EMPTY_DETAILS_FIELDS },
   });
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
@@ -73,6 +127,7 @@ export default function ProductsPage() {
     setIsLoading(true);
     
     const productId = newProduct.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+    const detailsLines = buildDetailsFromFields(newProduct.details);
     
     const formData = new FormData();
     formData.append("id", productId);
@@ -84,9 +139,22 @@ export default function ProductsPage() {
     formData.append("isOutOfStock", String(newProduct.isOutOfStock));
     formData.append("subCategory", newProduct.category);
     formData.append("tagline", `Elegant ${newProduct.name}`);
-    formData.append("studio[name]", "Khushi Chauhan Designer Studio");
-    formData.append("studio[address]", "Shop no. 113, 114, 115 Swaraj Plaza, 72 Rajpur Road, Dehradun-248001");
-    formData.append("studio[landmark]", "Opp. Madhu Ban Hotel, Uttarakhand");
+
+    // `studio` is static across products, but backend parsers may expect either:
+    // 1) bracketed keys: `studio[name]`, or
+    // 2) a nested object: `studio` as JSON string.
+    const studioToSend = defaultStudio;
+    formData.append("studio", JSON.stringify(studioToSend));
+    formData.append("studio[name]", studioToSend.name);
+    formData.append("studio[address]", studioToSend.address);
+    formData.append("studio[landmark]", studioToSend.landmark);
+
+    // Backend should store `details` as an array of "Label: Value" strings.
+    // Send both JSON and indexed fields for compatibility.
+    formData.append("details", JSON.stringify(detailsLines));
+    detailsLines.forEach((line, idx) => {
+      formData.append(`details[${idx}]`, line);
+    });
     
     selectedFiles.forEach(file => {
       formData.append("images", file);
@@ -100,7 +168,14 @@ export default function ProductsPage() {
       if (res.ok) {
         fetchProducts();
         setIsAddModalOpen(false);
-        setNewProduct({ name: "", category: "Lehenga", price: "", description: "", isOutOfStock: false });
+        setNewProduct({
+          name: "",
+          category: "Lehenga",
+          price: "",
+          description: "",
+          isOutOfStock: false,
+          details: { ...EMPTY_DETAILS_FIELDS },
+        });
         setSelectedFiles([]);
         setPreviewUrls([]);
       } else {
@@ -119,11 +194,26 @@ export default function ProductsPage() {
     setIsLoading(true);
     
     const formData = new FormData();
+    const studioToSend = selectedProduct?.studio ?? defaultStudio;
+    if (studioToSend) {
+      formData.append("studio", JSON.stringify(studioToSend));
+      formData.append("studio[name]", studioToSend.name);
+      formData.append("studio[address]", studioToSend.address);
+      formData.append("studio[landmark]", studioToSend.landmark);
+    }
     formData.append("name", selectedProduct.name);
     formData.append("category", selectedProduct.category);
     formData.append("price", String(selectedProduct.price));
     formData.append("description", selectedProduct.description);
     formData.append("isOutOfStock", String(selectedProduct.isOutOfStock));
+
+    // Keep product details in sync with what we render in the edit modal.
+    if (Array.isArray(selectedProduct.details)) {
+      formData.append("details", JSON.stringify(selectedProduct.details));
+      selectedProduct.details.forEach((line: string, idx: number) => {
+        formData.append(`details[${idx}]`, line);
+      });
+    }
     
     if (selectedFiles.length > 0) {
       selectedFiles.forEach(file => {
@@ -199,6 +289,16 @@ export default function ProductsPage() {
                           (statusFilter === "Out of Stock" && p.isOutOfStock);
     return matchesSearch && matchesCategory && matchesStatus;
   });
+
+  const selectedDetailsFields = selectedProduct ? parseDetailsToFields(selectedProduct.details) : EMPTY_DETAILS_FIELDS;
+  const setEditDetailsField = (key: keyof typeof EMPTY_DETAILS_FIELDS, value: string) => {
+    if (!selectedProduct) return;
+    const nextFields = { ...selectedDetailsFields, [key]: value };
+    setSelectedProduct({
+      ...selectedProduct,
+      details: buildDetailsFromFields(nextFields),
+    });
+  };
 
   return (
     <div className="space-y-8 font-josefin">
@@ -427,6 +527,111 @@ export default function ProductsPage() {
                     <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Description</label>
                     <textarea required rows={4} value={newProduct.description} onChange={(e) => setNewProduct({...newProduct, description: e.target.value})} className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-slate-900 focus:outline-none focus:ring-4 focus:ring-[#C5A059]/5 focus:border-[#C5A059] transition-all resize-none" placeholder="Craftsmanship details..." />
                   </div>
+
+                  <div className="md:col-span-2 border-t border-[#F0E6D2] pt-8 space-y-6">
+                    <div>
+                      <p className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Product Details (Specs)</p>
+                      <p className="text-slate-500 text-sm mt-1">This fills the specs table on the product page.</p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-3">
+                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Colour</label>
+                        <input
+                          required
+                          type="text"
+                          value={newProduct.details.colour}
+                          onChange={(e) => setNewProduct({ ...newProduct, details: { ...newProduct.details, colour: e.target.value } })}
+                          className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-slate-900 focus:outline-none focus:ring-4 focus:ring-[#C5A059]/5 focus:border-[#C5A059] transition-all"
+                          placeholder="e.g. Space Cherry"
+                        />
+                      </div>
+
+                      <div className="space-y-3">
+                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Style No</label>
+                        <input
+                          required
+                          type="text"
+                          value={newProduct.details.styleNo}
+                          onChange={(e) => setNewProduct({ ...newProduct, details: { ...newProduct.details, styleNo: e.target.value } })}
+                          className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-slate-900 focus:outline-none focus:ring-4 focus:ring-[#C5A059]/5 focus:border-[#C5A059] transition-all"
+                          placeholder="e.g. KCB001"
+                        />
+                      </div>
+
+                      <div className="space-y-3">
+                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Number of component</label>
+                        <input
+                          required
+                          type="text"
+                          value={newProduct.details.numberOfComponents}
+                          onChange={(e) => setNewProduct({ ...newProduct, details: { ...newProduct.details, numberOfComponents: e.target.value } })}
+                          className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-slate-900 focus:outline-none focus:ring-4 focus:ring-[#C5A059]/5 focus:border-[#C5A059] transition-all"
+                          placeholder="e.g. 3"
+                        />
+                      </div>
+
+                      <div className="space-y-3">
+                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Wash Care</label>
+                        <input
+                          required
+                          type="text"
+                          value={newProduct.details.washCare}
+                          onChange={(e) => setNewProduct({ ...newProduct, details: { ...newProduct.details, washCare: e.target.value } })}
+                          className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-slate-900 focus:outline-none focus:ring-4 focus:ring-[#C5A059]/5 focus:border-[#C5A059] transition-all"
+                          placeholder="e.g. Dry clean only"
+                        />
+                      </div>
+
+                      <div className="space-y-3">
+                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Country of Origin</label>
+                        <input
+                          required
+                          type="text"
+                          value={newProduct.details.countryOfOrigin}
+                          onChange={(e) => setNewProduct({ ...newProduct, details: { ...newProduct.details, countryOfOrigin: e.target.value } })}
+                          className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-slate-900 focus:outline-none focus:ring-4 focus:ring-[#C5A059]/5 focus:border-[#C5A059] transition-all"
+                          placeholder="e.g. India"
+                        />
+                      </div>
+
+                      <div className="space-y-3">
+                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Fabric</label>
+                        <input
+                          required
+                          type="text"
+                          value={newProduct.details.fabric}
+                          onChange={(e) => setNewProduct({ ...newProduct, details: { ...newProduct.details, fabric: e.target.value } })}
+                          className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-slate-900 focus:outline-none focus:ring-4 focus:ring-[#C5A059]/5 focus:border-[#C5A059] transition-all"
+                          placeholder="e.g. Rich Silk & Georgette"
+                        />
+                      </div>
+
+                      <div className="space-y-3 md:col-span-2">
+                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Work</label>
+                        <textarea
+                          required
+                          rows={3}
+                          value={newProduct.details.work}
+                          onChange={(e) => setNewProduct({ ...newProduct, details: { ...newProduct.details, work: e.target.value } })}
+                          className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-slate-900 focus:outline-none focus:ring-4 focus:ring-[#C5A059]/5 focus:border-[#C5A059] transition-all resize-none"
+                          placeholder="e.g. Gotta Patti & Hand Embroidery"
+                        />
+                      </div>
+
+                      <div className="space-y-3 md:col-span-2">
+                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Includes</label>
+                        <textarea
+                          required
+                          rows={2}
+                          value={newProduct.details.includes}
+                          onChange={(e) => setNewProduct({ ...newProduct, details: { ...newProduct.details, includes: e.target.value } })}
+                          className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-slate-900 focus:outline-none focus:ring-4 focus:ring-[#C5A059]/5 focus:border-[#C5A059] transition-all resize-none"
+                          placeholder="e.g. Lehenga, Blouse, Dupatta"
+                        />
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div className="pt-4 flex gap-4">
                   <button type="button" onClick={() => setIsAddModalOpen(false)} className="flex-1 px-8 py-5 border border-[#F0E6D2] text-slate-500 font-bold rounded-2xl hover:bg-slate-50 transition-all">Cancel</button>
@@ -492,6 +697,111 @@ export default function ProductsPage() {
                   <div className="md:col-span-2 space-y-3">
                     <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Description</label>
                     <textarea required rows={4} value={selectedProduct.description} onChange={(e) => setSelectedProduct({...selectedProduct, description: e.target.value})} className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-slate-900 focus:outline-none focus:ring-4 focus:ring-[#C5A059]/5 focus:border-[#C5A059] transition-all resize-none" />
+                  </div>
+
+                  <div className="md:col-span-2 border-t border-[#F0E6D2] pt-8 space-y-6">
+                    <div>
+                      <p className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Product Details (Specs)</p>
+                      <p className="text-slate-500 text-sm mt-1">Edit the specs table fields.</p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-3">
+                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Colour</label>
+                        <input
+                          required
+                          type="text"
+                          value={selectedDetailsFields.colour}
+                          onChange={(e) => setEditDetailsField("colour", e.target.value)}
+                          className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-slate-900 focus:outline-none focus:ring-4 focus:ring-[#C5A059]/5 focus:border-[#C5A059] transition-all"
+                          placeholder="e.g. Space Cherry"
+                        />
+                      </div>
+
+                      <div className="space-y-3">
+                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Style No</label>
+                        <input
+                          required
+                          type="text"
+                          value={selectedDetailsFields.styleNo}
+                          onChange={(e) => setEditDetailsField("styleNo", e.target.value)}
+                          className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-slate-900 focus:outline-none focus:ring-4 focus:ring-[#C5A059]/5 focus:border-[#C5A059] transition-all"
+                          placeholder="e.g. KCB001"
+                        />
+                      </div>
+
+                      <div className="space-y-3">
+                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Number of component</label>
+                        <input
+                          required
+                          type="text"
+                          value={selectedDetailsFields.numberOfComponents}
+                          onChange={(e) => setEditDetailsField("numberOfComponents", e.target.value)}
+                          className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-slate-900 focus:outline-none focus:ring-4 focus:ring-[#C5A059]/5 focus:border-[#C5A059] transition-all"
+                          placeholder="e.g. 3"
+                        />
+                      </div>
+
+                      <div className="space-y-3">
+                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Wash Care</label>
+                        <input
+                          required
+                          type="text"
+                          value={selectedDetailsFields.washCare}
+                          onChange={(e) => setEditDetailsField("washCare", e.target.value)}
+                          className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-slate-900 focus:outline-none focus:ring-4 focus:ring-[#C5A059]/5 focus:border-[#C5A059] transition-all"
+                          placeholder="e.g. Dry clean only"
+                        />
+                      </div>
+
+                      <div className="space-y-3">
+                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Country of Origin</label>
+                        <input
+                          required
+                          type="text"
+                          value={selectedDetailsFields.countryOfOrigin}
+                          onChange={(e) => setEditDetailsField("countryOfOrigin", e.target.value)}
+                          className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-slate-900 focus:outline-none focus:ring-4 focus:ring-[#C5A059]/5 focus:border-[#C5A059] transition-all"
+                          placeholder="e.g. India"
+                        />
+                      </div>
+
+                      <div className="space-y-3">
+                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Fabric</label>
+                        <input
+                          required
+                          type="text"
+                          value={selectedDetailsFields.fabric}
+                          onChange={(e) => setEditDetailsField("fabric", e.target.value)}
+                          className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-slate-900 focus:outline-none focus:ring-4 focus:ring-[#C5A059]/5 focus:border-[#C5A059] transition-all"
+                          placeholder="e.g. Rich Silk & Georgette"
+                        />
+                      </div>
+
+                      <div className="space-y-3 md:col-span-2">
+                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Work</label>
+                        <textarea
+                          required
+                          rows={3}
+                          value={selectedDetailsFields.work}
+                          onChange={(e) => setEditDetailsField("work", e.target.value)}
+                          className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-slate-900 focus:outline-none focus:ring-4 focus:ring-[#C5A059]/5 focus:border-[#C5A059] transition-all resize-none"
+                          placeholder="e.g. Gotta Patti & Hand Embroidery"
+                        />
+                      </div>
+
+                      <div className="space-y-3 md:col-span-2">
+                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Includes</label>
+                        <textarea
+                          required
+                          rows={2}
+                          value={selectedDetailsFields.includes}
+                          onChange={(e) => setEditDetailsField("includes", e.target.value)}
+                          className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-slate-900 focus:outline-none focus:ring-4 focus:ring-[#C5A059]/5 focus:border-[#C5A059] transition-all resize-none"
+                          placeholder="e.g. Lehenga, Blouse, Dupatta"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div className="pt-4 flex gap-4">
