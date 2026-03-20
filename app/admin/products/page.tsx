@@ -430,14 +430,14 @@ export default function ProductsPage() {
       </div>
 
       {/* Products Table */}
-      <div className="bg-white border border-[#F0E6D2] rounded-2xl shadow-sm overflow-hidden min-h-[400px]">
+      <div className="bg-white border border-[#F0E6D2] rounded-2xl shadow-sm overflow-hidden min-h-100">
         {isLoading ? (
-          <div className="h-[400px] flex flex-col items-center justify-center gap-4">
+          <div className="h-100 flex flex-col items-center justify-center gap-4">
             <Loader2 size={40} className="animate-spin text-[#C5A059]" />
             <p className="text-slate-500 animate-pulse font-medium uppercase tracking-widest text-xs">Accessing products.json...</p>
           </div>
         ) : filteredProducts.length === 0 ? (
-          <div className="h-[400px] flex flex-col items-center justify-center gap-4 text-slate-400">
+          <div className="h-100 flex flex-col items-center justify-center gap-4 text-slate-400">
             <ImageIcon size={48} className="opacity-20" />
             <p className="font-medium">No products found matching your search.</p>
           </div>
@@ -466,7 +466,7 @@ export default function ProductsPage() {
                             className="object-cover group-hover:scale-110 transition-transform duration-500"
                           />
                         </div>
-                        <div className="max-w-[240px]">
+                        <div className="max-w-60">
                           <span className="font-bold text-slate-900 block truncate">{product.name}</span>
                           <span className="text-[10px] text-slate-400 uppercase tracking-wider">{product.id}</span>
                         </div>
