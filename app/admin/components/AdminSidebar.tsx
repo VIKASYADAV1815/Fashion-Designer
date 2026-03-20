@@ -35,7 +35,7 @@ export default function AdminSidebar({ onLogout }: AdminSidebarProps) {
       {/* Mobile Toggle */}
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="lg:hidden fixed top-6 right-6 z-[60] p-3 bg-white text-[#C5A059] rounded-2xl border border-[#F0E6D2] shadow-xl hover:scale-105 transition-transform"
+        className="lg:hidden fixed top-6 right-6 z-60 p-3 bg-white text-[#C5A059] rounded-2xl border border-[#F0E6D2] shadow-xl hover:scale-105 transition-transform"
       >
         {isOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
