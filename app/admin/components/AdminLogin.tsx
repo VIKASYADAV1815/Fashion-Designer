@@ -23,8 +23,8 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
     // Hardcoded credentials check
     setTimeout(() => {
       if (
-        email === "Khushichauhanorders@gmail.com" &&
-        password === "khushichauhan123@"
+        email === "admin@gmail.com" &&
+        password === "123456"
       ) {
         onLogin();
       } else {
