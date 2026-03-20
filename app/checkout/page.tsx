@@ -29,15 +29,8 @@ export default function CheckoutPage() {
   const states = React.useMemo(() => State.getStatesOfCountry("IN"), []);
 
   useEffect(() => {
-    // Check if user is logged in
-    const storedUser = localStorage.getItem("user");
-    if (!storedUser) {
-      router.push("/account?next=/checkout");
-      return;
-    }
-
     // Pre-fill form if user is logged in
-    const user = JSON.parse(storedUser || "{}");
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
     if (user.email) {
       const [firstName = "", ...lastNameParts] = (user.name || "").split(" ");
       setFormData((prev) => ({

@@ -349,7 +349,7 @@ export default function Navbar() {
                             className="flex items-center gap-4 p-4 hover:bg-white/5 transition-colors border-b border-white/5 last:border-none"
                             onClick={() => setSearchOpen(false)}
                           >
-                            <div className="relative w-12 h-16 flex-shrink-0">
+                            <div className="relative w-12 h-16 shrink-0">
                               <Image 
                                 src={product.image} 
                                 alt={product.name} 
