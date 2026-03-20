@@ -71,10 +71,13 @@ export default function ProductsPage() {
 
   const [newProduct, setNewProduct] = useState({
     name: "",
+    tagline: "",
     category: "Lehenga",
+    subCategory: "Lehenga",
     price: "",
     description: "",
     isOutOfStock: false,
+    video: "",
     details: { ...EMPTY_DETAILS_FIELDS },
   });
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
@@ -86,11 +89,28 @@ export default function ProductsPage() {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
+      const MAX_IMAGES = 7;
       const filesArray = Array.from(e.target.files);
-      setSelectedFiles(filesArray);
-      
-      const urls = filesArray.map(file => URL.createObjectURL(file));
-      setPreviewUrls(urls);
+
+      // Allow incremental uploads (user can select images multiple times).
+      const remaining = Math.max(0, MAX_IMAGES - selectedFiles.length);
+      const filesToAdd = remaining > 0 ? filesArray.slice(0, remaining) : [];
+
+      if (filesToAdd.length === 0) {
+        setError(`You can upload up to ${MAX_IMAGES} images.`);
+        // Reset input so same file selection triggers `onChange` again.
+        e.target.value = "";
+        return;
+      }
+
+      setError(null);
+      setSelectedFiles((prev) => [...prev, ...filesToAdd]);
+
+      const urls = filesToAdd.map((file) => URL.createObjectURL(file));
+      setPreviewUrls((prev) => [...prev, ...urls]);
+
+      // Reset input so selecting the same file again triggers `onChange`.
+      e.target.value = "";
     }
   };
 
@@ -128,17 +148,28 @@ export default function ProductsPage() {
     
     const productId = newProduct.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
     const detailsLines = buildDetailsFromFields(newProduct.details);
+
+    // Your storefront expects multiple gallery images.
+    // (Products.json uses 6-7 images per item.)
+    if (selectedFiles.length < 6) {
+      setError("Please upload at least 6 product images (recommended: 6-7).");
+      setIsLoading(false);
+      return;
+    }
     
     const formData = new FormData();
     formData.append("id", productId);
     formData.append("slug", productId);
     formData.append("name", newProduct.name);
     formData.append("category", newProduct.category);
+    formData.append("subCategory", newProduct.subCategory?.trim() || newProduct.category);
     formData.append("price", newProduct.price);
     formData.append("description", newProduct.description);
+    formData.append("tagline", newProduct.tagline?.trim() || `Elegant ${newProduct.name}`);
     formData.append("isOutOfStock", String(newProduct.isOutOfStock));
-    formData.append("subCategory", newProduct.category);
-    formData.append("tagline", `Elegant ${newProduct.name}`);
+    if (newProduct.video?.trim()) {
+      formData.append("video", newProduct.video.trim());
+    }
 
     // `studio` is static across products, but backend parsers may expect either:
     // 1) bracketed keys: `studio[name]`, or
@@ -170,10 +201,13 @@ export default function ProductsPage() {
         setIsAddModalOpen(false);
         setNewProduct({
           name: "",
+          tagline: "",
           category: "Lehenga",
+          subCategory: "Lehenga",
           price: "",
           description: "",
           isOutOfStock: false,
+          video: "",
           details: { ...EMPTY_DETAILS_FIELDS },
         });
         setSelectedFiles([]);
@@ -203,8 +237,13 @@ export default function ProductsPage() {
     }
     formData.append("name", selectedProduct.name);
     formData.append("category", selectedProduct.category);
+    formData.append("subCategory", selectedProduct.subCategory?.trim() || selectedProduct.category);
     formData.append("price", String(selectedProduct.price));
     formData.append("description", selectedProduct.description);
+    formData.append("tagline", selectedProduct.tagline?.trim() || `Elegant ${selectedProduct.name}`);
+    if (selectedProduct.video?.trim()) {
+      formData.append("video", selectedProduct.video.trim());
+    }
     formData.append("isOutOfStock", String(selectedProduct.isOutOfStock));
 
     // Keep product details in sync with what we render in the edit modal.
@@ -500,16 +539,47 @@ export default function ProductsPage() {
                   </div>
                   <div className="space-y-3">
                     <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Category</label>
-                    <select value={newProduct.category} onChange={(e) => setNewProduct({...newProduct, category: e.target.value})} className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-slate-900 focus:outline-none focus:ring-4 focus:ring-[#C5A059]/5 focus:border-[#C5A059] transition-all">
+                    <select
+                      value={newProduct.category}
+                      onChange={(e) => setNewProduct((prev) => {
+                        const nextCategory = e.target.value;
+                        const nextSubCategory =
+                          !prev.subCategory?.trim() || prev.subCategory === prev.category
+                            ? nextCategory
+                            : prev.subCategory;
+                        return { ...prev, category: nextCategory, subCategory: nextSubCategory };
+                      })}
+                      className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-slate-900 focus:outline-none focus:ring-4 focus:ring-[#C5A059]/5 focus:border-[#C5A059] transition-all"
+                    >
                       <option>Lehenga</option><option>Saree</option><option>Suit</option><option>Drape</option><option>Dress</option>
                     </select>
+
+                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1 mt-4">Sub Category</label>
+                    <input
+                      required
+                      type="text"
+                      value={newProduct.subCategory}
+                      onChange={(e) => setNewProduct({ ...newProduct, subCategory: e.target.value })}
+                      className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-slate-900 focus:outline-none focus:ring-4 focus:ring-[#C5A059]/5 focus:border-[#C5A059] transition-all"
+                      placeholder="e.g. Bridal Lehenga / Festive Lehenga"
+                    />
                   </div>
                   <div className="space-y-3">
                     <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Price (₹)</label>
                     <input required type="number" value={newProduct.price} onChange={(e) => setNewProduct({...newProduct, price: e.target.value})} className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-slate-900 focus:outline-none focus:ring-4 focus:ring-[#C5A059]/5 focus:border-[#C5A059] transition-all" placeholder="65000" />
+
+                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1 mt-4">Tagline</label>
+                    <input
+                      type="text"
+                      value={newProduct.tagline}
+                      onChange={(e) => setNewProduct({ ...newProduct, tagline: e.target.value })}
+                      className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-slate-900 focus:outline-none focus:ring-4 focus:ring-[#C5A059]/5 focus:border-[#C5A059] transition-all"
+                      placeholder="e.g. Red Magestic Twirl of 32 Kali"
+                    />
                   </div>
                   <div className="md:col-span-2 space-y-3">
                     <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Product Images (Gallery)</label>
+                    <p className="text-[12px] text-slate-500 -mt-2">Recommended: upload 6-7 images.</p>
                     <div className="flex flex-wrap gap-4 mt-2">
                       {previewUrls.map((url, index) => (
                         <div key={index} className="relative w-24 h-24 rounded-xl overflow-hidden border border-[#F0E6D2]">
@@ -522,6 +592,16 @@ export default function ProductsPage() {
                         <input type="file" multiple accept="image/*" className="hidden" onChange={handleFileChange} />
                       </label>
                     </div>
+                  </div>
+                  <div className="md:col-span-2 space-y-3">
+                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Video (URL / Path)</label>
+                    <input
+                      type="text"
+                      value={newProduct.video}
+                      onChange={(e) => setNewProduct({ ...newProduct, video: e.target.value })}
+                      className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-slate-900 focus:outline-none focus:ring-4 focus:ring-[#C5A059]/5 focus:border-[#C5A059] transition-all"
+                      placeholder="/videos/32.mp4 or https://example.com/video.mp4"
+                    />
                   </div>
                   <div className="md:col-span-2 space-y-3">
                     <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Description</label>
@@ -664,13 +744,40 @@ export default function ProductsPage() {
                   </div>
                   <div className="space-y-3">
                     <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Category</label>
-                    <select value={selectedProduct.category} onChange={(e) => setSelectedProduct({...selectedProduct, category: e.target.value})} className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-slate-900 focus:outline-none focus:ring-4 focus:ring-[#C5A059]/5 focus:border-[#C5A059] transition-all">
+                    <select
+                      value={selectedProduct.category}
+                      onChange={(e) => setSelectedProduct((prev: any) => {
+                        const nextCategory = e.target.value;
+                        const nextSubCategory =
+                          !prev.subCategory?.trim() || prev.subCategory === prev.category ? nextCategory : prev.subCategory;
+                        return { ...prev, category: nextCategory, subCategory: nextSubCategory };
+                      })}
+                      className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-slate-900 focus:outline-none focus:ring-4 focus:ring-[#C5A059]/5 focus:border-[#C5A059] transition-all"
+                    >
                       <option>Lehenga</option><option>Saree</option><option>Suit</option><option>Drape</option><option>Dress</option>
                     </select>
+
+                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1 mt-4">Sub Category</label>
+                    <input
+                      required
+                      type="text"
+                      value={selectedProduct.subCategory ?? selectedProduct.category}
+                      onChange={(e) => setSelectedProduct({ ...selectedProduct, subCategory: e.target.value })}
+                      className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-slate-900 focus:outline-none focus:ring-4 focus:ring-[#C5A059]/5 focus:border-[#C5A059] transition-all"
+                    />
                   </div>
                   <div className="space-y-3">
                     <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Price (₹)</label>
                     <input required type="number" value={selectedProduct.price} onChange={(e) => setSelectedProduct({...selectedProduct, price: e.target.value})} className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-slate-900 focus:outline-none focus:ring-4 focus:ring-[#C5A059]/5 focus:border-[#C5A059] transition-all" />
+
+                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1 mt-4">Tagline</label>
+                    <input
+                      type="text"
+                      value={selectedProduct.tagline ?? ""}
+                      onChange={(e) => setSelectedProduct({ ...selectedProduct, tagline: e.target.value })}
+                      className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-slate-900 focus:outline-none focus:ring-4 focus:ring-[#C5A059]/5 focus:border-[#C5A059] transition-all"
+                      placeholder="e.g. Red Magestic Twirl..."
+                    />
                   </div>
                   <div className="md:col-span-2 space-y-3">
                     <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Product Images (Gallery)</label>
@@ -693,6 +800,16 @@ export default function ProductsPage() {
                         <input type="file" multiple accept="image/*" className="hidden" onChange={handleFileChange} />
                       </label>
                     </div>
+                  </div>
+                  <div className="md:col-span-2 space-y-3">
+                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Video (URL / Path)</label>
+                    <input
+                      type="text"
+                      value={selectedProduct.video ?? ""}
+                      onChange={(e) => setSelectedProduct({ ...selectedProduct, video: e.target.value })}
+                      className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-slate-900 focus:outline-none focus:ring-4 focus:ring-[#C5A059]/5 focus:border-[#C5A059] transition-all"
+                      placeholder="/videos/32.mp4 or https://example.com/video.mp4"
+                    />
                   </div>
                   <div className="md:col-span-2 space-y-3">
                     <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Description</label>
