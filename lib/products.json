@@ -8,6 +8,7 @@
     "category": "Lehenga",
     "subCategory": "Bridal Lehenga",
     "image": "/lehanga/l1.webp",
+    "isOutOfStock": false,
     "images": [
       "/lehanga/l1.webp",
       "/lehanga/l2.webp",
@@ -44,6 +45,7 @@
     "category": "Lehenga",
     "subCategory": "Bridal Lehenga",
     "image": "/lehanga/l21.webp",
+    "isOutOfStock": false,
     "images": [
       "/lehanga/l21.webp",
       "/lehanga/l22.webp",
@@ -76,12 +78,12 @@
     "category": "Lehenga",
     "subCategory": "Festive Lehenga",
     "image": "/lehanga/l41.webp",
+    "isOutOfStock": false,
     "images": [
       "/lehanga/l41.webp",
       "/lehanga/l42.webp",
       "/lehanga/l43.webp",
       "/lehanga/l44.webp"
-      
       ],
         "video": "/videos/muse.mp4",
 
@@ -108,6 +110,7 @@
   "category": "Lehenga",
   "subCategory": "Festive Lehenga",
   "image": "/lehanga/l31.webp",
+  "isOutOfStock": false,
   "images": [
     "/lehanga/l31.webp",
     "/lehanga/l32.webp",
@@ -139,6 +142,7 @@
   "category": "Lehenga",
   "subCategory": "Festive Lehenga",
   "image": "/lehanga/l51.webp",
+  "isOutOfStock": false,
   "images": [
     "/lehanga/l51.webp",
     "/lehanga/l52.webp",
@@ -174,6 +178,7 @@
   "category": "Lehenga",
   "subCategory": "Festive Lehenga",
   "image": "/lehanga/l61.webp",
+  "isOutOfStock": false,
   "images": [
     "/lehanga/l61.webp",
     "/lehanga/l62.webp",
@@ -210,6 +215,7 @@
   "category": "Lehenga",
   "subCategory": "Festive Lehenga",
   "image": "/lehanga/l71.webp",
+  "isOutOfStock": false,
   "images": [
     "/lehanga/l71.webp",
     "/lehanga/l72.webp",
@@ -246,6 +252,7 @@
   "category": "Lehenga",
   "subCategory": "Festive Lehenga",
   "image": "/lehanga/l81.webp",
+  "isOutOfStock": false,
   "images": [
     "/lehanga/l81.webp",
     "/lehanga/l82.webp",
@@ -282,6 +289,7 @@
     "category": "Lehenga",
     "subCategory": "Festive Lehenga",
     "image": "/lehanga/l91.webp",
+    "isOutOfStock": false,
     "images": [
       "/lehanga/l91.webp",
       "/lehanga/l92.webp",
@@ -315,6 +323,7 @@
     "category": "Lehenga",
     "subCategory": "Festive Lehenga",
     "image": "/lehanga/l101.webp",
+    "isOutOfStock": false,
     "images": [
       "/lehanga/l101.webp",
       "/lehanga/l102.webp",
@@ -346,6 +355,7 @@
     "category": "Saree",
     "subCategory": "Party Wear",
     "image": "/saree/s1.webp",
+    "isOutOfStock": false,
     "images": [
       "/saree/s1.webp",
       "/saree/s2.webp",
@@ -378,6 +388,7 @@
     "category": "Drape",
     "subCategory": "Western Wear",
     "image": "/drape/d1.webp",
+    "isOutOfStock": false,
     "images": [
       "/drape/d1.webp",
       "/drape/d2.jpg",
@@ -411,6 +422,7 @@
     "category": "Drape",
     "subCategory": "Western Wear",
     "image": "/drape/d21.jpg",
+    "isOutOfStock": false,
     "images": [
       "/drape/d21.jpg",
       "/drape/d22.jpg",
@@ -447,6 +459,7 @@
     "category": "Drape",
     "subCategory": "Western Wear",
     "image": "/drape/d31.jpg",
+    "isOutOfStock": false,
     "images": [
       "/drape/d31.jpg",
       "/drape/d32.jpg",
@@ -479,6 +492,7 @@
     "category": "Drape",
     "subCategory": "Western Wear",
     "image": "/drape/d41.jpg",
+    "isOutOfStock": false,
     "images": [
       "/drape/d41.jpg",
       "/drape/d42.jpg",
@@ -511,6 +525,7 @@
     "category": "Drape",
     "subCategory": "Western Wear",
     "image": "/drape/d51.jpg",
+    "isOutOfStock": false,
     "images": [
       "/drape/d51.jpg",
       "/drape/d52.jpg",
@@ -545,6 +560,7 @@
     "category": "Drape",
     "subCategory": "Western Wear",
     "image": "/drape/d61.webp",
+    "isOutOfStock": false,
     "images": [
       "/drape/d61.webp",
       "/drape/d62.webp",
@@ -576,6 +592,7 @@
     "category": "Drape",
     "subCategory": "Indo Western Wear",
     "image": "/drape/d71.webp",
+    "isOutOfStock": false,
     "images": [
       "/drape/d71.webp",
       "/drape/d72.webp",
@@ -610,6 +627,7 @@
     "category": "Lehenga",
     "subCategory": "Indian Wear",
     "image": "/lehanga/black.jpeg",
+    "isOutOfStock": false,
     "images": [
       "/lehanga/black.jpeg"
     ],
@@ -637,6 +655,7 @@
     "category": "Lehenga",
     "subCategory": "Indian Wear",
     "image": "/lehanga/corset.jpeg",
+    "isOutOfStock": false,
     "images": [
       "/lehanga/corset.jpeg"
     ],
@@ -656,6 +675,34 @@
     }
   },
   {
+    "id": "midnight-glam-dress",
+    "slug": "midnight-glam-dress",
+    "name": "Midnight Glam Velvet Dress",
+    "tagline": "Opulent Velvet with Crystal Detailing",
+    "price": 12000,
+    "category": "Dress",
+    "subCategory": "Evening Wear",
+    "image": "/images/img3.jpg",
+    "isOutOfStock": true,
+    "images": [
+      "/images/img3.jpg"
+    ],
+    "video": "",
+    "description": "A luxurious midnight blue velvet dress featuring a flattering silhouette and intricate crystal hand-embroidery on the neckline. This piece is designed for high-end evening events where elegance meets comfort.",
+    "details": [
+      "Colour: Midnight Blue",
+      "Style No: KCD001",
+      "Number of component: 1",
+      "Wash Care: Dry clean only",
+      "Country of Origin: India"
+    ],
+    "studio": {
+      "name": "Khushi Chauhan Designer Studio",
+      "address": "Shop no. 113,114,115 Swaraj Plaza, 72 Rajpur Road, Dehradun-248001",
+      "landmark": "Opp. Madhu Ban Hotal, Uttarakhand"
+    }
+  },
+  {
     "id": "test-rs-1-dress",
     "slug": "test-rs-1-dress",
     "name": "TEST Checkout Dress (₹1)",
@@ -664,6 +711,7 @@
     "category": "Dress",
     "subCategory": "Test",
     "image": "/lehanga/corset.jpeg",
+    "isOutOfStock": false,
     "images": [
       "/lehanga/corset.jpeg"
     ],

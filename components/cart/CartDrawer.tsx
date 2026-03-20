@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useCart } from "./CartProvider";
-import { X, ShoppingBag } from "lucide-react";
+import { X, ShoppingBag, Plus, Minus } from "lucide-react";
 
 import Link from "next/link";
 
@@ -16,7 +16,7 @@ export default function CartDrawer({
   open: boolean;
   onClose: () => void;
 }) {
-  const { items, removeItem, clear } = useCart();
+  const { items, removeItem, clear, updateQty } = useCart();
   const total = items.reduce((sum, i) => sum + i.price * i.qty, 0);
   const [user, setUser] = useState(null);
   const router = useRouter();
@@ -145,9 +145,9 @@ export default function CartDrawer({
                         )}
                       </div>
 
-                      <div className="flex-1 min-w-0 space-y-2">
+                      <div className="flex-1 min-w-0 space-y-3">
                         <div className="flex justify-between items-start">
-                          <h4 className="text-[9px] uppercase tracking-[0.25em] font-bold leading-tight text-gray-300 truncate pr-4">
+                          <h4 className="text-[10px] uppercase tracking-[0.25em] font-bold leading-tight text-gray-200 truncate pr-4">
                             {item.name}
                           </h4>
                           <button
@@ -155,18 +155,33 @@ export default function CartDrawer({
                             onClick={() => removeItem(item.id)}
                             aria-label="Remove item"
                           >
-                            <X size={12} />
+                            <X size={14} />
                           </button>
                         </div>
 
-                        <div className="flex items-center justify-between text-[9px] font-medium uppercase tracking-widest">
-                          <span className="text-gray-600">
-                            Qty: {item.qty}
-                          </span>
-                          <span className="text-white tracking-tighter">
-                            ₹
-                            {(item.price * item.qty).toLocaleString("en-IN")}
-                          </span>
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-4 bg-white/5 rounded-full px-3 py-1.5 border border-white/10">
+                            <button
+                              onClick={() => updateQty(item.id, -1)}
+                              className="text-gray-400 hover:text-white transition-colors p-0.5"
+                              disabled={item.qty <= 1}
+                            >
+                              <Minus size={12} />
+                            </button>
+                            <span className="text-[11px] font-bold tracking-widest text-white min-w-[2.5rem] text-center">
+                              QTY: {item.qty}
+                            </span>
+                            <button
+                              onClick={() => updateQty(item.id, 1)}
+                              className="text-gray-400 hover:text-white transition-colors p-0.5"
+                            >
+                              <Plus size={12} />
+                            </button>
+                          </div>
+                          
+                          <div className="text-[11px] font-bold text-white tracking-tighter">
+                            ₹{(item.price * item.qty).toLocaleString("en-IN")}
+                          </div>
                         </div>
                       </div>
                     </div>

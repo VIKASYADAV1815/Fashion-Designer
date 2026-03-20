@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
@@ -14,13 +14,13 @@ import {
   Info,
   Scissors,
   Sparkles,
-  Play
+  Play,
+  Loader2
 } from "lucide-react";
 
 import { useCart } from "@/components/cart/CartProvider";
 import Lightbox from "@/components/lightbox/Lightbox";
 import ShopTransition from "../components/ShopTransition";
-import productsData from "@/lib/products.json";
 
 interface Product {
   id: string;
@@ -30,6 +30,7 @@ interface Product {
   category: string;
   subCategory?: string;
   tagline?: string;
+  isOutOfStock?: boolean;
   description: string;
   images: string[];
   details: string[];
@@ -41,11 +42,11 @@ interface Product {
   };
 }
 
-const products = productsData as Product[];
-
 export default function ProductClient() {
   const params = useParams();
   const router = useRouter();
+  const [product, setProduct] = useState<Product | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [activeImage, setActiveImage] = useState(0);
   const [showVideo, setShowVideo] = useState(false);
   const [qty, setQty] = useState(1);
@@ -54,18 +55,50 @@ export default function ProductClient() {
   const { addItem, openCart } = useCart();
 
   const id = params?.id as string;
-  const product = useMemo(() => {
-    if (!id) return null;
-    const cleanId = id.endsWith(".html") ? id.slice(0, -5) : id;
-    return products.find((p) => 
-      p.id === cleanId || 
-      p.slug === cleanId || 
-      p.name.toLowerCase().replace(/[^a-z0-9]+/g, "-") === cleanId
-    );
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      if (!id) return;
+      setIsLoading(true);
+      try {
+        const cleanId = id.endsWith(".html") ? id.slice(0, -5) : id;
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`, { cache: 'no-store' });
+        if (res.ok) {
+          const data = await res.json();
+          const found = data.find((p: any) => 
+            p.id === cleanId || 
+            p.slug === cleanId || 
+            p.name.toLowerCase().replace(/[^a-z0-9]+/g, "-") === cleanId
+          );
+          
+          if (found) {
+            const backendUrl = process.env.NEXT_PUBLIC_API_URL?.replace("/api", "");
+            const formatted = {
+              ...found,
+              images: found.images?.map((img: string) => img.startsWith("http") ? img : `${backendUrl}${img}`)
+            };
+            setProduct(formatted);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching product:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchProduct();
   }, [id]);
 
+  if (isLoading) return (
+    <div className="pt-32 flex flex-col items-center justify-center gap-4 text-neutral-500 font-josefin">
+      <Loader2 size={40} className="animate-spin text-[#C5A059]" />
+      <p className="uppercase tracking-widest text-xs">Loading piece...</p>
+    </div>
+  );
+
   if (!product) return (
-    <div className="pt-32 text-center text-neutral-500">
+    <div className="pt-32 text-center text-neutral-500 font-josefin">
       Product not found. <Link href="/shop" className="underline">Back to shop</Link>
     </div>
   );
@@ -74,11 +107,16 @@ export default function ProductClient() {
 
   return (
     <ShopTransition>
-      <div className="pt-24 md:pt-32 bg-white text-black min-h-screen">
+      <div className="pt-24 md:pt-32 bg-white text-black min-h-screen font-josefin">
         <div className="flex flex-col lg:flex-row min-h-screen">
           
           {/* LEFT: MEDIA SECTION WITH SEPARATED VIDEO OVERLAY */}
-          <div className="lg:w-[45%] lg:h-screen lg:sticky lg:top-0 bg-[#F6F6F6] flex items-center justify-center p-4 md:p-12 min-h-[50vh] lg:min-h-0">
+          <div className="lg:w-[45%] lg:h-screen lg:sticky lg:top-0 bg-[#F6F6F6] flex items-center justify-center p-4 md:p-12 min-h-[50vh] lg:min-h-0 relative">
+            {product.isOutOfStock && (
+              <div className="absolute top-6 left-6 z-10 bg-black text-white px-6 py-3 text-[10px] uppercase tracking-[0.3em] font-bold shadow-2xl">
+                Out of Stock
+              </div>
+            )}
             <div className="relative w-full max-w-lg aspect-[4/5] bg-white shadow-sm overflow-hidden group">
               
               <div key={activeImage} className={`absolute inset-0 transition-opacity duration-500 ${showVideo ? 'opacity-0' : 'opacity-100'}`}>
@@ -256,23 +294,32 @@ export default function ProductClient() {
 
             {/* ACTIONS - REDUCED WIDTH BUTTON */}
             <div className="space-y-6 pt-4">
-              <div className="flex items-center justify-between border-y border-neutral-100 py-4 max-w-md">
-                <span className="text-[12px] md:text-sm uppercase tracking-widest font-semibold">Quantity</span>
-                <div className="flex items-center gap-4">
-                  <button onClick={() => setQty(q => Math.max(1, q - 1))} className="w-9 h-9 md:w-10 md:h-10 rounded-full border border-neutral-300 hover:border-black flex items-center justify-center transition-colors" aria-label="Decrease quantity"><Minus size={20} /></button>
-                  <span className="text-lg md:text-xl font-medium w-8 text-center">{qty}</span>
-                  <button onClick={() => setQty(q => q + 1)} className="w-9 h-9 md:w-10 md:h-10 rounded-full border border-neutral-300 hover:border-black flex items-center justify-center transition-colors" aria-label="Increase quantity"><Plus size={20} /></button>
+              {!product.isOutOfStock && (
+                <div className="flex items-center justify-between border-y border-neutral-100 py-4 max-w-md">
+                  <span className="text-[12px] md:text-sm uppercase tracking-widest font-semibold">Quantity</span>
+                  <div className="flex items-center gap-4">
+                    <button onClick={() => setQty(q => Math.max(1, q - 1))} className="w-9 h-9 md:w-10 md:h-10 rounded-full border border-neutral-300 hover:border-black flex items-center justify-center transition-colors" aria-label="Decrease quantity"><Minus size={20} /></button>
+                    <span className="text-lg md:text-xl font-medium w-8 text-center">{qty}</span>
+                    <button onClick={() => setQty(q => q + 1)} className="w-9 h-9 md:w-10 md:h-10 rounded-full border border-neutral-300 hover:border-black flex items-center justify-center transition-colors" aria-label="Increase quantity"><Plus size={20} /></button>
+                  </div>
                 </div>
-              </div>
+              )}
               
               <button 
-                className="w-full max-w-xs py-5 bg-black text-white uppercase tracking-[0.3em] text-[11px] font-bold hover:bg-neutral-800 transition-all active:scale-[0.98]"
+                disabled={product.isOutOfStock}
+                className={cn(
+                  "w-full max-w-xs py-5 uppercase tracking-[0.3em] text-[11px] font-bold transition-all active:scale-[0.98]",
+                  product.isOutOfStock 
+                    ? "bg-neutral-100 text-neutral-400 cursor-not-allowed border border-neutral-200" 
+                    : "bg-black text-white hover:bg-neutral-800"
+                )}
                 onClick={() => {
+                  if (product.isOutOfStock) return;
                   for (let i = 0; i < qty; i++) addItem({ id: product.id, name: product.name, price: product.price, image: product.images[0] });
                   openCart();
                 }}
               >
-                Add to Cart
+                {product.isOutOfStock ? "Sold Out" : "Add to Cart"}
               </button>
             </div>
 
@@ -316,3 +363,5 @@ function Badge({ icon, label }: { icon: React.ReactNode, label: string }) {
     </div>
   );
 }
+
+import { cn } from "@/lib/utils";

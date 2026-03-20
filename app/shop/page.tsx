@@ -1,6 +1,5 @@
 import ShopGrid from "./components/ShopGrid";
 import ShopTransition from "./components/ShopTransition";
-import productsData from "@/lib/products.json";
 
 type Product = {
   id: string;
@@ -11,13 +10,35 @@ type Product = {
   image: string;
 };
 
-export default function ShopPage({
+async function getProducts(): Promise<Product[]> {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`, { 
+      cache: 'no-store' 
+    });
+    if (!res.ok) return [];
+    const data = await res.json();
+    
+    // Handle image mapping for backend relative paths
+    const backendUrl = process.env.NEXT_PUBLIC_API_URL?.replace("/api", "");
+    return data.map((p: any) => ({
+      ...p,
+      image: p.image?.startsWith("http") ? p.image : `${backendUrl}${p.image}`
+    }));
+  } catch (error) {
+    console.error("Failed to fetch products:", error);
+    return [];
+  }
+}
+
+export default async function ShopPage({
   searchParams,
 }: {
   searchParams?: { category?: string; query?: string };
 }) {
   const category = searchParams?.category;
   const query = searchParams?.query;
+  const initialProducts = await getProducts();
+  
   return (
     <ShopTransition>
       <div className="pt-24 min-h-screen bg-white text-black">
@@ -27,7 +48,7 @@ export default function ShopPage({
              Curated pieces for the modern wardrobe.
            </p>
         </div>
-        <ShopGrid category={category} initialQuery={query} initialProducts={productsData as Product[]} />
+        <ShopGrid category={category} initialQuery={query} initialProducts={initialProducts} />
       </div>
     </ShopTransition>
   );

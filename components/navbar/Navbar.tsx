@@ -98,11 +98,11 @@ export default function Navbar() {
         role="navigation"
         aria-label="Primary"
       >
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-4 sm:px-6">
           {/* Mobile: hamburger left, larger logo center, search right */}
-          <div className="flex h-24 items-center justify-between lg:hidden py-3">
+          <div className="flex h-20 sm:h-24 items-center justify-between lg:hidden py-3">
             <button
-              className="text-white"
+              className="text-white shrink-0"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label="Toggle menu"
               aria-expanded={isMobileMenuOpen}
@@ -111,21 +111,21 @@ export default function Navbar() {
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
 
-            <Link href="/" aria-label="Khushi Designer" className="flex flex-1 justify-center">
-              <div className="relative w-64 h-20">
+            <Link href="/" aria-label="Khushi Designer" className="flex flex-1 justify-center px-2">
+              <div className="relative w-40 xs:w-48 sm:w-64 h-12 xs:h-16 sm:h-20 transition-all duration-300">
                 <Image
                   src="/images/logo.png"
                   alt="Khushi Designer Studio logo"
                   fill
                   priority
                   className="object-contain"
-                  sizes="256px"
+                  sizes="(max-width: 640px) 256px, 320px"
                 />
               </div>
               <span className="sr-only">Khushi Designer Studio</span>
             </Link>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 shrink-0">
               <UserDropdown />
 
               <button
