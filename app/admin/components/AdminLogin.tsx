@@ -43,13 +43,13 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 0.1, scale: 1 }}
         transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
-        className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-[#C5A059] rounded-full blur-[120px]" 
+        className="absolute top-[-10%] right-[-5%] w-150 h-150 bg-[#C5A059] rounded-full blur-[120px]" 
       />
       <motion.div 
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 0.1, scale: 1 }}
         transition={{ duration: 2.5, repeat: Infinity, repeatType: "reverse", delay: 0.5 }}
-        className="absolute bottom-[-10%] left-[-5%] w-[600px] h-[600px] bg-[#C5A059] rounded-full blur-[120px]" 
+        className="absolute bottom-[-10%] left-[-5%] w-150 h-150 bg-[#C5A059] rounded-full blur-[120px]" 
       />
 
       <motion.div 
