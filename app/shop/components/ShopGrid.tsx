@@ -64,9 +64,9 @@ type ShopGridProps = {
               READY TO WEAR 
             </span>
 
-            <h2 className="text-5xl md:text-7xl font-extralight uppercase tracking-tight">
+            <h1 className="text-5xl md:text-7xl font-extralight uppercase tracking-tight">
               {category || "The Collection"}
-            </h2>
+            </h1>
 
             <div className="flex justify-center items-center gap-6 mt-8">
               <div className="h-px w-16 bg-black/10" />

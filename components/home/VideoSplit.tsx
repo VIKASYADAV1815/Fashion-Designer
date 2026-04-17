@@ -83,21 +83,22 @@ export default function ImageSplit() {
             </div>
             
             <h2 className="text-6xl md:text-8xl lg:text-9xl font-extralight tracking-tighter leading-[0.85] mb-8 uppercase">
-              Golden <br />
-              <span className="italic font-serif pl-8 md:pl-20 text-stone-400">Bloom</span>
+              Golden Bloom
             </h2>
 
             <p className="text-xl text-stone-600 font-light leading-relaxed mb-10 max-w-lg">
-              Intricate hand-stitched floral motifs meet shimmering golden sequins. A silhouette designed to capture light and movement with effortless grace.
+              Intricate hand-stitched floral motifs meet shimmering golden sequins in our designer lehenga for women collection. Both silhouettes are designed to appeal to light and movement with smooth elegance, which is ideal in weddings, celebratory occasions, and evening events of great scale. Embroidery, combined with contemporary cuts, makes you shine through with classiness.
             </p>
 
-            <div className="flex flex-wrap gap-2 mb-10">
-              {["Hand Embroidery", "Sequin Mesh", "Floral Appliqué"].map((t) => (
-                <span key={t} className="text-[10px] uppercase tracking-widest px-4 py-2 bg-white border border-stone-100 shadow-sm text-stone-500 hover:text-black transition-colors">
-                  {t}
-                </span>
-              ))}
-            </div>
+            <p className="text-xl text-stone-600 font-light leading-relaxed mb-10 max-w-lg">
+              To those who admire the beauty of covering clothes, our designer ready to wear saree has provided an equivalent meticulous work in a flexible and comfortable style. It has high-quality fabrics and exquisite embroidery design and modern design, which add a classy touch to any event.
+            </p>
+
+            <p className="text-xl text-stone-600 font-light leading-relaxed mb-10 max-w-lg">
+              Whether you choose a designer lehenga for women or a designer ready to wear saree, The Couture Series is all about being an individual, having confidence and eternal beauty. Each work is the work of Khushi Chauhan Fashion Studio, which is made to shine without any effort.
+            </p>
+
+
 
             <AnimatedButton 
               variant="solid" 
@@ -147,9 +148,9 @@ export default function ImageSplit() {
         {/* BOTTOM FEATURE GRID */}
         <div className="mt-12 md:mt-32 grid grid-cols-1 md:grid-cols-3 gap-0 border-t border-stone-200">
           {[
-            { title: "The Beadwork", copy: "Hand-applied pastel beads creating a garden of 3D textures." },
-            { title: "The Sequin Base", copy: "Micro-sequins provide a liquid-gold shimmer to the corset and skirt." },
-            { title: "The Craft", copy: "Hundreds of hours spent in traditional Zardosi-inspired artistry." },
+            { title: "The Beadwork", copy: "Micro-sequins provide a liquid-gold lustre to the corset and skirt, and our designer ready to wear saree provides the same glittering look in a multi-purpose design." },
+            { title: "The Sequin Base", copy: "Our designer ready to wear saree can provide the same glamorous look in a versatile shape using micro-sequins which give a liquid-gold shimmer to the corset and skirt." },
+            { title: "The Craft", copy: " Hundreds of hours of traditional Zardosi-inspired artistry make each designer lehenga for women and designer ready to wear saree a timeless piece of luxury." },
           ].map((i, index) => (
             <div 
               key={i.title} 
@@ -157,7 +158,7 @@ export default function ImageSplit() {
                 index !== 2 ? "md:border-r border-stone-200" : ""
               } border-b border-stone-200 md:border-b-0`}
             >
-              <span className="text-[10px] font-mono text-stone-300 mb-4 block uppercase tracking-tighter">Detail_0{index + 1}</span>
+              <span className="text-[10px] font-mono text-stone-500 mb-4 block uppercase tracking-tighter">Detail_0{index + 1}</span>
               <h3 className="text-xl font-serif italic mb-3 group-hover:translate-x-2 transition-transform duration-500">{i.title}</h3>
               <p className="text-sm text-stone-500 font-light leading-relaxed">{i.copy}</p>
             </div>
