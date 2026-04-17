@@ -55,9 +55,9 @@ export default function AboutSection() {
   }, []);
 
   const aboutContent = [
-    { title: "The Label", copy: "Defining a new era of ethnic luxury where traditional hand-craft meets modern silhouettes." },
-    { title: "Collections", copy: "From bespoke bridal Lehengas to effortless casual-fit Sarees designed for every occasion." },
-    { title: "Philosophy", copy: "Empowering the modern woman through intentional design and timeless craftsmanship." },
+    { title: "The Label", copy: "Establishing a new generation of ethnic luxury in which traditional hand-craft blends with modern shapes. We have designer lehenga for women which are worn during wedding and festive parties and designer ready to wear saree which adds elegance to casual and semi-formal parties." },
+    { title: "Collections", copy: "From bespoke bridal designer lehenga for women to versatile designer ready to wear saree designed for every occasion, our collections empower you to express elegance effortlessly." },
+    { title: "Philosophy", copy: "The empowerment of the contemporary woman through planned design and classic craftsmanship. At Khushi Chauhan, we celebrate individuality and heritage in every designer lehenga for women and designers ready to wear saree we create." },
   ];
 
   return (
@@ -94,8 +94,8 @@ export default function AboutSection() {
             
             <div className="max-w-sm w-full">
               <p className="reveal-item text-base md:text-lg text-stone-600 font-light leading-relaxed mb-8">
-                Crafting luxury ethnic wear that celebrates heritage. From grand Lehengas 
-                to casual drapes, we design for elegance.
+               Crafting luxury ethnic wear that celebrates heritage. From grand designer lehenga for women to effortless designer ready to wear saree, we design to be elegant and evergreen. All of our works are an expression of our commitment to quality, complex crafts, and contemporary silhouettes.
+
               </p>
               
               <div className="reveal-item flex flex-row items-center gap-4">
