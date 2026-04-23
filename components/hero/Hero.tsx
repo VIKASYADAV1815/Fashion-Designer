@@ -65,17 +65,12 @@ export default function Hero() {
       {/* Content */}
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 pt-24 md:pt-32 text-center">
         <div ref={textRef} className="mx-auto max-w-4xl">
-          <h2 className="mb-6 text-xs font-bold uppercase tracking-[0.3em] text-white/80 md:text-sm">
-            Spring / Summer 2026
-          </h2>
-
-          <h1 className="mb-8 text-[clamp(2.2rem,6vw,6rem)] font-light uppercase tracking-tight text-white">
-            Ethereal Silence
+          <h1 className="mb-8 text-[clamp(1.5rem,3vw,3rem)] font-light uppercase tracking-tight text-white">
+            Ethereal Silence : Designer Lehenga and Ready-to-Wear Saree
           </h1>
 
           <p className="mx-auto mb-10 max-w-xl text-[clamp(0.8rem,1.2vw,1rem)] font-light leading-relaxed tracking-widest text-gray-300">
-            Where minimalism meets grandeur. Discover the new collection defined
-            by precision, fluidity, and timeless elegance.
+            At the cross of heritage and modernity. Our designer lehenga for women and designer ready to wear saree that is designed to be always elegant and style free.
           </p>
 
           {/* Buttons */}
