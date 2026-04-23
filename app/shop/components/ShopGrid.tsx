@@ -55,7 +55,7 @@ type ShopGridProps = {
 
   return (
     <section className="py-24 px-6 md:px-14 bg-[#FCFCFC] text-black min-h-screen">
-      <div className="max-w-[1600px] mx-auto">
+      <div className="max-w-400 mx-auto">
 
         {/* Header */}
         <header className="mb-16 text-center">

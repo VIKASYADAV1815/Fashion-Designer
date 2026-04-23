@@ -23,6 +23,12 @@ import Lightbox from "@/components/lightbox/Lightbox";
 import ShopTransition from "../components/ShopTransition";
 import products from "@/lib/products.json";
 
+const STUDIO_INFO = {
+  name: "Khushi Chauhan Designer Studio",
+  address: "Shop no. 113, 114, 115 Swaraj Plaza, 72 Rajpur Road, Dehradun-248001",
+  landmark: "Opp. Madhu Ban Hotel, Uttarakhand"
+};
+
 interface Product {
   id: string;
   slug?: string;
@@ -36,11 +42,6 @@ interface Product {
   images: string[];
   details: string[];
   video?: string;
-  studio?: {
-    name: string;
-    address: string;
-    landmark: string;
-  };
 }
 
 export default function ProductClient() {
@@ -322,14 +323,15 @@ export default function ProductClient() {
               <Badge icon={<RefreshCw size={16} />} label="2-Day Return" />
             </div>
 
-            {product.studio && (
-              <div className="pt-4">
-                <p className="text-[10px] uppercase tracking-widest font-bold mb-2 text-neutral-400">{product.studio.name}</p>
-                <p className="text-[12px] text-neutral-600 font-light max-w-xs leading-snug">
-                  {product.studio.address} • <span className="text-[#D7B63F] font-medium">{product.studio.landmark}</span>
-                </p>
-              </div>
-            )}
+            <div className="pt-4">
+              <p className="text-[10px] uppercase tracking-widest font-bold mb-2 text-neutral-400">
+                {STUDIO_INFO.name}
+              </p>
+              <p className="text-[12px] text-neutral-600 font-light max-w-xs leading-snug">
+                {STUDIO_INFO.address} •{" "}
+                <span className="text-[#D7B63F] font-medium">{STUDIO_INFO.landmark}</span>
+              </p>
+            </div>
 
           </div>
         </div>
