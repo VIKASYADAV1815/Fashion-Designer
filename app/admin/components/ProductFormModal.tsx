@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { X, Plus, Trash2, Loader2, Upload, File } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { X, Plus, Loader2, Upload } from "lucide-react";
 import toast from "react-hot-toast";
 
 interface ProductFormProps {
@@ -9,6 +9,15 @@ interface ProductFormProps {
   onSubmit?: (data: any) => Promise<void>;
   editingProduct?: any;
 }
+
+type ValidationField =
+  | "name"
+  | "slug"
+  | "price"
+  | "category"
+  | "customCategory"
+  | "stock"
+  | "images";
 
 const DEFAULT_CATEGORIES = ["Lehenga", "Saree", "Drape", "Suit", "Dress"];
 
@@ -28,7 +37,7 @@ export default function ProductForm({
     customCategory: "",
     subCategory: editingProduct?.subCategory || "",
     description: editingProduct?.description || "",
-    image: "",
+    image: editingProduct?.image || "",
     images: editingProduct?.images || [],
     video: editingProduct?.video || "",
     stock: editingProduct?.stock || 0,
@@ -36,11 +45,55 @@ export default function ProductForm({
     notes: editingProduct?.notes || "",
   });
 
-  const [imageFiles, setImageFiles] = useState<File[]>([]);
-  const [videoFile, setVideoFile] = useState<File | null>(null);
+  const [imageFiles, setImageFiles] = useState<globalThis.File[]>([]);
+  const [videoFile, setVideoFile] = useState<globalThis.File | null>(null);
   const [details, setDetails] = useState<string[]>(editingProduct?.details || []);
   const [newDetail, setNewDetail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState<Partial<Record<ValidationField, string>>>({});
+  const [formError, setFormError] = useState("");
+  const existingImages = formData.images || [];
+
+  const imagePreviews = useMemo(
+    () => imageFiles.map((file) => ({ name: file.name, url: URL.createObjectURL(file) })),
+    [imageFiles]
+  );
+
+  const uploadedVideoPreview = useMemo(
+    () => (videoFile ? URL.createObjectURL(videoFile) : ""),
+    [videoFile]
+  );
+
+  useEffect(() => {
+    return () => {
+      imagePreviews.forEach((preview) => URL.revokeObjectURL(preview.url));
+    };
+  }, [imagePreviews]);
+
+  useEffect(() => {
+    return () => {
+      if (uploadedVideoPreview) URL.revokeObjectURL(uploadedVideoPreview);
+    };
+  }, [uploadedVideoPreview]);
+
+  const validateForm = (): Partial<Record<ValidationField, string>> => {
+    const errors: Partial<Record<ValidationField, string>> = {};
+
+    if (!formData.name.trim()) errors.name = "Product name is required";
+    if (!formData.slug.trim()) errors.slug = "Slug is required";
+    if (formData.price <= 0) errors.price = "Price must be greater than 0";
+    if (!formData.category) errors.category = "Category is required";
+    if (formData.category === "custom" && !formData.customCategory.trim()) {
+      errors.customCategory = "Custom category name is required";
+    }
+    if (formData.stock <= 0) errors.stock = "Stock quantity is required";
+
+    if (imageFiles.length === 0 && existingImages.length === 0) {
+      errors.images = "Please upload at least one product image";
+    }
+
+    return errors;
+  };
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -48,6 +101,12 @@ export default function ProductForm({
     >
   ) => {
     const { name, value } = e.target;
+
+    if (fieldErrors[name as ValidationField]) {
+      setFieldErrors((prev) => ({ ...prev, [name]: "" }));
+    }
+    if (formError) setFormError("");
+
     setFormData((prev) => ({
       ...prev,
       [name]:
@@ -62,25 +121,34 @@ export default function ProductForm({
     const files = e.target.files;
     if (!files) return;
 
+    if (formError) setFormError("");
+
     const allowedTypes = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+    let hasInvalidFile = false;
     const newFiles = Array.from(files).filter((file) => {
       if (!allowedTypes.includes(file.type)) {
-        toast.error(`${file.name} is not a supported image format`);
+        hasInvalidFile = true;
         return false;
       }
       if (file.size > 5 * 1024 * 1024) {
-        toast.error(`${file.name} is too large (max 5MB)`);
+        hasInvalidFile = true;
         return false;
       }
       return true;
     });
 
-    if (imageFiles.length + newFiles.length > 7) {
-      toast.error("Maximum 7 images allowed");
+    if (hasInvalidFile) {
+      setFormError("Some files were skipped. Use JPG, PNG, WebP, GIF up to 5MB.");
+    }
+
+    if (existingImages.length + imageFiles.length + newFiles.length > 7) {
+      setFieldErrors((prev) => ({ ...prev, images: "Maximum 7 images allowed" }));
+      setFormError("Maximum 7 images allowed");
       return;
     }
 
     setImageFiles([...imageFiles, ...newFiles]);
+    setFieldErrors((prev) => ({ ...prev, images: "" }));
     e.target.value = "";
     toast.success(`${newFiles.length} image(s) added`);
   };
@@ -90,14 +158,16 @@ export default function ProductForm({
     const file = e.target.files?.[0];
     if (!file) return;
 
+    if (formError) setFormError("");
+
     const allowedTypes = ["video/mp4", "video/webm", "video/quicktime"];
     if (!allowedTypes.includes(file.type)) {
-      toast.error("Only MP4, WebM, and QuickTime videos are supported");
+      setFormError("Only MP4, WebM, and QuickTime videos are supported");
       return;
     }
 
     if (file.size > 50 * 1024 * 1024) {
-      toast.error("Video must be less than 50MB");
+      setFormError("Video must be less than 50MB");
       return;
     }
 
@@ -109,6 +179,16 @@ export default function ProductForm({
   // Remove image from list
   const removeImage = (index: number) => {
     setImageFiles(imageFiles.filter((_, i) => i !== index));
+  };
+
+  const removeExistingImage = (index: number) => {
+    setFormData((prev) => ({
+      ...prev,
+      images: (prev.images || []).filter((_: string, i: number) => i !== index),
+    }));
+    if (fieldErrors.images) {
+      setFieldErrors((prev) => ({ ...prev, images: "" }));
+    }
   };
 
   const addDetail = () => {
@@ -126,22 +206,15 @@ export default function ProductForm({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validation
-    if (!formData.name || !formData.slug || !formData.price || !formData.category) {
-      toast.error("Please fill all required fields");
+    const errors = validateForm();
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
+      setFormError("Please fix the highlighted fields.");
       return;
     }
 
-    if (formData.stock === 0) {
-      toast.error("Please add stock quantity");
-      return;
-    }
-
-    if (imageFiles.length === 0) {
-      toast.error("Please upload at least one product image");
-      return;
-    }
-
+    setFieldErrors({});
+    setFormError("");
     setIsLoading(true);
 
     try {
@@ -175,6 +248,7 @@ export default function ProductForm({
 
       // Add details as JSON
       uploadFormData.append("details", JSON.stringify(details));
+      uploadFormData.append("existingImages", JSON.stringify(existingImages));
 
       if (onSubmit) {
         await onSubmit(uploadFormData);
@@ -220,14 +294,17 @@ export default function ProductForm({
 
       onClose();
     } catch (error: any) {
-      toast.error(error.message || "Failed to add product");
+      setFormError(error.message || "Failed to save product. Please check the form and try again.");
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 overflow-y-auto">
+    <div
+      data-lenis-prevent
+      className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 overflow-y-auto overscroll-y-contain"
+    >
       <div className="bg-white rounded-2xl w-full max-w-2xl my-8 shadow-2xl">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-[#F0E6D2] sticky top-0 bg-[#FDFBF7]">
@@ -243,7 +320,17 @@ export default function ProductForm({
         </div>
 
         {/* Form Content */}
-        <form onSubmit={handleSubmit} className="p-6 space-y-6 max-h-[70vh] overflow-y-auto">
+        <form
+          data-lenis-prevent
+          onSubmit={handleSubmit}
+          className="p-6 space-y-6 max-h-[70vh] overflow-y-auto overscroll-y-contain"
+        >
+          {formError && (
+            <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+              {formError}
+            </div>
+          )}
+
           {/* Basic Info */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
@@ -256,8 +343,16 @@ export default function ProductForm({
                 value={formData.name}
                 onChange={handleInputChange}
                 placeholder="e.g., 32-kali Bridal Lehenga"
-                className="w-full px-4 py-3 border border-[#F0E6D2] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C5A059]/30"
+                required
+                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 ${
+                  fieldErrors.name
+                    ? "border-red-400 focus:ring-red-200"
+                    : "border-[#F0E6D2] focus:ring-[#C5A059]/30"
+                }`}
               />
+              {fieldErrors.name && (
+                <p className="mt-1 text-xs text-red-600">{fieldErrors.name}</p>
+              )}
             </div>
             <div>
               <label className="block text-sm font-semibold text-slate-700 mb-2">
@@ -269,8 +364,16 @@ export default function ProductForm({
                 value={formData.slug}
                 onChange={handleInputChange}
                 placeholder="e.g., 32-kali-bridal-lehenga"
-                className="w-full px-4 py-3 border border-[#F0E6D2] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C5A059]/30"
+                required
+                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 ${
+                  fieldErrors.slug
+                    ? "border-red-400 focus:ring-red-200"
+                    : "border-[#F0E6D2] focus:ring-[#C5A059]/30"
+                }`}
               />
+              {fieldErrors.slug && (
+                <p className="mt-1 text-xs text-red-600">{fieldErrors.slug}</p>
+              )}
             </div>
           </div>
 
@@ -286,8 +389,17 @@ export default function ProductForm({
                 value={formData.price}
                 onChange={handleInputChange}
                 placeholder="68000"
-                className="w-full px-4 py-3 border border-[#F0E6D2] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C5A059]/30"
+                required
+                min="1"
+                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 ${
+                  fieldErrors.price
+                    ? "border-red-400 focus:ring-red-200"
+                    : "border-[#F0E6D2] focus:ring-[#C5A059]/30"
+                }`}
               />
+              {fieldErrors.price && (
+                <p className="mt-1 text-xs text-red-600">{fieldErrors.price}</p>
+              )}
             </div>
             <div>
               <label className="block text-sm font-semibold text-slate-700 mb-2">
@@ -298,7 +410,12 @@ export default function ProductForm({
                   name="category"
                   value={formData.category}
                   onChange={handleInputChange}
-                  className="flex-1 px-4 py-3 border border-[#F0E6D2] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C5A059]/30"
+                  required
+                  className={`flex-1 px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 ${
+                    fieldErrors.category || fieldErrors.customCategory
+                      ? "border-red-400 focus:ring-red-200"
+                      : "border-[#F0E6D2] focus:ring-[#C5A059]/30"
+                  }`}
                 >
                   {DEFAULT_CATEGORIES.map((cat) => (
                     <option key={cat} value={cat}>
@@ -313,14 +430,28 @@ export default function ProductForm({
                   type="text"
                   value={formData.customCategory}
                   onChange={(e) =>
-                    setFormData((prev) => ({
-                      ...prev,
-                      customCategory: e.target.value,
-                    }))
+                    setFormData((prev) => {
+                      if (fieldErrors.customCategory) {
+                        setFieldErrors((curr) => ({ ...curr, customCategory: "" }));
+                      }
+                      return {
+                        ...prev,
+                        customCategory: e.target.value,
+                      };
+                    })
                   }
                   placeholder="Enter custom category name"
-                  className="w-full px-4 py-3 border border-[#F0E6D2] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C5A059]/30 mt-2"
+                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 mt-2 ${
+                    fieldErrors.customCategory
+                      ? "border-red-400 focus:ring-red-200"
+                      : "border-[#F0E6D2] focus:ring-[#C5A059]/30"
+                  }`}
                 />
+              )}
+              {(fieldErrors.category || fieldErrors.customCategory) && (
+                <p className="mt-1 text-xs text-red-600">
+                  {fieldErrors.customCategory || fieldErrors.category}
+                </p>
               )}
             </div>
             <div>
@@ -368,8 +499,15 @@ export default function ProductForm({
           </div>
 
           {/* Images Section */}
-          <div className="bg-blue-50 border border-blue-200 p-4 rounded-lg">
+          <div
+            className={`bg-blue-50 border p-4 rounded-lg ${
+              fieldErrors.images ? "border-red-300" : "border-blue-200"
+            }`}
+          >
             <h3 className="font-semibold text-blue-900 mb-3">📸 Product Images (Upload)</h3>
+            {fieldErrors.images && (
+              <p className="mb-3 text-xs text-red-600">{fieldErrors.images}</p>
+            )}
             <div className="mb-3">
               <label className="block mb-2">
                 <div className="border-2 border-dashed border-blue-300 rounded-lg p-6 text-center cursor-pointer hover:bg-blue-100 transition">
@@ -388,21 +526,53 @@ export default function ProductForm({
               </label>
             </div>
 
-            {imageFiles.length > 0 && (
-              <div>
+            {existingImages.length > 0 && (
+              <div className="mb-4">
                 <p className="text-sm font-semibold text-blue-900 mb-2">
-                  Uploaded Images ({imageFiles.length}/7)
+                  Existing Images ({existingImages.length})
                 </p>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-                  {imageFiles.map((file, idx) => (
+                  {existingImages.map((url, idx) => (
+                    <div
+                      key={`existing-${idx}`}
+                      className="relative bg-white border border-blue-200 p-2 rounded group"
+                    >
+                      <img
+                        src={url}
+                        alt={`Existing product image ${idx + 1}`}
+                        className="w-full h-24 object-cover rounded"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => removeExistingImage(idx)}
+                        className="absolute -top-2 -right-2 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition"
+                        aria-label="Remove existing image"
+                      >
+                        <X size={14} />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {imagePreviews.length > 0 && (
+              <div>
+                <p className="text-sm font-semibold text-blue-900 mb-2">
+                  New Uploads ({imagePreviews.length}/7)
+                </p>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                  {imagePreviews.map((preview, idx) => (
                     <div
                       key={idx}
                       className="relative bg-white border border-blue-200 p-2 rounded group"
                     >
-                      <File size={32} className="mx-auto text-blue-600 mb-1" />
-                      <p className="text-xs text-blue-700 truncate text-center">
-                        {file.name}
-                      </p>
+                      <img
+                        src={preview.url}
+                        alt={preview.name}
+                        className="w-full h-24 object-cover rounded mb-1"
+                      />
+                      <p className="text-xs text-blue-700 truncate text-center">{preview.name}</p>
                       <button
                         type="button"
                         onClick={() => removeImage(idx)}
@@ -436,22 +606,33 @@ export default function ProductForm({
               </label>
             </div>
 
-            {videoFile && (
-              <div className="bg-white border border-purple-200 p-3 rounded flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <File size={24} className="text-purple-600" />
-                  <span className="text-sm text-purple-700">{videoFile.name}</span>
+            {(uploadedVideoPreview || formData.video) && (
+              <div className="bg-white border border-purple-200 p-3 rounded space-y-2">
+                <video
+                  src={uploadedVideoPreview || formData.video}
+                  controls
+                  className="w-full rounded max-h-56 bg-black"
+                />
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-purple-700 truncate">
+                    {videoFile ? videoFile.name : "Existing product video"}
+                  </span>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setVideoFile(null);
-                    toast.success("Video removed");
-                  }}
-                  className="text-red-500 hover:text-red-700"
-                >
-                  <X size={18} />
-                </button>
+                {videoFile && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setVideoFile(null);
+                      toast.success("Video removed");
+                    }}
+                    className="text-red-500 hover:text-red-700"
+                  >
+                    <X size={18} />
+                  </button>
+                )}
+                {!videoFile && formData.video && (
+                  <p className="text-xs text-purple-600">Upload a new video to replace this one.</p>
+                )}
               </div>
             )}
           </div>
@@ -469,10 +650,18 @@ export default function ProductForm({
                   name="stock"
                   value={formData.stock}
                   onChange={handleInputChange}
-                  min="0"
+                  required
+                  min="1"
                   placeholder="Enter stock quantity"
-                  className="w-full px-4 py-3 border-2 border-green-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-lg font-bold"
+                  className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 text-lg font-bold ${
+                    fieldErrors.stock
+                      ? "border-red-400 focus:ring-red-200"
+                      : "border-green-300 focus:ring-green-500"
+                  }`}
                 />
+                {fieldErrors.stock && (
+                  <p className="mt-1 text-xs text-red-600">{fieldErrors.stock}</p>
+                )}
               </div>
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-2">

@@ -21,7 +21,7 @@ import {
 import { useCart } from "@/components/cart/CartProvider";
 import Lightbox from "@/components/lightbox/Lightbox";
 import ShopTransition from "../components/ShopTransition";
-import products from "@/lib/products.json";
+import { loadProductCatalog } from "@/lib/products";
 
 const STUDIO_INFO = {
   name: "Khushi Chauhan Designer Studio",
@@ -59,20 +59,19 @@ export default function ProductClient() {
   const id = params?.id as string;
 
   useEffect(() => {
-    const loadProduct = () => {
+    const loadProduct = async () => {
       if (!id) return;
       setIsLoading(true);
       try {
+        const catalog = await loadProductCatalog();
         const cleanId = id.endsWith(".html") ? id.slice(0, -5) : id;
-        const found = (products as any[]).find((p: any) => 
+        const found = catalog.find((p) => 
           p.id === cleanId || 
           p.slug === cleanId || 
           p.name.toLowerCase().replace(/[^a-z0-9]+/g, "-") === cleanId
         );
-        
-        if (found) {
-          setProduct(found);
-        }
+
+        setProduct(found || null);
       } catch (error) {
         console.error("Error loading product:", error);
       } finally {

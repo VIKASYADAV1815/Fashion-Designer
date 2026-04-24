@@ -4,7 +4,6 @@ import React, { useState, useEffect, useMemo, Suspense } from "react";
 import { Search, Maximize2, Minimize2 } from "lucide-react";
 import ShopCard from "./ShopCard";
 import EmptyCategory from "./EmptyCategory";
-import productsData from "@/lib/products.json";
 
 // --- Types ---
 type Product = {
@@ -21,9 +20,6 @@ type ShopGridProps = {
   initialQuery?: string;
   initialProducts?: Product[];
 };
-
-// --- Data ---
-// const staticProducts = productsData as Product[];
 
  export default function ShopGrid({ category, initialQuery, initialProducts }: ShopGridProps) {
   const products = initialProducts || [];

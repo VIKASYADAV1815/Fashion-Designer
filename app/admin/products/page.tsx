@@ -1,21 +1,31 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Plus, Search, Edit, Trash2, AlertCircle, Package } from "lucide-react";
+import { Plus, Search, Edit, Trash2, Package } from "lucide-react";
 import toast from "react-hot-toast";
 import ProductFormModal from "../components/ProductFormModal";
 
 interface Product {
   id: string;
+  _id?: string;
   name: string;
   slug: string;
   price: number;
   category: string;
+  subCategory?: string;
   stock: number;
   minStockLevel: number;
   image?: string;
+  images?: string[];
+  video?: string;
+  description?: string;
+  details?: string[];
+  notes?: string;
+  isOutOfStock?: boolean;
   tagline?: string;
 }
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function AdminProductsPage() {
   const [showForm, setShowForm] = useState(false);
@@ -25,17 +35,28 @@ export default function AdminProductsPage() {
   const [categoryFilter, setCategoryFilter] = useState("All");
   const [isLoading, setIsLoading] = useState(true);
 
-  // Load products from localStorage on mount
+  // Load products from API on mount
   useEffect(() => {
     loadProducts();
   }, []);
 
-  const loadProducts = () => {
+  const loadProducts = async () => {
     setIsLoading(true);
     try {
-      const stored = localStorage.getItem("products");
-      const data = stored ? JSON.parse(stored) : [];
-      setProducts(data);
+      if (!API_BASE_URL) {
+        throw new Error("NEXT_PUBLIC_API_URL is missing");
+      }
+
+      const response = await fetch(`${API_BASE_URL}/products`, {
+        credentials: "include",
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to load products");
+      }
+
+      const data = await response.json();
+      setProducts(Array.isArray(data?.products) ? data.products : []);
     } catch (error) {
       toast.error("Failed to load products");
     } finally {
@@ -43,48 +64,60 @@ export default function AdminProductsPage() {
     }
   };
 
-  const handleAddProduct = async (productData: any) => {
+  const handleAddProduct = async (productData: FormData) => {
     try {
-      const newProduct = {
-        ...productData,
-        id: productData.slug || productData.id,
-        createdAt: new Date().toISOString(),
-      };
-
-      let updated;
-      
-      if (editingProduct) {
-        // Update existing product
-        updated = products.map((p) =>
-          p.id === editingProduct.id ? { ...newProduct, id: editingProduct.id } : p
-        );
-        toast.success("✅ Product updated successfully!");
-        setEditingProduct(null);
-      } else {
-        // Add new product
-        updated = [...products, newProduct];
-        toast.success("✅ Product added successfully!");
+      if (!API_BASE_URL) {
+        throw new Error("NEXT_PUBLIC_API_URL is missing");
       }
 
-      localStorage.setItem("products", JSON.stringify(updated));
-      setProducts(updated);
+      const url = editingProduct
+        ? `${API_BASE_URL}/products/${editingProduct.id}`
+        : `${API_BASE_URL}/products`;
+      const method = editingProduct ? "PUT" : "POST";
+
+      const response = await fetch(url, {
+        method,
+        body: productData,
+        credentials: "include",
+      });
+
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result?.message || "Failed to save product");
+      }
+
+      await loadProducts();
       setShowForm(false);
+      setEditingProduct(null);
+      toast.success(editingProduct ? "Product updated successfully!" : "Product added successfully!");
     } catch (error: any) {
       toast.error(error.message || "Failed to save product");
       throw error;
     }
   };
 
-  const handleDeleteProduct = (productId: string) => {
+  const handleDeleteProduct = async (productId: string) => {
     if (!confirm("Are you sure you want to delete this product?")) return;
 
     try {
-      const updated = products.filter((p) => p.id !== productId);
-      localStorage.setItem("products", JSON.stringify(updated));
-      setProducts(updated);
+      if (!API_BASE_URL) {
+        throw new Error("NEXT_PUBLIC_API_URL is missing");
+      }
+
+      const response = await fetch(`${API_BASE_URL}/products/${productId}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result?.message || "Failed to delete product");
+      }
+
+      setProducts((prev) => prev.filter((p) => p.id !== productId));
       toast.success("Product deleted!");
     } catch (error: any) {
-      toast.error("Failed to delete product");
+      toast.error(error.message || "Failed to delete product");
     }
   };
 
@@ -97,6 +130,11 @@ export default function AdminProductsPage() {
     setShowForm(false);
     setEditingProduct(null);
   };
+
+  const availableCategories = [
+    "All",
+    ...Array.from(new Set(products.map((product) => product.category).filter(Boolean))),
+  ];
 
   // Filter products
   const filteredProducts = products.filter((product) => {
@@ -127,7 +165,7 @@ export default function AdminProductsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#FDFBF7] to-white p-6">
+    <div className="min-h-screen bg-linear-to-br from-[#FDFBF7] to-white p-6">
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-4xl font-bold text-slate-900 font-josefin mb-2">
@@ -181,10 +219,11 @@ export default function AdminProductsPage() {
           onChange={(e) => setCategoryFilter(e.target.value)}
           className="px-4 py-3 border border-[#F0E6D2] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C5A059]/30"
         >
-          <option value="All">All Categories</option>
-          <option value="Lehenga">Lehenga</option>
-          <option value="Saree">Saree</option>
-          <option value="Drape">Drape</option>
+          {availableCategories.map((category) => (
+            <option key={category} value={category}>
+              {category === "All" ? "All Categories" : category}
+            </option>
+          ))}
         </select>
       </div>
 
@@ -234,7 +273,7 @@ export default function AdminProductsPage() {
               </tr>
             </thead>
             <tbody>
-              {filteredProducts.map((product, idx) => (
+              {filteredProducts.map((product) => (
                 <tr
                   key={product.id}
                   className="border-b border-[#F0E6D2] hover:bg-[#FDFBF7] transition"

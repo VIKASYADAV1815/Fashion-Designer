@@ -10,6 +10,8 @@ export default function SmoothScroll() {
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      // Keep native scrolling for modal/drawer regions marked with data-lenis-prevent.
+      prevent: (node) => node?.closest("[data-lenis-prevent]") !== null,
     });
 
     function raf(time: number) {
