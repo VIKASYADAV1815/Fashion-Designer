@@ -1,7 +1,7 @@
 import ShopGrid from "@/app/shop/components/ShopGrid";
 import ShopTransition from "@/app/shop/components/ShopTransition";
 import React from "react";
-import productsData from "@/lib/products.json";
+import { loadProductCatalog } from "@/lib/products";
 
 const categoryTitles: Record<string, string> = {
   women: "Womenswear",
@@ -21,6 +21,10 @@ export async function generateStaticParams() {
   return Object.keys(categoryTitles).map((category) => ({
     category,
   }));
+}
+
+async function getCatalog() {
+  return loadProductCatalog();
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ category: string }> }) {
@@ -51,16 +55,12 @@ export async function generateMetadata({ params }: { params: Promise<{ category:
 
 export default async function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
   const { category } = await params;
-  
-  // In a real app, we would filter products by category here or fetch from API
-  // For now, we reuse ShopGrid but change the title
-
-  const title = categoryTitles[category] || category;
+  const initialProducts = await getCatalog();
 
   return (
     <ShopTransition>
       <div className="min-h-screen mt-12 bg-white text-black">
-        <ShopGrid category={category} initialProducts={productsData as any} />
+        <ShopGrid category={category} initialProducts={initialProducts} />
         {category === "dress" && (
           <section className="bg-white text-black border-t border-zinc-200">
             <div className="max-w-5xl mx-auto px-6 md:px-8 py-12 md:py-16">

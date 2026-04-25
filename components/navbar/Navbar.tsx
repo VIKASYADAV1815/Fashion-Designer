@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 import CartDrawer from "@/components/cart/CartDrawer";
 import { useCart } from "@/components/cart/CartProvider";
 import { usePathname, useRouter } from "next/navigation";
-import productsData from "@/lib/products.json";
+import { loadProductCatalog } from "@/lib/products";
 
 import UserDropdown from "./UserDropdown";
 
@@ -21,6 +21,7 @@ export default function Navbar() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [suggestions, setSuggestions] = useState<any[]>([]);
+  const [catalog, setCatalog] = useState<any[]>([]);
   const { scrollY } = useScroll();
   const { items, openCart, closeCart, open } = useCart();
   const [hidden, setHidden] = useState(false);
@@ -29,8 +30,21 @@ export default function Navbar() {
   const router = useRouter();
 
   useEffect(() => {
+    const loadCatalog = async () => {
+      try {
+        const products = await loadProductCatalog();
+        setCatalog(products);
+      } catch {
+        setCatalog([]);
+      }
+    };
+
+    loadCatalog();
+  }, []);
+
+  useEffect(() => {
     if (searchQuery.trim().length > 0) {
-      const filtered = (productsData as any[]).filter(p => 
+      const filtered = catalog.filter(p => 
         p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         p.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
         (p.subCategory && p.subCategory.toLowerCase().includes(searchQuery.toLowerCase()))
@@ -39,7 +53,7 @@ export default function Navbar() {
     } else {
       setSuggestions([]);
     }
-  }, [searchQuery]);
+  }, [searchQuery, catalog]);
 
   useEffect(() => {
     const t = setTimeout(() => {
